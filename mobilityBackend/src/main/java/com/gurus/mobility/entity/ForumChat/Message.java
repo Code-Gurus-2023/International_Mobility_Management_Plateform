@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_msg", nullable = false)
     private Long idMsg;
 

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString
 public class Notification {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ntf", nullable = false)
     private Integer idNtf;
 

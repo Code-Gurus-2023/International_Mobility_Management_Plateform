@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Discussion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_dsc", nullable = false)
     private Long idDsc;
 
