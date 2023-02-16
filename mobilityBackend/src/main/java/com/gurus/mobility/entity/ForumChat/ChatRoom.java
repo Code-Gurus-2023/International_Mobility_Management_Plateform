@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class ChatRoom {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ctr", nullable = false)
     private Long idCtr;
 
