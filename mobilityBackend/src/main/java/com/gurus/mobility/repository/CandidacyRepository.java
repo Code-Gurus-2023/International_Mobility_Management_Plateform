@@ -1,4 +1,4 @@
 package com.gurus.mobility.repository;
 
-public class AccomodationRepository {
+public class CandidacyRepository {
 }
