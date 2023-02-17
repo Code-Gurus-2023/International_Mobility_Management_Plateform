@@ -1,4 +1,4 @@
-package com.gurus.mobility.entity;
+package com.gurus.mobility.entity.alert;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -9,7 +9,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -25,6 +24,10 @@ public class Alert implements Serializable {
     public int idAlrt;
     @NotNull
     public String alrtName;
+    @Enumerated(EnumType.STRING)
+    public Kind alrtKind;
+    @Enumerated(EnumType.STRING)
+    public Target alrtTarget;
     public String alrtPhoneNumber;
     @Email
     public String alrtEmail;

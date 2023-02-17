@@ -1,4 +1,4 @@
-package com.gurus.mobility.entity;
+package com.gurus.mobility.entity.claim;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,7 +26,9 @@ public class Claim implements Serializable {
     @NotNull
     public String descriptionClm;
     public String pathImageClm;
+    @Enumerated(EnumType.STRING)
     public Type typeClm;
+    @Enumerated(EnumType.STRING)
     public State stateClm;
     public boolean archiveClm;
     @Column(name = "created_date")
