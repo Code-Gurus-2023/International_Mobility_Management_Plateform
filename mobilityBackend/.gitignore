@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+mobilityBackend/src/main/resources/application.properties
+
+
