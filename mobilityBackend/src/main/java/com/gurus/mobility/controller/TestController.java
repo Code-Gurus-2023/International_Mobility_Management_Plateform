@@ -1,7 +1,8 @@
 package com.gurus.mobility.controller;
 
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,5 +11,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/test")
 public class TestController {
 
+    @GetMapping("/all")
+    public String allAccess() {
+        return "Public Content.";
+    }
 
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('ETUDIANT') or hasRole('ENSEIGNANT') or hasRole('ADMIN') or hasRole('UNIVERSITE')")
+    public String userAccess() {
+        return "User Content.";
+    }
+
+    @GetMapping("/prop")
+    @PreAuthorize("hasRole('PROPRIETAIRE')")
+    public String moderatorAccess() {
+        return "Prop Board.";
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminAccess() {
+        return "Admin Board.";
+    }
 }
