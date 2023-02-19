@@ -2,7 +2,6 @@ package com.gurus.mobility.entity.ForumChat;
 
 import com.gurus.mobility.entity.ForumChat.Enums.MessageStatus;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,7 +26,6 @@ public class Message implements Serializable {
     private String contentMsg;
 
     @Column(name = "send_date_msg")
-    @CreatedDate
     private LocalDateTime sendDateMsg;
 
     @Enumerated(EnumType.STRING)

@@ -1,12 +1,10 @@
 package com.gurus.mobility.entity.ForumChat;
 
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -30,8 +28,7 @@ public class Comment implements Serializable {
     private String contentCmt;
 
     @Column(name = "creation_date_cmt")
-    @CreatedDate
-    private LocalDateTime creationDateCmt;
+    private LocalDate creationDateCmt;
 
 
 }
