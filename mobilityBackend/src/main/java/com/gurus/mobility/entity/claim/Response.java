@@ -20,4 +20,15 @@ public class Response {
     @Column(name = "created_date")
     @CreatedDate
     public LocalDate creationDateRsp;
+
+    @OneToOne(mappedBy = "response", orphanRemoval = true)
+    private Claim claim;
+
+    public Claim getClaim() {
+        return claim;
+    }
+
+    public void setClaim(Claim claim) {
+        this.claim = claim;
+    }
 }
