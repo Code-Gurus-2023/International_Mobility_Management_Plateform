@@ -1,6 +1,7 @@
 package com.gurus.mobility.service.CandidacyServices;
 
-import com.gurus.mobility.entity.Candidacy;
+
+import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.repository.Candidacy.ICandidacyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

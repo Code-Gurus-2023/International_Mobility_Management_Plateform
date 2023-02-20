@@ -1,6 +1,7 @@
 package com.gurus.mobility.service.CandidacyServices;
 
-import com.gurus.mobility.entity.Candidacy;
+
+import com.gurus.mobility.entity.Candidacy.Candidacy;
 
 
 import java.util.List;

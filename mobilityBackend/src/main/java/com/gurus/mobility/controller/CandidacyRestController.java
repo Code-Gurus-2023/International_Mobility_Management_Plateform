@@ -1,6 +1,7 @@
 package com.gurus.mobility.controller;
 
-import com.gurus.mobility.entity.Candidacy;
+
+import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.service.CandidacyServices.ICandidacyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
