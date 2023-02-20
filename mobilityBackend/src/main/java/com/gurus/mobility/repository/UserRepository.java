@@ -1,6 +1,6 @@
 package com.gurus.mobility.repository;
 
-import com.gurus.mobility.entity.User;
+import com.gurus.mobility.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package com.gurus.mobility.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gurus.mobility.entity.User;
+import com.gurus.mobility.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

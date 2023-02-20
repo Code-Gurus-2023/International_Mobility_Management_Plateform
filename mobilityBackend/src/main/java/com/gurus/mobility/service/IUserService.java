@@ -1,6 +1,6 @@
 package com.gurus.mobility.service;
 
-import com.gurus.mobility.entity.User;
+import com.gurus.mobility.entity.user.User;
 
 import java.util.List;
 

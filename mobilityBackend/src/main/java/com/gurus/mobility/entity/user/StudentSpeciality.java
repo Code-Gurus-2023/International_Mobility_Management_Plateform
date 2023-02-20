@@ -1,4 +1,4 @@
-package com.gurus.mobility.entity;
+package com.gurus.mobility.entity.user;
 
 public enum StudentSpeciality {
     COMPUTER_SPECIALTY,

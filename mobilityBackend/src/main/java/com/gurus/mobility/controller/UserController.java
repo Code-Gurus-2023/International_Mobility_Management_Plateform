@@ -1,6 +1,6 @@
 package com.gurus.mobility.controller;
 
-import com.gurus.mobility.entity.User;
+import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.repository.UserRepository;
 import com.gurus.mobility.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;

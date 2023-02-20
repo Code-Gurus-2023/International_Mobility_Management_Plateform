@@ -1,7 +1,7 @@
 package com.gurus.mobility.repository;
 
-import com.gurus.mobility.entity.ERole;
-import com.gurus.mobility.entity.Role;
+import com.gurus.mobility.entity.user.ERole;
+import com.gurus.mobility.entity.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

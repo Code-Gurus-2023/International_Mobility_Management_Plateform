@@ -1,4 +1,4 @@
-package com.gurus.mobility.entity;
+package com.gurus.mobility.entity.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

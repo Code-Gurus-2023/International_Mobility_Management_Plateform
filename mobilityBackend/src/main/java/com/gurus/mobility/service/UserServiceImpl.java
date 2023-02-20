@@ -1,6 +1,6 @@
 package com.gurus.mobility.service;
 
-import com.gurus.mobility.entity.User;
+import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
