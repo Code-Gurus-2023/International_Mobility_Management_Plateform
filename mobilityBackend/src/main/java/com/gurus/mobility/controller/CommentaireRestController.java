@@ -1,2 +1,4 @@
-package com.gurus.mobility.controller;public class CommentaireRestController {
+package com.gurus.mobility.controller;
+
+public class CommentaireRestController {
 }

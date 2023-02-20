@@ -1,2 +1,4 @@
-package com.gurus.mobility.service.CommentaireService;public interface ICommentaireService {
+package com.gurus.mobility.service.CommentaireService;
+
+public interface ICommentaireService {
 }
