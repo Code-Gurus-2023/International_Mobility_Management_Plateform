@@ -20,11 +20,12 @@ public class Claim implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int idClm;
+    public Long idClm;
     @NotNull
     public String subjectClm;
     @NotNull
     public String descriptionClm;
+
     public String pathImageClm;
     @Enumerated(EnumType.STRING)
     public Type typeClm;
@@ -37,5 +38,20 @@ public class Claim implements Serializable {
     @Column(name = "last_modified_date")
     @LastModifiedDate
     public LocalDate modificationDateClm;
+
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @ToString.Exclude
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.DETACH})
+    @JoinColumn(name = "response_id_rsp", unique = true)
+    private Response response;
+
+    public Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
+    }
 
 }
