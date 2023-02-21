@@ -1,11 +1,9 @@
 package com.gurus.mobility.entity.Offer;
 
+import com.gurus.mobility.entity.user.User;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -23,6 +21,32 @@ public class Commentaire implements Serializable {
     private String description;
 
 
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "offer_id_offre")
+    private Offer offer;
+
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
 }
 
 
