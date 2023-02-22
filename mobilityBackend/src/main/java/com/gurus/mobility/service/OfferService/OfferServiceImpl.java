@@ -33,10 +33,20 @@ public class OfferServiceImpl implements IOfferService{
 
 
     @Override
-    public Offer updateOffer(Offer o) {
-        offerRepository.save(o);
-        return o;
+    public Offer updateOffer(Integer id, Offer offerDetails) {
+        Offer offer = getOfferById(id);
+        offer.setTitle(offerDetails.getTitle());
+        offer.setImage(offerDetails.getImage());
+        offer.setDateOffre(offerDetails.getDateOffre());
+        offer.setNbreCandidats(offerDetails.getNbreCandidats());
+        offer.setProfil(offerDetails.getProfil());
+        offer.setDestination(offerDetails.getDestination());
+        offer.setDuration(offerDetails.getDuration());
+        offer.setConditions(offerDetails.getConditions());
+        offer.setAdvantages(offerDetails.getAdvantages());
+        return offerRepository.save(offer);
     }
+
 
     @Override
     public void deleteOffer(Integer id) {

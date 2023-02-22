@@ -17,7 +17,7 @@ public class OfferRestController {
     @Autowired
     private IOfferService offerService;
 
-    @GetMapping
+    @GetMapping("/getOffers")
     public List<Offer> getAllOffers() {
         return offerService.getAllOffers();
     }
@@ -27,15 +27,15 @@ public class OfferRestController {
         return offerService.getOfferById(id);
     }
 
-    @PostMapping
+    @PostMapping("/createOffer")
     public ResponseEntity<Offer> createOffer(@Valid @RequestBody Offer offer) {
         Offer createdOffer = offerService.createOffer(offer);
         return new ResponseEntity<>(createdOffer, HttpStatus.CREATED);
     }
 
-    @PutMapping("/modify-offer")
-    public Offer modifyOffer(@RequestBody Offer o) {
-        return offerService.updateOffer(o);
+    @PutMapping("/{id}")
+    public Offer updateOffer(@PathVariable Integer id, @Valid @RequestBody Offer offerDetails) {
+        return offerService.updateOffer(id, offerDetails);
     }
 
     @DeleteMapping("/{id}")

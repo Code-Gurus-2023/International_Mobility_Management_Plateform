@@ -1,9 +1,13 @@
 package com.gurus.mobility.entity.Offer;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -21,8 +25,8 @@ public class Offer implements Serializable {
 
     private String title;
     private String image;
-    @Temporal(TemporalType.DATE)
-    private Date dateOffre;
+    @CreatedDate
+    private LocalDate dateOffre;
 
     private Integer nbreCandidats;
     @Enumerated(EnumType.STRING)

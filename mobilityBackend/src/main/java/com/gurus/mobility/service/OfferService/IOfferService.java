@@ -8,6 +8,6 @@ public interface IOfferService {
     List<Offer> getAllOffers();
     Offer getOfferById(Integer id);
     Offer createOffer(Offer offer);
-    Offer updateOffer(Offer o);
+    Offer updateOffer(Integer id, Offer offerDetails);
     void deleteOffer(Integer id);
 }
