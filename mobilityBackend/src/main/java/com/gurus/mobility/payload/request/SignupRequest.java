@@ -8,6 +8,9 @@ import java.util.Set;
 public class SignupRequest {
 
     @NotBlank
+    @Size(min =10, max = 10)
+    public String Identifiant;
+    @NotBlank
     @Size(min = 3, max = 20)
     private String username;
 
@@ -52,5 +55,9 @@ public class SignupRequest {
 
     public void setRole(Set<String> role) {
         this.role = role;
+    }
+
+    public String Identifiant() {
+        return Identifiant;
     }
 }

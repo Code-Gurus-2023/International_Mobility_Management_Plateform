@@ -12,7 +12,7 @@ public class ClaimServiceImpl implements IClaimService{
 
     @Override
     public void createClaim(Claim claim) {
-        claim.set
+       // claim.set;
         claimRepository.save(claim);
     }
 }

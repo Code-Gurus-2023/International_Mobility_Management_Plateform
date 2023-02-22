@@ -11,6 +11,7 @@ import com.gurus.mobility.repository.RoleRepository;
 import com.gurus.mobility.repository.UserRepository;
 import com.gurus.mobility.security.jwt.JwtUtils;
 import com.gurus.mobility.service.UserDetailsImpl;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -26,6 +27,7 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -63,6 +65,7 @@ public class AuthController {
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
+                userDetails.getIdentifiant(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles));
@@ -70,7 +73,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (userRepository.existsByUserName(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
@@ -83,36 +86,46 @@ public class AuthController {
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+        User user = new User(signUpRequest.Identifiant(),
+                signUpRequest.getUsername(),
+               signUpRequest.getEmail(),
+              encoder.encode(signUpRequest.getPassword()));
+
+        //String uuid = UUID.randomUUID().toString().substring(0, 10);
+       // User user = new User();
+       // user.setIdentifiant(uuid);
+       // user.setUserName(signUpRequest.getUsername());
+        //user.setEmail(signUpRequest.getEmail());
+        //user.setPassword(encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_ETUDIANT)
+            Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                        case "user" -> {
+                        Role etudiantRole = roleRepository.findByName(ERole.ROLE_ETUDIANT)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-
-                        break;
-                    case "prop":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_PROPRIETAIRE_LOGEMENT)
+                        Role universiteRole = roleRepository.findByName(ERole.ROLE_UNIVERSITE)
+                                        .orElseThrow(() -> new RuntimeException("Error : Role is not found"));
+                        roles.add(etudiantRole);
+                        roles.add(universiteRole);
+                    }
+                    case "prop" -> {
+                        Role propRole = roleRepository.findByName(ERole.ROLE_PROPRIETAIRE_LOGEMENT)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_ENSEIGNANT)
+                        roles.add(propRole);
+                    }
+                    default -> {
+                        Role enseignantRole = roleRepository.findByName(ERole.ROLE_ENSEIGNANT)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
+                        roles.add(enseignantRole);
+                    }
                 }
             });
         }
