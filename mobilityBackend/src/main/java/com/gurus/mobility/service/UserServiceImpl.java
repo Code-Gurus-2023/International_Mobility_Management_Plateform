@@ -1,5 +1,6 @@
 package com.gurus.mobility.service;
 
+import com.gurus.mobility.entity.claim.Claim;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +33,6 @@ public class UserServiceImpl implements IUserService{
         return userRepository.findById(id).orElse(null);
     }
 
-}
+
+
+    }

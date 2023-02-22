@@ -16,6 +16,6 @@ public class ClaimController {
 
     @PostMapping("/save")
     public void ajouterAlert (@RequestBody Claim claim){
-        iClaimService.createClaim(claim);
+        //iClaimService.createClaim(claim);
     }
 }

@@ -80,7 +80,7 @@ public class User {
     @Setter(AccessLevel.NONE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
-    private Set<Claim> claims = new LinkedHashSet<>();
+    private Set<Claim> claims;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

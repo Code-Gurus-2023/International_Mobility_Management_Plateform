@@ -54,4 +54,5 @@ public class Claim implements Serializable {
         this.response = response;
     }
 
+
 }
