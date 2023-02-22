@@ -1,12 +1,12 @@
 package com.gurus.mobility.entity.Candidacy;
 
-import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -20,6 +20,7 @@ public class Result  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer idResult;
     private float pl;
     private float dataMining;
@@ -29,5 +30,9 @@ public class Result  implements Serializable {
     private float english;
     private float french;
     private float math;
+
+    @CreatedDate
+    private LocalDate date;
+
     private float generalAverage;
 }

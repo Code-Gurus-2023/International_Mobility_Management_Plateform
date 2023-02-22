@@ -15,8 +15,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
     private ICandidacyRepository candidacyRepository;
 
     @Override
-    public List<Candidacy> getAllCandidacy() {
-        return candidacyRepository.findAll();
+    public List<Candidacy> getAllCandidacy() {return candidacyRepository.findAll();
     }
 
     @Override
@@ -31,9 +30,25 @@ public class CandidacyServiceImpl implements ICandidacyService {
     }
 
     @Override
-    public Candidacy updateCandidacy(Candidacy candidacy) {
-        candidacyRepository.save(candidacy);
-        return candidacy;
+    public Candidacy updateCandidacy(Integer id, Candidacy candidacyDetails) {
+        Candidacy candidacy = getCandidacyById(id);
+        candidacy.setCv(candidacyDetails.getCv());
+        candidacy.setCoverLetter(candidacyDetails.getCoverLetter());
+        candidacy.setFirstName(candidacyDetails.getFirstName());
+        candidacy.setLastName(candidacyDetails.getLastName());
+        candidacy.setEmail(candidacyDetails.getEmail());
+        candidacy.setDateCandidacy(candidacyDetails.getDateCandidacy());
+        candidacy.setTelephoneNumber(candidacyDetails.getTelephoneNumber());
+        candidacy.setAddress(candidacyDetails.getAddress());
+        candidacy.setPostalCode(candidacyDetails.getPostalCode());
+        candidacy.setDomainCandidacy(candidacyDetails.getDomainCandidacy());
+        candidacy.setStatusCandidacy(candidacyDetails.getStatusCandidacy());
+        candidacy.setDisponibilite(candidacyDetails.getDisponibilite());
+        candidacy.setSelectionne(candidacyDetails.getSelectionne());
+        candidacy.setArchive(candidacyDetails.getArchive());
+        candidacy.setCoverLetter(candidacyDetails.getCoverLetter());
+
+        return candidacyRepository.save(candidacy);
     }
 
     @Override

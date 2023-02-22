@@ -1,12 +1,14 @@
 package com.gurus.mobility.entity.Candidacy;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
+
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Entity
 @NoArgsConstructor
@@ -26,18 +28,20 @@ public class Candidacy implements Serializable {
     private String certificate;
     private String firstName;
     private String lastName;
+
     @Email
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateCandidacy;
+    @CreatedDate
+    private LocalDate dateCandidacy;
 
-    @Pattern(regexp="\\+?[0-9]+")
+
     private int telephoneNumber;
 
     private String address;
 
-    @Pattern(regexp = "\\d{4}", message = "Code postal est invalide")
+
     private int postalCode;
 
     @Enumerated(EnumType.STRING)
@@ -49,10 +53,16 @@ public class Candidacy implements Serializable {
     @Enumerated(EnumType.STRING)
     private Disponibilite disponibilite;
 
-    private boolean isSelected;
-    private boolean isArchived;
 
+    private boolean selectionne;
 
+    private boolean archive;
 
+    public boolean getSelectionne() {
+        return  this.selectionne;
+    }
 
+    public boolean getArchive() {
+        return this.archive;
+    }
 }

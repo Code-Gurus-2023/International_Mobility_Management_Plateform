@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/candidacy")
@@ -17,7 +18,7 @@ public class CandidacyRestController {
     @Autowired
     private ICandidacyService candidacyService;
 
-    @GetMapping
+    @GetMapping("/getCandidacy")
     public List<Candidacy> getAllCandidacy() {
         return candidacyService.getAllCandidacy();
     }
@@ -27,13 +28,20 @@ public class CandidacyRestController {
         return candidacyService.getCandidacyById(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Candidacy> createCandidacy(@Valid @RequestBody Candidacy candidacy) {
         Candidacy createdCandidacy = candidacyService.createCandidacy(candidacy);
         return new ResponseEntity<>(createdCandidacy, HttpStatus.CREATED);
     }
-    @PutMapping("/update-candidacy")
-    public Candidacy updateCandidacy(@RequestBody Candidacy candidacy) {
-        return candidacyService.updateCandidacy(candidacy);
+
+    @PutMapping("/{id}")
+    public Candidacy updateCandidacy(@PathVariable Integer id, @Valid @RequestBody Candidacy candidacyDetails) {
+        return candidacyService.updateCandidacy(id, candidacyDetails);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<Void> deleteCandidacy(@PathVariable Integer id) {
+        candidacyService.deleteCandidacy(id);
+        return ResponseEntity.noContent().build();
     }
 }
