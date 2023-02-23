@@ -3,11 +3,13 @@ package com.gurus.mobility.entity.Candidacy;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.entity.user.User;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -31,15 +33,15 @@ public class Candidacy implements Serializable {
     @Email
     private String email;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateCandidacy;
+    @CreatedDate
+    private LocalDate dateCandidacy;
 
-    @Pattern(regexp="\\+?[0-9]+")
+
     private int telephoneNumber;
 
     private String address;
 
-    @Pattern(regexp = "\\d{4}", message = "Code postal est invalide")
+
     private int postalCode;
 
     @Enumerated(EnumType.STRING)
@@ -51,9 +53,17 @@ public class Candidacy implements Serializable {
     @Enumerated(EnumType.STRING)
     private Disponibilite disponibilite;
 
-    private boolean isSelected;
-    private boolean isArchived;
+    private boolean selectionne;
 
+    private boolean archive;
+
+    public boolean getSelectionne() {
+        return  this.selectionne;
+    }
+
+    public boolean getArchive() {
+        return this.archive;
+    }
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

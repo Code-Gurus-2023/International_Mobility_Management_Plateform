@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae1ab75e-9d28-42a1-b13d-8839c298768c" name="Changes" comment="" />
+    <list default="true" id="ae1ab75e-9d28-42a1-b13d-8839c298768c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/ResultRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/ResultRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/Candidacy/Candidacy.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/Candidacy/Candidacy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/Candidacy/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/Candidacy/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/Candidacy/IResultRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/Candidacy/IResultRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/IResultService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/IResultService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ResultServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ResultServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +26,13 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectId" id="2LojnJLpxO4tHImZcx7L79y0mGQ" />
   <component name="ProjectViewState">
@@ -30,15 +51,9 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="International_Mobility_Management_Plateform" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="International_Mobility_Management_Plateform" />
-      <option name="filePath" />
+    <configuration name="MobilityApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="mobility" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gurus.mobility.MobilityApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

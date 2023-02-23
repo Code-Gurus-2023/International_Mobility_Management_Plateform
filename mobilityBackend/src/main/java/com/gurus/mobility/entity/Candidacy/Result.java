@@ -2,9 +2,11 @@ package com.gurus.mobility.entity.Candidacy;
 
 import com.gurus.mobility.entity.user.User;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -27,6 +29,10 @@ public class Result  implements Serializable {
     private float english;
     private float french;
     private float math;
+
+    @CreatedDate
+    private LocalDate date;
+
     private float generalAverage;
 
     @Getter(AccessLevel.NONE)
