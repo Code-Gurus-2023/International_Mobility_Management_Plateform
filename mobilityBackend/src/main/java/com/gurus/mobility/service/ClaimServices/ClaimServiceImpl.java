@@ -1,8 +1,7 @@
-package com.gurus.mobility.service;
+package com.gurus.mobility.service.ClaimServices;
 
 import com.gurus.mobility.entity.claim.Claim;
 import com.gurus.mobility.repository.ClaimRepositories.ClaimRepository;
-import com.gurus.mobility.service.ClaimServices.IClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ public class ClaimServiceImpl implements IClaimService {
 
     @Override
     public void createClaim(Claim claim) {
-       // claim.set
+        //claim.set
         claimRepository.save(claim);
     }
 
