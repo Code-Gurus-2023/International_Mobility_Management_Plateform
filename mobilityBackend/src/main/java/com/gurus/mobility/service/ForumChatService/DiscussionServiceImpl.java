@@ -4,11 +4,10 @@ import com.gurus.mobility.entity.ForumChat.Comment;
 import com.gurus.mobility.entity.ForumChat.Discussion;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.repository.ForumChatRepos.IDiscussionRepository;
-import com.gurus.mobility.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Null;
 import java.util.List;
 
 @Service
@@ -48,6 +47,13 @@ public class DiscussionServiceImpl implements IDiscussionService{
     @Override
     public List<Discussion> getAll() {
         return discussionRepository.findAll();
+    }
+
+    @Override
+    public List<Discussion> getMostRespondedDiscussions() {
+
+        return discussionRepository.getMostRepliedDiscussions(PageRequest.of(0, 3));
+
     }
 
 

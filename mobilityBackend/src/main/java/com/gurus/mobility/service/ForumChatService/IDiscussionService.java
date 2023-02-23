@@ -17,4 +17,6 @@ public interface IDiscussionService {
     Discussion addComment(Comment comment, Long idDiscussion);
 
     List<Discussion> getAll();
+
+    List<Discussion> getMostRespondedDiscussions();
 }

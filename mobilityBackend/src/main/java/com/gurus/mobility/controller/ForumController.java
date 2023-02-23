@@ -73,10 +73,26 @@ public class ForumController {
         }
     }
 
-    @PutMapping("/addComment/{idDiscussion}")
-    public ResponseEntity addCommentToDiscussion(@RequestBody Comment c, @PathVariable("idDiscussion") Long id) {
+    @PutMapping("/addComment")
+    public ResponseEntity addCommentToDiscussion(@RequestBody Comment c, @RequestParam Long idDiscussion,@RequestParam Integer idUser) {
 
-        discussionService.addComment(c, id);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Comment added");
+        try {
+            c.setUser(userService.findById(idUser));
+            discussionService.addComment(c, idDiscussion);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Comment added");
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getMostRepliedDiscussions")
+    public ResponseEntity<List<Discussion>> getMostRepliedDiscussions() {
+        List<Discussion> discussions = discussionService.getMostRespondedDiscussions();
+
+        if(!discussions.isEmpty())
+            return new ResponseEntity<>(discussions, HttpStatus.FOUND);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
