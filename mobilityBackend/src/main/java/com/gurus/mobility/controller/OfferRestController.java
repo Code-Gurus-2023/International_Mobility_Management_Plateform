@@ -43,4 +43,16 @@ public class OfferRestController {
         offerService.deleteOffer(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Offer>> searchOffers(@RequestParam(value = "title") String title) {
+        List<Offer> offers = offerService.getOffersByTitle(title);
+        return new ResponseEntity<>(offers, HttpStatus.OK);
+    }
+
+    @GetMapping("/tri/date")
+    public ResponseEntity<List<Offer>> trierParDate() {
+        List<Offer> offers = offerService.trierParDate();
+        return new ResponseEntity<>(offers, HttpStatus.OK);
+    }
 }

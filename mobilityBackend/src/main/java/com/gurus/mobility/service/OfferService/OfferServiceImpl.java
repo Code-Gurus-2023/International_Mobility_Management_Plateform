@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -53,4 +55,19 @@ public class OfferServiceImpl implements IOfferService{
         offerRepository.deleteById(id);
     }
 
+    public List<Offer> getOffersByTitle(String title) {
+        return offerRepository.findByTitle(title);
+    }
+
+    @Override
+    public List<Offer> trierParDate() {
+        List<Offer> offers = offerRepository.findAll();
+        Collections.sort(offers, new Comparator<Offer>() {
+            @Override
+            public int compare(Offer c1, Offer c2) {
+                return c1.getDateOffre().compareTo(c2.getDateOffre());
+            }
+        });
+        return offers;
+    }
 }

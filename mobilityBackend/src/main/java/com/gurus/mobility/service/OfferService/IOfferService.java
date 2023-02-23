@@ -10,4 +10,6 @@ public interface IOfferService {
     Offer createOffer(Offer offer);
     Offer updateOffer(Integer id, Offer offerDetails);
     void deleteOffer(Integer id);
+    List<Offer> getOffersByTitle(String title);
+    List<Offer> trierParDate();
 }
