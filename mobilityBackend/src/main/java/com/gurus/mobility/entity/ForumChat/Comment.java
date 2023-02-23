@@ -29,8 +29,6 @@ public class Comment implements Serializable {
     @Column(name = "content_cmt")
     private String contentCmt;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
@@ -45,19 +43,5 @@ public class Comment implements Serializable {
     @JoinColumn(name = "discussion_id_dsc")
     private Discussion discussion;
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Discussion getDiscussion() {
-        return discussion;
-    }
-
-    public void setDiscussion(Discussion discussion) {
-        this.discussion = discussion;
-    }
 }

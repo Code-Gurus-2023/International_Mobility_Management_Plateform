@@ -30,32 +30,14 @@ public class ChatRoom implements Serializable {
     private Long recipientIdCtr;
 
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @ToString.Exclude
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Message> messages = new LinkedHashSet<>();
+    private Set<Message> messages;
 
-    public Set<Message> getMessages() {
-        return messages;
-    }
 
-    public void setMessages(Set<Message> messages) {
-        this.messages = messages;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
