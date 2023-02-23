@@ -1,11 +1,9 @@
 package com.gurus.mobility.entity.Offer;
 
-<<<<<<< HEAD
-import com.fasterxml.jackson.annotation.JsonFormat;
-=======
+
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.user.User;
->>>>>>> e01815e2b8578922b45e60f308a06ff1c2133c51
+
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
