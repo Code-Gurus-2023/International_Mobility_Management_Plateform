@@ -17,7 +17,7 @@ public class CandidacyRestController {
     @Autowired
     private ICandidacyService candidacyService;
 
-    @GetMapping
+    @GetMapping("/getCandidacy")
     public List<Candidacy> getAllCandidacy() {
         return candidacyService.getAllCandidacy();
     }
@@ -27,13 +27,30 @@ public class CandidacyRestController {
         return candidacyService.getCandidacyById(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Candidacy> createCandidacy(@Valid @RequestBody Candidacy candidacy) {
         Candidacy createdCandidacy = candidacyService.createCandidacy(candidacy);
         return new ResponseEntity<>(createdCandidacy, HttpStatus.CREATED);
     }
-    @PutMapping("/update-candidacy")
-    public Candidacy updateCandidacy(@RequestBody Candidacy candidacy) {
-        return candidacyService.updateCandidacy(candidacy);
+    @PutMapping("/{id}")
+    public Candidacy updateCandidacy(@PathVariable Integer id, @Valid @RequestBody Candidacy candidacyDetails) {
+        return candidacyService.updateCandidacy(id, candidacyDetails);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<Void> deleteCandidacy(@PathVariable Integer id) {
+        candidacyService.deleteCandidacy(id);
+        return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<Candidacy>> searchCandidacy(@RequestParam(value = "firstName") String firstName) {
+        List<Candidacy> candidacy = candidacyService.getCandidacyByNom(firstName);
+        return new ResponseEntity<>(candidacy, HttpStatus.OK);
+    }
+
+    @GetMapping("/tri/date")
+    public ResponseEntity<List<Candidacy>> trierParDate() {
+        List<Candidacy> candidacy = candidacyService.trierParDate();
+        return new ResponseEntity<>(candidacy, HttpStatus.OK);
     }
 }
