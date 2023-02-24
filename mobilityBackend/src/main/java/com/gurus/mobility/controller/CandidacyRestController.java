@@ -4,11 +4,14 @@ package com.gurus.mobility.controller;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.service.CandidacyServices.ICandidacyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -52,5 +55,10 @@ public class CandidacyRestController {
     public ResponseEntity<List<Candidacy>> trierParDate() {
         List<Candidacy> candidacy = candidacyService.trierParDate();
         return new ResponseEntity<>(candidacy, HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/archive")
+    public void archiveCandidature(@PathVariable Integer id) {
+        candidacyService.archiveCandidature(id);
     }
 }

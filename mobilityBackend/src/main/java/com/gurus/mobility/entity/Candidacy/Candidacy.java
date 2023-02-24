@@ -57,6 +57,10 @@ public class Candidacy implements Serializable {
 
     private boolean archive;
 
+    public Candidacy(Integer id, String nom_de_candidature, boolean b) {
+
+    }
+
     public boolean getSelectionne() {
         return  this.selectionne;
     }

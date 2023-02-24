@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -44,5 +45,10 @@ public class ResultRestController {
     public ResponseEntity<Void> deleteResult(@PathVariable Integer id) {
         resultService.deleteResult(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/export/excel")
+    public void exportResultToExcel(HttpServletResponse response) {
+        resultService.exportResultToExcel(response);
     }
 }

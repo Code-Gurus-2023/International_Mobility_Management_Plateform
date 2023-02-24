@@ -1,14 +1,18 @@
 package com.gurus.mobility.service.CandidacyServices;
 
-import com.gurus.mobility.entity.Candidacy.Candidacy;
+
 import com.gurus.mobility.entity.Candidacy.Result;
-import com.gurus.mobility.repository.Candidacy.ICandidacyRepository;
 import com.gurus.mobility.repository.Candidacy.IResultRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 @Slf4j
 @Service
@@ -53,5 +57,58 @@ public class ResultServiceImpl implements IResultService {
         resultRepository.deleteById(id);
     }
 
+    @Override
+    public void exportResultToExcel(HttpServletResponse response) {
+        try {
+            List<Result> results = resultRepository.findAll();
 
+
+            XSSFWorkbook workbook = new XSSFWorkbook();
+
+
+            XSSFSheet sheet = workbook.createSheet("Results");
+
+
+            XSSFRow headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("idResult");
+            headerRow.createCell(1).setCellValue("pl");
+            headerRow.createCell(2).setCellValue("dataMining");
+            headerRow.createCell(3).setCellValue("springBoot");
+            headerRow.createCell(4).setCellValue("angular");
+            headerRow.createCell(5).setCellValue("dotnet");
+            headerRow.createCell(6).setCellValue("english");
+            headerRow.createCell(7).setCellValue("french");
+            headerRow.createCell(8).setCellValue("math");
+            headerRow.createCell(9).setCellValue("generalAverage");
+
+
+            int rowNum = 1;
+            for (Result result : results) {
+                XSSFRow row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(result.getIdResult());
+                row.createCell(1).setCellValue(result.getPl());
+                row.createCell(2).setCellValue(result.getDataMining());
+                row.createCell(3).setCellValue(result.getSpringBoot());
+                row.createCell(4).setCellValue(result.getAngular());
+                row.createCell(5).setCellValue(result.getDotnet());
+                row.createCell(6).setCellValue(result.getEnglish());
+                row.createCell(7).setCellValue(result.getFrench());
+                row.createCell(8).setCellValue(result.getMath());
+                row.createCell(9).setCellValue(result.getGeneralAverage());
+            }
+
+
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename=\"results.csv\"");
+
+
+            ServletOutputStream outputStream = response.getOutputStream();
+            workbook.write(outputStream);
+            outputStream.close();
+            workbook.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

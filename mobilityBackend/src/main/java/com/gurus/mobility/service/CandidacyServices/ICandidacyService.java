@@ -4,6 +4,8 @@ package com.gurus.mobility.service.CandidacyServices;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ICandidacyService {
@@ -16,5 +18,8 @@ public interface ICandidacyService {
     List<Candidacy> getCandidacyByNom(String firstName);
 
     List<Candidacy> trierParDate();
+
+    void archiveCandidature(Integer id);
+
     }
 

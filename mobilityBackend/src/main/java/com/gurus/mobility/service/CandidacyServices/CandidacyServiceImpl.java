@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -64,6 +67,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
     public List<Candidacy> getCandidacyByNom(String firstName) {
         return candidacyRepository.findByNom(firstName);
     }
+
     @Override
     public List<Candidacy> trierParDate() {
         List<Candidacy> candidacy = candidacyRepository.findAll();
@@ -73,9 +77,23 @@ public class CandidacyServiceImpl implements ICandidacyService {
                 return c1.getDateCandidacy().compareTo(c2.getDateCandidacy());
             }
         });
-        
+
         return candidacy;
     }
 
+    @Override
+    public void archiveCandidature(Integer id) {
+        Candidacy candidature = getCandidacyById(id);
+        candidacyRepository.delete(candidature);
 
+        try {
+            FileWriter fileWriter = new FileWriter("C:/Spring Boot/Candidatures_archivées.txt", true);
+            fileWriter.write(candidature.getIdCandidacy() + "," + candidature.getFirstName() + "," +
+                    candidature.getLastName() + "," + candidature.getEmail() + "," +
+                    candidature.getTelephoneNumber() + candidature.getPostalCode() + "," + candidature.getDateCandidacy() + "," + candidature.getAddress()  + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

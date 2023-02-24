@@ -3,6 +3,7 @@ package com.gurus.mobility.service.CandidacyServices;
 
 import com.gurus.mobility.entity.Candidacy.Result;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface IResultService {
@@ -11,4 +12,6 @@ public interface IResultService {
     Result createResult(Result result);
     Result updateResult(Integer id, Result resultDetails);
     void deleteResult(Integer id);
+    void exportResultToExcel(HttpServletResponse response);
+
 }
