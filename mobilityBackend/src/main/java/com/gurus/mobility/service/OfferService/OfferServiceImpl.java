@@ -3,17 +3,25 @@ package com.gurus.mobility.service.OfferService;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.repository.OfferRepository.IOfferRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 @Service
 @Slf4j
-public class OfferServiceImpl implements IOfferService{
+public class OfferServiceImpl implements IOfferService {
     @Autowired
     private IOfferRepository offerRepository;
 
@@ -46,6 +54,8 @@ public class OfferServiceImpl implements IOfferService{
         offer.setDuration(offerDetails.getDuration());
         offer.setConditions(offerDetails.getConditions());
         offer.setAdvantages(offerDetails.getAdvantages());
+
+
         return offerRepository.save(offer);
     }
 
@@ -70,4 +80,78 @@ public class OfferServiceImpl implements IOfferService{
         });
         return offers;
     }
+
+    @Override
+    public void archiveOffer(Integer id) {
+        Offer offer = getOfferById(id);
+        offerRepository.delete(offer);
+
+        try {
+            FileWriter fileWriter = new FileWriter("C:/Code Gurus 2023/International_Mobility_Management_Plateform/offers_archivées.txt", true);
+            fileWriter.write(offer.getIdOffre() + "," + offer.getTitle() + "," +
+                    offer.getImage() + "," + offer.getNbreCandidats() + "," +
+                    offer.getNbreCandidats() + "," +
+                    offer.getConditions() + "," +
+                    offer.getDestination() + "," +
+                    offer.getDuration() + "," +
+                    offer.getDateOffre() + "," +
+                    offer.getProfil() + "," +
+                    offer.getAdvantages() + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void exportOffersToExcel(HttpServletResponse response) {
+        try {
+            List<Offer> offers = offerRepository.findAll();
+
+            // Création d'un nouveau classeur Excel
+            XSSFWorkbook workbook = new XSSFWorkbook();
+
+            // Création d'une nouvelle feuille dans le classeur
+            XSSFSheet sheet = workbook.createSheet("Offers");
+
+            // Création d'une ligne pour les titres des colonnes
+            XSSFRow headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("ID");
+            headerRow.createCell(1).setCellValue("Title");
+            headerRow.createCell(2).setCellValue("Image");
+            headerRow.createCell(3).setCellValue("DateOffre");
+            headerRow.createCell(4).setCellValue("nbreCandidats");
+            headerRow.createCell(5).setCellValue("conditions");
+
+
+
+            // Remplissage des données des candidatures
+            int rowNum = 1;
+            for (Offer offer : offers) {
+                XSSFRow row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(offer.getIdOffre());
+                row.createCell(1).setCellValue(offer.getTitle());
+                row.createCell(2).setCellValue(offer.getImage());
+                row.createCell(3).setCellValue(offer.getDateOffre());
+                row.createCell(4).setCellValue(offer.getNbreCandidats());
+                row.createCell(5).setCellValue(offer.getConditions());
+
+
+
+
+            }
+
+            // Configuration de l'en-tête de la réponse HTTP
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename=\"offers.xlsx\"");
+
+            // Écriture du classeur dans le flux de sortie HTTP
+            ServletOutputStream outputStream = response.getOutputStream();
+            workbook.write(outputStream);
+            outputStream.close();
+            workbook.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } }
 }

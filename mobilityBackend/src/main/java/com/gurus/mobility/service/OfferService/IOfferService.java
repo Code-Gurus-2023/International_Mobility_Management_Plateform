@@ -2,6 +2,9 @@ package com.gurus.mobility.service.OfferService;
 
 import com.gurus.mobility.entity.Offer.Offer;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IOfferService {
@@ -12,4 +15,8 @@ public interface IOfferService {
     void deleteOffer(Integer id);
     List<Offer> getOffersByTitle(String title);
     List<Offer> trierParDate();
+    void archiveOffer(Integer id);
+    void exportOffersToExcel(HttpServletResponse response);
+
+
 }

@@ -3,11 +3,15 @@ package com.gurus.mobility.controller;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.service.OfferService.IOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -54,5 +58,15 @@ public class OfferRestController {
     public ResponseEntity<List<Offer>> trierParDate() {
         List<Offer> offers = offerService.trierParDate();
         return new ResponseEntity<>(offers, HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/archive")
+    public void archiveCandidature(@PathVariable Integer id) {
+        offerService.archiveOffer(id);
+    }
+
+    @GetMapping("/export/excel")
+    public void exportOffersToExcel(HttpServletResponse response) {
+        offerService.exportOffersToExcel(response);
     }
 }

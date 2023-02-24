@@ -6,11 +6,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface IOfferRepository extends JpaRepository<Offer,Integer> {
     @Query("SELECT c FROM Offer c WHERE c.title = :title")
     List<Offer> findByTitle(@Param("title") String title);
+
 
 }

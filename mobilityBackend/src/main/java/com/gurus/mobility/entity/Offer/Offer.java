@@ -45,6 +45,8 @@ public class Offer implements Serializable {
     @Enumerated(EnumType.STRING)
     private Advantages advantages;
 
+
+
     @OneToMany(mappedBy = "offer", orphanRemoval = true)
     private Set<Candidacy> candidacies = new LinkedHashSet<>();
 
@@ -60,6 +62,8 @@ public class Offer implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+
 
     public Set<Commentaire> getCommentaires() {
         return commentaires;
@@ -84,4 +88,6 @@ public class Offer implements Serializable {
     public void setCandidacies(Set<Candidacy> candidacies) {
         this.candidacies = candidacies;
     }
+
+
 }
