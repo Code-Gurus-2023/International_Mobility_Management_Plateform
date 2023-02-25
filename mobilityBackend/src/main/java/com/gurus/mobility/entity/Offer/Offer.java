@@ -3,9 +3,11 @@ package com.gurus.mobility.entity.Offer;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.user.User;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -28,6 +30,9 @@ public class Offer implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dateOffre;
 
+    @Column(name = "created_date")
+    @CreatedDate
+    public LocalDate offerCreationDate;
     private Integer nbreCandidats;
     @Enumerated(EnumType.STRING)
     private Profil profil;
@@ -39,6 +44,7 @@ public class Offer implements Serializable {
     private String conditions;
     @Enumerated(EnumType.STRING)
     private Advantages advantages;
+
 
     @OneToMany(mappedBy = "offer", orphanRemoval = true)
     private Set<Candidacy> candidacies = new LinkedHashSet<>();
