@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,18 +26,23 @@ public class User {
     @Column(nullable = false, length = 10)
     public String identifiant;
     @Column(nullable = false)
-    @Size(max = 20)
     public String userName;
     @Column(nullable = false)
     @Size(max = 120)
     public String password;
     @Column(nullable = false)
-    @Size(max = 50)
     @Email
     public String email;
-    @Column(nullable = true, length = 64)
-    public String profilePic;
+
+   // @Column(updatable = false)
+    //private String verificationCode;
+    //private MultipartFile[] imageFile;
+    private String image;
+    private String profileImage;
+    private Boolean active;
     public boolean isActive;
+    private Boolean hasAccount;
+
 
     public String phoneNumber;
 
@@ -52,13 +59,8 @@ public class User {
 
     public int experienceYears;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
-
-
+    @ElementCollection
+    private Set<ERole> roles = new HashSet<>();
 
     public User(String identifiant, String userName, String email, String password) {
         this.identifiant = identifiant;
@@ -66,4 +68,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+
 }

@@ -1,6 +1,5 @@
 package com.gurus.mobility.payload.response;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public class JwtResponse {
