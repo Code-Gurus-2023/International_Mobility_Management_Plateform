@@ -1,21 +1,19 @@
 package com.gurus.mobility.payload.response;
 
 import java.util.List;
-
 public class JwtResponse {
-
     private String token;
     private String type = "Bearer";
-    private Integer id;
-    private String identifiant;
+    private String refreshToken;
+    private Long id;
     private String username;
     private String email;
     private List<String> roles;
 
-    public JwtResponse(String accessToken, Integer id,String identifiant, String username, String email, List<String> roles) {
+    public JwtResponse(String accessToken, String refreshToken, Long id, String username, String email, List<String> roles) {
         this.token = accessToken;
+        this.refreshToken = refreshToken;
         this.id = id;
-        this.identifiant = identifiant;
         this.username = username;
         this.email = email;
         this.roles = roles;
@@ -37,11 +35,11 @@ public class JwtResponse {
         this.type = tokenType;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,11 +63,11 @@ public class JwtResponse {
         return roles;
     }
 
-    public String getIdentifiant() {
-        return identifiant;
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.sql.Delete;
 import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,11 +20,16 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "identifiant"),
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Integer id;
+    public Long id;
     @Column(nullable = false, length = 10)
     public String identifiant;
     @Column(nullable = false)
@@ -34,16 +41,16 @@ public class User {
     @Email
     public String email;
 
-   // @Column(updatable = false)
-    //private String verificationCode;
+    //private MultipartFile[] imageFile;
     //private MultipartFile[] imageFile;
     private String image;
     private String profileImage;
-    private Boolean active;
-    public boolean isActive;
-    private Boolean hasAccount;
+    private Boolean verified;
+    private String token;
+    private String verificationCode;
 
-
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime tokenCreationDate;
     public String phoneNumber;
 
     public String kind;
@@ -59,8 +66,11 @@ public class User {
 
     public int experienceYears;
 
-    @ElementCollection
-    private Set<ERole> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(  name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public User(String identifiant, String userName, String email, String password) {
         this.identifiant = identifiant;

@@ -5,43 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae1ab75e-9d28-42a1-b13d-8839c298768c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_auth0_java_jwt_3_16_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_configuration_processor_2_7_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/Util/JWTTokenProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/Util/JWTUtility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/Util/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/dto/UserCreationDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/dto/UserList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/dto/UserTokenDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/response/AuthenticationResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/JwtTokenProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/config/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobilityBackend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/MobilityApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/MobilityApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/AccomodationController/AccomodationRestController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/AuthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/TestController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/user/ERole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/user/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/AuthenticateController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/exception/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/exception/NotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/request/LoginRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/request/SignupRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/response/JwtResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/response/MessageResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/RoleRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/User/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/configuration/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/AuthEntryPointJwt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/AuthTokenFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/JwtUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/IUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/UserDetailsImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/UserDetailsServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/mail/SendMailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/mail/SendMailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/request/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/request/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/response/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/response/JwtResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/User/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/User/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/JwtTokenProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/CustomerUserDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/CustomerUserDetailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,6 +31,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -77,7 +57,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/tt",
+    "last_opened_file_path": "D:/cyberfin-Louay2/loulou",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -136,7 +116,7 @@
       <workItem from="1676544496309" duration="1342000" />
       <workItem from="1676634101653" duration="59000" />
       <workItem from="1677014892896" duration="34671000" />
-      <workItem from="1677365905075" duration="27183000" />
+      <workItem from="1677365905075" duration="58294000" />
     </task>
     <servers />
   </component>
@@ -160,6 +140,14 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="org.springframework.security.authentication.BadCredentialsException" package="org.springframework.security.authentication" />
           <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.data.mapping.PropertyReferenceException" package="org.springframework.data.mapping" />
+          <option name="timeStamp" value="14" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.twilio.exception.AuthenticationException" package="com.twilio.exception" />
+          <option name="timeStamp" value="15" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.7.6/spring-security-core-5.7.6.jar!/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.class</url>

@@ -20,7 +20,7 @@ public class CustomerUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        com.gurus.mobility.entity.user.User user = userRepository.findByUserName(username);
+        com.gurus.mobility.entity.user.User user = userRepository.findByUserName(username).get();
 
 
         return new User(user.getUserName(),user.getPassword(),new ArrayList<>());

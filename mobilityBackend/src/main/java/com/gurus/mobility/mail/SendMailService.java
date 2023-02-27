@@ -13,6 +13,7 @@ public class SendMailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+
     public Object sendMail(RequestMail requestMail) {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setFrom(requestMail.getSendFrom());

@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,10 +45,6 @@ public class UserController {
         this.imageService = imageService;
     }
 
-    @GetMapping("/home")
-    public String greeting() {
-        return "Hello nadine";
-    }
 
     @GetMapping("users")
     public UserList getAllUsers() {
@@ -56,30 +53,19 @@ public class UserController {
 
 
     @GetMapping("user/{id}")
-    public User getUserById(@PathVariable(value = "id") Integer id) {
-        return userService.getUserByID(id);
+    public User getUserById(@PathVariable(value = "id") Long id) {
+        return userService.getUserById(id);
     }
 
-    @PutMapping("updateUser/{ident}")
-    public User updateUser(@PathVariable(name = "ident") String identifiant, @RequestBody User updateuser) {
-        return userService.updateUser(updateuser, identifiant);
+    @PutMapping("updateUser/{idUser}")
+    public User updateUser(@PathVariable Long idUser, @RequestBody User updateuser) {
+        return userService.updateUser(updateuser, idUser);
     }
 
-    @PutMapping("/{identifiant}/activate-account")
-    public User activateAccount(@PathVariable String identifiant, @RequestParam Boolean active) {
-        User user = userService.ActivateAccount(active, identifiant);
-        RequestMail requestMail = new RequestMail();
-        requestMail.setSendFrom("nadine.mili@esprit.tn");
-        requestMail.setSendTo(user.getEmail());
-        requestMail.setSubject("Activation de compte");
-        if (active) {
-            requestMail.setContent("Votre compte est maintenant activé, vous pouvez connecter à tous moment");
-        }
-        else {
-            requestMail.setContent("Votre compte est maintenant désactivé, merci pour votre fidélisation!");
-        }
-        sendMailService.sendMail(requestMail);
-        return user;
+    @PutMapping("Activate/{idUser}")
+    public String Activate(@PathVariable Long idUser)
+    {
+     return   userService.Verified(idUser);
     }
 
 /*
