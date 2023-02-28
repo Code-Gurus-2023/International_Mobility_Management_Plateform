@@ -4,6 +4,7 @@ package com.gurus.mobility.controller;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.service.CandidacyServices.ICandidacyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +61,14 @@ public class CandidacyRestController {
     @PostMapping("/{id}/archive")
     public void archiveCandidature(@PathVariable Integer id) {
         candidacyService.archiveCandidature(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Candidacy>> getAllCandidatures(
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        Page<Candidacy> result = candidacyService.getAllCandidatures(pageNumber, pageSize, sortBy);
+        return ResponseEntity.ok(result);
     }
 }

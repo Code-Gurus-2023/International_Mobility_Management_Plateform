@@ -4,6 +4,9 @@ import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.repository.Candidacy.ICandidacyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
@@ -95,5 +98,11 @@ public class CandidacyServiceImpl implements ICandidacyService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Page<Candidacy> getAllCandidatures(int pageNumber, int pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        return candidacyRepository.findAll(pageable);
     }
 }

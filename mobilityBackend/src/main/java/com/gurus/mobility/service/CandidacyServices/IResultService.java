@@ -14,4 +14,8 @@ public interface IResultService {
     void deleteResult(Integer id);
     void exportResultToExcel(HttpServletResponse response);
 
+    List<Result> findTop10ByOrderByNoteDesc();
+
+
+
 }

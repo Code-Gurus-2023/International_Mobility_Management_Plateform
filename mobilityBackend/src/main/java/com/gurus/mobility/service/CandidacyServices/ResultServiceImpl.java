@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.persistence.EntityNotFoundException;
@@ -20,6 +23,13 @@ public class ResultServiceImpl implements IResultService {
 
     @Autowired
     private IResultRepository resultRepository;
+
+    @Autowired
+    public ResultServiceImpl(IResultRepository resultRepository) {
+        this.resultRepository = resultRepository;
+    }
+
+
 
     @Override
     public List<Result> getAllResult() {return resultRepository.findAll();
@@ -111,4 +121,12 @@ public class ResultServiceImpl implements IResultService {
             e.printStackTrace();
         }
     }
+    @Override
+    public List<Result> findTop10ByOrderByNoteDesc() {
+        Sort sort = Sort.by("generalAverage").descending();
+        Pageable pageable = PageRequest.of(0, 10, sort);
+        return resultRepository.findAll(pageable).getContent();
+    }
+
+
 }

@@ -2,6 +2,7 @@ package com.gurus.mobility.service.CandidacyServices;
 
 
 import com.gurus.mobility.entity.Candidacy.Candidacy;
+import org.springframework.data.domain.Page;
 
 
 import java.io.IOException;
@@ -20,6 +21,8 @@ public interface ICandidacyService {
     List<Candidacy> trierParDate();
 
     void archiveCandidature(Integer id);
+
+    Page<Candidacy> getAllCandidatures(int pageNumber, int pageSize, String sortBy);
 
     }
 

@@ -4,6 +4,7 @@ import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.Candidacy.Result;
 import com.gurus.mobility.service.CandidacyServices.ICandidacyService;
 import com.gurus.mobility.service.CandidacyServices.IResultService;
+import com.gurus.mobility.service.CandidacyServices.ResultServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,13 @@ import java.util.List;
 @RequestMapping("/api/result")
 public class ResultRestController {
 
-    @Autowired
+@Autowired
     private IResultService resultService;
+
+    @Autowired
+    public ResultRestController(IResultService resultService) {
+        this.resultService = resultService;
+    }
 
     @GetMapping("/getResult")
     public List<Result> getAllResult() {
@@ -51,4 +57,10 @@ public class ResultRestController {
     public void exportResultToExcel(HttpServletResponse response) {
         resultService.exportResultToExcel(response);
     }
+
+    @GetMapping("/top-10")
+    public List<Result> getTop10Resultats() {
+        return resultService.findTop10ByOrderByNoteDesc();
+    }
+
 }
