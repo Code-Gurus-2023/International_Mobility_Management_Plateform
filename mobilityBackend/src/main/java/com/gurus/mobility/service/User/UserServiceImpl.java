@@ -2,16 +2,13 @@ package com.gurus.mobility.service.User;
 
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.UserNotFoundException;
-import com.gurus.mobility.repository.User.RoleRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,27 +28,12 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements IUserService {
 
-
     private static final long EXPIRE_TOKEN_AFTER_MINUTES = 30;
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
-
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    private JavaMailSender javaMailSender;
-    private PasswordEncoder passwordEncoder;
-    private RestTemplate restTemplate;
-
-
-    public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder
-    ) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public User getUserByIdentifiant(String identifiant) {
@@ -100,30 +82,6 @@ public class UserServiceImpl implements IUserService {
 
     private static String storageDirectoryPath = System.getProperty("user.dir") + "/images/";
 
-    @Override
-    public String uploadImage(MultipartFile file) {
-        makeDirectoryIfNotExist(storageDirectoryPath);
-        Path storageDirectory = Paths.get(storageDirectoryPath);
-
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Path destination = Paths.get(storageDirectory.toString() + "\\" + fileName);
-
-        try {
-            Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);// we are Copying all bytes from an input stream to a file
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("api/images/getImage/")
-                .path(fileName)
-                .toUriString();
-        //return the download image url as a response entity
-        String imageLink = destination.toString();
-        return imageLink;
-    }
-
     private void makeDirectoryIfNotExist(String imageDirectory) {
         File directory = new File(imageDirectory);
         if (!directory.exists()) {
@@ -131,22 +89,6 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
-    @Override
-    public User getUserByUserName(String userName) {
-        return userRepository.findByUserName(userName).get();
-    }
-
-    @Override
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public void deleteUser(Long userId) {
-
-        userRepository.deleteById(userId);
-
-    }
 
     @Override
     public String verify(String verificationCode) {

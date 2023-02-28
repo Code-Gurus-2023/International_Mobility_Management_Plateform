@@ -62,6 +62,7 @@ public class AuthController {
 
     @Autowired
     EmailService emailService;
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -98,6 +99,7 @@ public class AuthController {
         }
         return null;
     }
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUserName(signUpRequest.getUserName())) {
@@ -129,13 +131,13 @@ public class AuthController {
 
                         break;
                     case "prop":
-                        Role propRole = roleRepository.findByName(ERole. ROLE_PROPRIETAIRE_LOGEMENT)
+                        Role propRole = roleRepository.findByName(ERole.ROLE_PROPRIETAIRE_LOGEMENT)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(propRole);
 
                         break;
                     case "uni":
-                        Role uniRole = roleRepository.findByName(ERole. ROLE_UNIVERSITE)
+                        Role uniRole = roleRepository.findByName(ERole.ROLE_UNIVERSITE)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(uniRole);
 
@@ -156,7 +158,7 @@ public class AuthController {
 
         user.setRoles(roles);
         userService.addUser(user);
-        String verifcode= user.getVerificationCode();
+        String verifcode = user.getVerificationCode();
         emailService.sendMail(user.getEmail(), "Verification", verifcode);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
@@ -188,9 +190,9 @@ public class AuthController {
         //Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         //if (principle.toString() != "anonymousUser") {
-          //  Long userId = ((UserDetailsImpl) principle).getId();
-          //  refreshTokenService.deleteByUserId(userId);
-     //   }
+        //  Long userId = ((UserDetailsImpl) principle).getId();
+        //  refreshTokenService.deleteByUserId(userId);
+        //   }
         refreshTokenService.deleteByUserId(userId);
         ResponseCookie jwtCookie = jwtUtils.getCleanJwtCookie();
         ResponseCookie jwtRefreshCookie = jwtUtils.getCleanJwtRefreshCookie();
@@ -208,11 +210,14 @@ public class AuthController {
 
     }
 
-    @PostMapping("/forgot-password")
-    public void forgotPassword(@RequestBody String email) throws UnsupportedEncodingException, MessagingException {
+    @PostMapping("/forgot-password/{verif}")
+    public void forgotPassword(@RequestBody String email, @PathVariable int verif) throws UnsupportedEncodingException, MessagingException {
 
         String verifcode = userService.forgotPassword(email);
-        emailService.sendMail(email,"forgot passwrod verification",verifcode);
+        if (verif == 0)
+            emailService.sendMail(email, "forgot passwrod verification", verifcode);
+        else
+            sendSMS(verifcode);
     }
 
     @PutMapping("/reset-password")
@@ -221,12 +226,13 @@ public class AuthController {
     }
 
     @GetMapping(value = "/sendSMS")
-    public ResponseEntity<String> sendSMS() {
+    public ResponseEntity<String> sendSMS(String msg) {
+        var sid = "ACfb68709b4f45aa6b53fd1e70e5772af7";
+        var authToken = "9a24a8ee4b2a6dd2d7a984de9fab3e94";
+        Twilio.init(sid, authToken);
 
-        Twilio.init(System.getenv("ACfb68709b4f45aa6b53fd1e70e5772af7"), System.getenv("a60e50db599e34e1ae2727d1be471d3c"));
-
-        Message.creator(new PhoneNumber("21650443853"),
-                new PhoneNumber("+12764092941"), "Hello from Twilio 📞").create();
+        Message.creator(new PhoneNumber("+216 54 963 533"),
+                new PhoneNumber("+12764092941"), msg).create();
 
         return new ResponseEntity<String>("Message sent successfully", HttpStatus.OK);
     }

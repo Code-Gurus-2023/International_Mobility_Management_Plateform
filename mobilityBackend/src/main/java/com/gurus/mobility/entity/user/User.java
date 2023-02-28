@@ -40,10 +40,6 @@ public class User {
     @Column(nullable = false)
     @Email
     public String email;
-
-    //private MultipartFile[] imageFile;
-    //private MultipartFile[] imageFile;
-    private String image;
     private String profileImage;
     private Boolean verified;
     private String token;
@@ -65,7 +61,8 @@ public class User {
     public String professorDiploma;
 
     public int experienceYears;
-
+    @ManyToOne
+    private FileDB image;
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(  name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -9,12 +9,6 @@ public class UserCreationDto {
 
     private String message;
 
-    public UserCreationDto(User user, String message) {
-        this.user = user;
-
-        this.message = message;
-    }
-
     public User getUser() {
         return user;
     }

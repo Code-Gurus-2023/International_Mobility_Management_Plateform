@@ -26,7 +26,6 @@ public class ImageService {
 
     private final Path fileStorageLocation;
     private static String storageDirectoryPath = System.getProperty("user.dir") + "/src/main/resources/static/images";
-    private static final String DEFAULT_IMAGE_EXTENSION = "png";
 
     @Autowired
     public ImageService(FileStorageProperties fileStorageProperties) {

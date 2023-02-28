@@ -9,24 +9,13 @@ public interface IUserService {
 
     public List<User> getAllUsers();
 
-
     User getUserByIdentifiant(String identifiant);
-    User getUserByEmail(String email);
-    //public boolean verifyUser(String token);
 
     User getUserById(Long id);
 
     User addUser(User user);
 
-
-    User updateUser(User updateuser, Long idUser);
-
-    String uploadImage(MultipartFile file);
-
-    User getUserByUserName(String userName);
-
-
-    void deleteUser(Long userId);
+    User updateUser(User updateuser, Long idUser);;
 
     String verify(String verificationCode);
 

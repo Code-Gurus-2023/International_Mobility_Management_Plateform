@@ -5,23 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae1ab75e-9d28-42a1-b13d-8839c298768c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/config/WebSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/config/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/AuthenticateController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/dto/UserCreationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/dto/UserCreationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/dto/UserTokenDto.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/mail/SendMailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/mail/SendMailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/request/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/request/LoginRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/response/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/response/JwtResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/User/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/User/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/JwtTokenProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/CustomerUserDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/CustomerUserDetailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/payload/response/AuthenticationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/AuthEntryPointJwt.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/AuthEntryPointJwt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/ImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/RefreshTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/RefreshTokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/UserDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/User/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +39,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2LojnJLpxO4tHImZcx7L79y0mGQ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -71,6 +70,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.gurus.mobility.service.User" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\International_Mobility_Management_Plateform\mobilityBackend\src\main\java\com\gurus\mobility" />
       <recent name="D:\International_Mobility_Management_Plateform\mobilityBackend\src\main\java\com\gurus\mobility\Util" />
@@ -116,7 +118,7 @@
       <workItem from="1676544496309" duration="1342000" />
       <workItem from="1676634101653" duration="59000" />
       <workItem from="1677014892896" duration="34671000" />
-      <workItem from="1677365905075" duration="58294000" />
+      <workItem from="1677365905075" duration="80950000" />
     </task>
     <servers />
   </component>
@@ -163,6 +165,11 @@
           <url>file://$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/JwtUtils.java</url>
           <line>31</line>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/User/FileDBRepository.java</url>
+          <line>2</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

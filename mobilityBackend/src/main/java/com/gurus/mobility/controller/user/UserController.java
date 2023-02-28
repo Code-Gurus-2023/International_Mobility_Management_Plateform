@@ -1,43 +1,39 @@
 package com.gurus.mobility.controller.user;
 
-import com.gurus.mobility.dto.UserCreationDto;
 import com.gurus.mobility.dto.UserList;
+import com.gurus.mobility.entity.user.FileDB;
 import com.gurus.mobility.entity.user.User;
-import com.gurus.mobility.mail.RequestMail;
-import com.gurus.mobility.mail.SendMailService;
 import com.gurus.mobility.payload.response.MessageResponse;
+import com.gurus.mobility.repository.User.FileDBRepository;
+import com.gurus.mobility.repository.User.UserRepository;
+import com.gurus.mobility.service.User.IFileStorageService;
 import com.gurus.mobility.service.User.IUserService;
 import com.gurus.mobility.service.User.ImageService;
 import com.gurus.mobility.service.User.UserServiceImpl;
 import lombok.NoArgsConstructor;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
 @NoArgsConstructor
 public class UserController {
 
-
+    @Autowired
     private IUserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    private SendMailService sendMailService;
+    private FileDBRepository ImageRepository;
 
     private ImageService imageService;
 
+    @Autowired
+    private IFileStorageService storageService;
 
     @Autowired
     public UserController(UserServiceImpl userService, ImageService imageService) {
@@ -68,45 +64,23 @@ public class UserController {
      return   userService.Verified(idUser);
     }
 
-/*
-    @GetMapping(value = "/image")
-    public @ResponseBody byte[] getImage() throws IOException {
-        FileInputStream in = new FileInputStream("file:///C://Users//Nadine//Downloads//ERPCurentAjourdemo//ERPCurentAjour//ERPCurent//ERP//images//manel.PNG");
-        return IOUtils.toByteArray(in);
-    }
+    @PostMapping("/{idUser}/uploadimage")
+    public ResponseEntity<MessageResponse> uploadFile(@PathVariable Long idUser, @RequestParam("file") MultipartFile file) {
 
-*/
-    /*
-    @RequestMapping(value = "/user", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public ResponseEntity<UserCreationDto> addUser(@ModelAttribute User user, MultipartFile file) {
-        String fileName = imageService.storeFile(file);
-        return new ResponseEntity(new UserCreationDto(userService.addUser(user), "user succsusfully added to database"), HttpStatus.CREATED);
-    }
-    */
 
-/*
-    @GetMapping("downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) throws IOException {
-        // Load file as Resource
-        Resource resource = imageService.loadFileAsResource(fileName);
-
-        // Try to determine file's content type
-        String contentType = null;
-
-        contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-
-        // Fallback to the default content type if type could not be determined
-        if (contentType == null) {
-            contentType = "application/octet-stream";
+        String message = "";
+        try {
+            storageService.store(file);
+            FileDB image = ImageRepository.findByName(file.getOriginalFilename());
+            User user = getUserById(idUser);
+            user.setImage(image);
+            userRepository.save(user);
+            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
         }
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
     }
-
-*/
-
 
 }
