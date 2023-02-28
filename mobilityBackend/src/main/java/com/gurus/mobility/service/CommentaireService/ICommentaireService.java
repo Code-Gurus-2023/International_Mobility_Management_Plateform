@@ -11,4 +11,5 @@ public interface ICommentaireService {
     Commentaire createCommentaire(Commentaire commentaire);
     Commentaire updateCommentaire(Integer id, Commentaire commentaireDetails);
     void deleteCommentaire(Integer id);
+    boolean detecterBadWords(String commentaire);
 }

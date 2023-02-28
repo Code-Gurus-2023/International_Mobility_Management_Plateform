@@ -3,6 +3,7 @@ package com.gurus.mobility.controller;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.service.OfferService.IOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,4 +70,15 @@ public class OfferRestController {
     public void exportOffersToExcel(HttpServletResponse response) {
         offerService.exportOffersToExcel(response);
     }
+
+    @GetMapping
+    public ResponseEntity<Page<Offer>> paginationOffers(
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        Page<Offer> result = offerService.paginationOffers(pageNumber, pageSize, sortBy);
+        return ResponseEntity.ok(result);
+    }
+
+
 }

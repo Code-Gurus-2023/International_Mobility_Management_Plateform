@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -46,5 +47,16 @@ public class CommentaireServiceImpl implements ICommentaireService{
         commentaireRepository.deleteById(id);
     }
 
+    private static final List<String> BAD_WORDS = Arrays.asList("badword1", "badword2", "badword3");
+
+    @Override
+    public boolean detecterBadWords(String commentaire) {
+        for (String badWord : BAD_WORDS) {
+            if (commentaire.toLowerCase().contains(badWord)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
