@@ -1,5 +1,7 @@
 package com.gurus.mobility.entity.Candidacy;
 
+import com.gurus.mobility.entity.Offer.Offer;
+import com.gurus.mobility.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -53,6 +55,33 @@ public class Candidacy implements Serializable {
     private boolean isArchived;
 
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "offer_id_offre")
+    private Offer offer;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
