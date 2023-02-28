@@ -74,7 +74,7 @@ public class User {
     @Setter(AccessLevel.NONE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
-    private Set<Alert> alerts = new LinkedHashSet<>();
+    private Set<Alert> alerts;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
