@@ -127,6 +127,5 @@ public class ResultServiceImpl implements IResultService {
         Pageable pageable = PageRequest.of(0, 10, sort);
         return resultRepository.findAll(pageable).getContent();
     }
-
-
+    
 }
