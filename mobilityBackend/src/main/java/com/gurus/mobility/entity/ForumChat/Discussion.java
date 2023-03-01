@@ -1,5 +1,6 @@
 package com.gurus.mobility.entity.ForumChat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gurus.mobility.entity.user.User;
 import lombok.*;
 
@@ -41,11 +42,13 @@ public class Discussion implements Serializable {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "discussion", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
     private Set<Comment> comments;
 
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
 

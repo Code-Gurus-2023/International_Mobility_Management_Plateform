@@ -40,8 +40,8 @@ public class ForumController {
         try {
 
             User u = userService.findById(idUser);
-            if(!u.getRoles().contains(ERole.ROLE_ETUDIANT))
-                throw new StudentException("NOT A STUDENT");
+//            if(!u.getRoles().contains(ERole.ROLE_ETUDIANT))
+//                throw new StudentException("NOT A STUDENT");
             return new ResponseEntity<>(discussionService.addDiscussion(d, u), HttpStatus.CREATED);
         }
         catch (StudentException e) {
