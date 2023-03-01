@@ -159,7 +159,7 @@ public class AuthController {
         user.setRoles(roles);
         userService.addUser(user);
         String verifcode = user.getVerificationCode();
-        emailService.sendMail(user.getEmail(), "Verification", verifcode);
+        emailService.sendMail(user.getEmail(), "Verification","This is your verification code:  " +verifcode+"    You're welcome!");
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
@@ -228,7 +228,7 @@ public class AuthController {
     @GetMapping(value = "/sendSMS")
     public ResponseEntity<String> sendSMS(String msg) {
         var sid = "ACfb68709b4f45aa6b53fd1e70e5772af7";
-        var authToken = "9a24a8ee4b2a6dd2d7a984de9fab3e94";
+        var authToken = "de6d5949031f6e205b0e029d8203540a";
         Twilio.init(sid, authToken);
 
         Message.creator(new PhoneNumber("+216 54 963 533"),
