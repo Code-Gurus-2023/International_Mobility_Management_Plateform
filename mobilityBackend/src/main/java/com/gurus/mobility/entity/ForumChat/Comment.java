@@ -43,5 +43,4 @@ public class Comment implements Serializable {
     @JoinColumn(name = "discussion_id_dsc")
     private Discussion discussion;
 
-
 }

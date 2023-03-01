@@ -39,7 +39,6 @@ public class Discussion implements Serializable {
     @Column(name = "is_active")
     private Boolean isActive;
 
-
     @ToString.Exclude
     @OneToMany(mappedBy = "discussion", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnore
@@ -50,6 +49,5 @@ public class Discussion implements Serializable {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
-
 
 }

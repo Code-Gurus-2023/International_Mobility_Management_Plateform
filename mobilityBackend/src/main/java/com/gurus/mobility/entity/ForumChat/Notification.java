@@ -32,7 +32,7 @@ public class Notification implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Notification(Long idMsg, Long senderIdCtr, String userName) {
+    public Notification(Long idMsg, Long senderIdCtr, String userName) {}
 
-    }
+
 }

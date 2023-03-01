@@ -7,7 +7,7 @@ import com.gurus.mobility.entity.user.Role;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.StudentException;
 import com.gurus.mobility.service.ForumChatService.IDiscussionService;
-import com.gurus.mobility.service.IUserService;
+import com.gurus.mobility.service.User.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,10 +36,10 @@ public class ForumController {
     }
 
     @PostMapping("/{idUser}")
-    public ResponseEntity<Discussion> addDisscussion(@RequestBody Discussion d, @PathVariable("idUser") Integer idUser) {
+    public ResponseEntity<Discussion> addDisscussion(@RequestBody Discussion d, @PathVariable("idUser") Long idUser) {
         try {
 
-            User u = userService.findById(idUser);
+            User u = userService.getUserById(idUser);
 //            if(!u.getRoles().contains(ERole.ROLE_ETUDIANT))
 //                throw new StudentException("NOT A STUDENT");
             return new ResponseEntity<>(discussionService.addDiscussion(d, u), HttpStatus.CREATED);
@@ -74,10 +74,10 @@ public class ForumController {
     }
 
     @PutMapping("/addComment")
-    public ResponseEntity addCommentToDiscussion(@RequestBody Comment c, @RequestParam Long idDiscussion,@RequestParam Integer idUser) {
+    public ResponseEntity addCommentToDiscussion(@RequestBody Comment c, @RequestParam Long idDiscussion,@RequestParam Long idUser) {
 
         try {
-            c.setUser(userService.findById(idUser));
+            c.setUser(userService.getUserById(idUser));
             discussionService.addComment(c, idDiscussion);
             return ResponseEntity.status(HttpStatus.CREATED).body("Comment added");
         }
