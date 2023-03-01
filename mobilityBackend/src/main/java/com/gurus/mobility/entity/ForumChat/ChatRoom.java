@@ -13,6 +13,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @ToString
 public class ChatRoom implements Serializable {
 
@@ -21,7 +22,10 @@ public class ChatRoom implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ctr", nullable = false)
-    private Long idCtr;
+    private Long id;
+
+    @Column(name = "chat_id")
+    private String chatID;
 
     @Column(name = "sender_id_ctr")
     private Long senderIdCtr;
