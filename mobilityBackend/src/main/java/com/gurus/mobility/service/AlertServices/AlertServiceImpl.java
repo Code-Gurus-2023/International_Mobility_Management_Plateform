@@ -5,7 +5,7 @@ import com.gurus.mobility.entity.alert.Alert;
 import com.gurus.mobility.entity.alert.Target;
 import com.gurus.mobility.repository.AlertRepositories.AlertRepository;
 import com.gurus.mobility.repository.OfferRepository.IOfferRepository;
-import com.gurus.mobility.repository.UserRepository;
+import com.gurus.mobility.repository.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +24,7 @@ public class AlertServiceImpl implements IAlertService{
         alertRepository.save(alert);
     }
 
+    @Override
     public void sendAlerts (){
         List<Offer> offerList= iOfferRepository.getLastFiveMinutesOffers();
         List<Alert> alertList= alertRepository.findAll();
@@ -37,18 +38,21 @@ public class AlertServiceImpl implements IAlertService{
     }
 
     @Override
-    public List<Alert> getAlertsByUser(int userId){
+    public List<Alert> getAlertsByUser(Long userId){
         return userRepository.findById(userId).get().getAlerts().stream().toList();
     }
 
+    @Override
     public List<Alert> getAllAlerts(){
         return alertRepository.findAll();
     }
 
+    @Override
     public void updateAlert(Long id, Alert alert){
         alertRepository.findById(id);
     }
 
+    @Override
     public void deleteAlert(Alert alert){
         alertRepository.delete(alert);
     }

@@ -1,15 +1,13 @@
 package com.gurus.mobility.service.ClaimServices;
 
+
 import com.gurus.mobility.entity.claim.Claim;
 import com.gurus.mobility.entity.claim.Response;
 import com.gurus.mobility.entity.claim.State;
-import com.gurus.mobility.entity.user.ERole;
-import com.gurus.mobility.entity.user.Role;
-import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.UpdateClaimException;
 import com.gurus.mobility.repository.ClaimRepositories.ClaimRepository;
 import com.gurus.mobility.repository.ClaimRepositories.ResponseRepository;
-import com.gurus.mobility.repository.UserRepository;
+import com.gurus.mobility.repository.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,13 +42,5 @@ public class ResponseServiceImpl implements IResponseService{
         rsp.setArchiveRsp(true);
         responseRepository.save(rsp);
     }
-
-
-
-
-
-
-
-
 
 }

@@ -45,7 +45,6 @@ public class Offer implements Serializable {
     @Enumerated(EnumType.STRING)
     private Advantages advantages;
 
-
     @OneToMany(mappedBy = "offer", orphanRemoval = true)
     private Set<Candidacy> candidacies = new LinkedHashSet<>();
 

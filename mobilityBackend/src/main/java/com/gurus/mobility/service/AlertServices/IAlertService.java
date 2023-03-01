@@ -9,5 +9,10 @@ import java.util.List;
 
 public interface IAlertService {
     public void createAlert(Alert alert);
-    public List<Alert> getAlertsByUser(int userId);
+    public List<Alert> getAlertsByUser(Long userId);
+    public void sendAlerts ();
+    public List<Alert> getAllAlerts();
+    public void updateAlert(Long id, Alert alert);
+    public void deleteAlert(Alert alert);
+
 }

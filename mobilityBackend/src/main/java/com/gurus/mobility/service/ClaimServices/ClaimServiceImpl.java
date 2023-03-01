@@ -5,7 +5,7 @@ import com.gurus.mobility.entity.claim.State;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.UpdateClaimException;
 import com.gurus.mobility.repository.ClaimRepositories.ClaimRepository;
-import com.gurus.mobility.repository.UserRepository;
+import com.gurus.mobility.repository.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class ClaimServiceImpl implements IClaimService {
     private UserRepository userRepository;
 
     @Override
-    public void createClaim(Claim claim, int userId) {
+    public void createClaim(Claim claim, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UpdateClaimException("object not found with id =" + userId));
         claim.setArchiveClm(false);
         claim.setStateClm(NOT_TRAITED);
@@ -48,7 +48,7 @@ public class ClaimServiceImpl implements IClaimService {
     }
 
     @Override
-    public List<Claim> getUserClaims(int idUser) {
+    public List<Claim> getUserClaims(Long idUser) {
         List<Claim> Lclaims = null;
         for (Claim clms : userRepository.findById(idUser).get().getClaims()) {
             if (clms.isArchiveClm() == false)
@@ -133,4 +133,6 @@ public class ClaimServiceImpl implements IClaimService {
     public List<Claim> getActiveClaims(){
         return claimRepository.findClaimByArchiveClm(true);
     }
+
+
 }
