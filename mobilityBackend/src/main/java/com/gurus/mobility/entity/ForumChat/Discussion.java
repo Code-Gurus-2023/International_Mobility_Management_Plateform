@@ -1,5 +1,6 @@
 package com.gurus.mobility.entity.ForumChat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gurus.mobility.entity.user.User;
 import lombok.*;
 
@@ -38,33 +39,19 @@ public class Discussion implements Serializable {
     @Column(name = "is_active")
     private Boolean isActive;
 
-
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @ToString.Exclude
     @OneToMany(mappedBy = "discussion", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
     private Set<Comment> comments;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
-    public Set<Comment> getComments() {
-        return comments;
+    public void incrementMessages() {
+        this.nbrMessageDsc += 1;
     }
 
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

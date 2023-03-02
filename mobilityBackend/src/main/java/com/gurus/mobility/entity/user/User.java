@@ -1,14 +1,5 @@
 package com.gurus.mobility.entity.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
-import java.util.HashSet;
 import com.gurus.mobility.entity.Accomodation.Accomodation;
 import com.gurus.mobility.entity.Accomodation.Reservation;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
@@ -23,6 +14,16 @@ import com.gurus.mobility.entity.alert.Alert;
 import com.gurus.mobility.entity.claim.Claim;
 import lombok.*;
 import org.hibernate.Hibernate;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
