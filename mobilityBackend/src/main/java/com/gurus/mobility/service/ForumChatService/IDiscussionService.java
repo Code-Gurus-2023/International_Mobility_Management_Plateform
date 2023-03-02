@@ -14,7 +14,7 @@ public interface IDiscussionService {
 
     Discussion updateDiscussion(Discussion discussion);
 
-    Discussion addComment(Comment comment, Long idDiscussion);
+    void addComment(Comment comment, Long idDiscussion);
 
     List<Discussion> getAll();
 

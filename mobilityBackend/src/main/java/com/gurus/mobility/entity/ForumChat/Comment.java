@@ -1,5 +1,6 @@
 package com.gurus.mobility.entity.ForumChat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gurus.mobility.entity.user.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -7,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -31,15 +33,17 @@ public class Comment implements Serializable {
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.REMOVE)
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "creation_date_cmt")
     @CreatedDate
-    private LocalDate creationDateCmt;
+    private LocalDateTime creationDateCmt;
 
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "discussion_id_dsc")
     private Discussion discussion;
 

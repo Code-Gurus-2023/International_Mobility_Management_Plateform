@@ -25,5 +25,7 @@ public interface IUserService {
     String resetPassword(String token, String password);
 
     String Verified(Long idUser);
+
+    User getUserByUsername(String username);
 }
 

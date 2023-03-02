@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface IDiscussionRepository extends JpaRepository<Discussion, Long> {
 
-    @Query("select d from Discussion d  order by count(d.comments)")
+    @Query("select d from Discussion d  order by d.nbrMessageDsc")
     List<Discussion> getMostRepliedDiscussions(Pageable pageable);
+
 }

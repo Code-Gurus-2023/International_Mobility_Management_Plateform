@@ -50,4 +50,8 @@ public class Discussion implements Serializable {
     @JsonIgnore
     private User user;
 
+    public void incrementMessages() {
+        this.nbrMessageDsc += 1;
+    }
+
 }
