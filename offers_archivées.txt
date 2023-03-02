@@ -1,1 +1,2 @@
-2,offre mobilité etudiant Paris,test3,12,12,tout est régler,CANADA,SIX_MOIS,2022-03-14,ENSEIGNANT,LOGEMENT
+3,offre mobilité etudiant Strasbourg,test3,12,12,tout est régler,FRANCE,SIX_MOIS,2022-03-14,ENSEIGNANT,LOGEMENT
+7,offre mobilité etudiant Strasbourg,test3,20,20,tout est régler,CANADA,SIX_MOIS,2023-02-14,ENSEIGNANT,REPAS

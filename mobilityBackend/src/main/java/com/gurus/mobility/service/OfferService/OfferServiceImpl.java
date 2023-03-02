@@ -6,6 +6,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import com.gurus.mobility.entity.Offer.Destination;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.repository.OfferRepository.IOfferRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -170,6 +172,18 @@ public class OfferServiceImpl implements IOfferService {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         return offerRepository.findAll(pageable);
     }
+
+    @Override
+    public List<Offer> getOffresDateSuperieur(LocalDate date) {
+        return offerRepository.getOffresDateSuperieur(date);
+    }
+
+    @Override
+    public Map<Destination, Long> getNombreOffresParDestination() {
+        List<Offer> offres = offerRepository.findAll();
+        return offres.stream().collect(Collectors.groupingBy(Offer::getDestination, Collectors.counting()));
+    }
+
 
 
 

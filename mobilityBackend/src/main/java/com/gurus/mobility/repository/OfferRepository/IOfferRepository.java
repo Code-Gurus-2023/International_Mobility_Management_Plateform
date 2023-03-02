@@ -17,5 +17,8 @@ public interface IOfferRepository extends JpaRepository<Offer,Integer> {
     @Query("SELECT c FROM Offer c WHERE c.title = :title")
     List<Offer> findByTitle(@Param("title") String title);
 
+    @Query(value = "SELECT o FROM Offer o WHERE o.dateOffre > :date")
+    List<Offer> getOffresDateSuperieur(LocalDate date );
+
 
 }
