@@ -1,6 +1,8 @@
 package com.gurus.mobility.service.CandidacyServices;
 
 
+import com.gurus.mobility.entity.Candidacy.Candidacy;
+import com.gurus.mobility.entity.Candidacy.DomainCandidacy;
 import com.gurus.mobility.entity.Candidacy.Result;
 import com.gurus.mobility.repository.Candidacy.IResultRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +19,17 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 @Slf4j
 @Service
+
 public class ResultServiceImpl implements IResultService {
 
     @Autowired
     private IResultRepository resultRepository;
+
 
     @Autowired
     public ResultServiceImpl(IResultRepository resultRepository) {
@@ -30,9 +37,9 @@ public class ResultServiceImpl implements IResultService {
     }
 
 
-
     @Override
-    public List<Result> getAllResult() {return resultRepository.findAll();
+    public List<Result> getAllResult() {
+        return resultRepository.findAll();
     }
 
     @Override
@@ -59,6 +66,9 @@ public class ResultServiceImpl implements IResultService {
         result.setMath(resultDetails.getMath());
         result.setDate(resultDetails.getDate());
         result.setGeneralAverage(resultDetails.getGeneralAverage());
+        result.setStudentSpeciality(resultDetails.getStudentSpeciality());
+        result.setScore(resultDetails.getScore());
+
         return resultRepository.save(result);
     }
 
@@ -90,6 +100,7 @@ public class ResultServiceImpl implements IResultService {
             headerRow.createCell(7).setCellValue("french");
             headerRow.createCell(8).setCellValue("math");
             headerRow.createCell(9).setCellValue("generalAverage");
+            headerRow.createCell(10).setCellValue("score");
 
 
             int rowNum = 1;
@@ -105,12 +116,12 @@ public class ResultServiceImpl implements IResultService {
                 row.createCell(7).setCellValue(result.getFrench());
                 row.createCell(8).setCellValue(result.getMath());
                 row.createCell(9).setCellValue(result.getGeneralAverage());
-            }
+                row.createCell(10).setCellValue(result.getScore());
 
+            }
 
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setHeader("Content-Disposition", "attachment; filename=\"results.csv\"");
-
 
             ServletOutputStream outputStream = response.getOutputStream();
             workbook.write(outputStream);
@@ -121,11 +132,31 @@ public class ResultServiceImpl implements IResultService {
             e.printStackTrace();
         }
     }
+
     @Override
     public List<Result> findTop10ByOrderByNoteDesc() {
         Sort sort = Sort.by("generalAverage").descending();
         Pageable pageable = PageRequest.of(0, 10, sort);
         return resultRepository.findAll(pageable).getContent();
     }
-    
+
+    @Override
+    public Result save(Result result) {
+        result.setScore(result.calculateScore());
+        return resultRepository.save(result);
+    }
+
+    @Override
+    public List<Result> findAll() {
+        return resultRepository.findAll();
+    }
+
+    @Override
+    public Result findById(Integer id) {
+        return resultRepository.findById(id).orElse(null);
+    }
+
+
+
 }
+

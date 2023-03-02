@@ -1,6 +1,7 @@
 package com.gurus.mobility.service.CandidacyServices;
 
 import com.gurus.mobility.entity.Candidacy.Candidacy;
+import com.gurus.mobility.entity.Candidacy.DomainCandidacy;
 import com.gurus.mobility.repository.Candidacy.ICandidacyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
+
 import javax.persistence.EntityNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class CandidacyServiceImpl implements ICandidacyService {
@@ -99,10 +104,16 @@ public class CandidacyServiceImpl implements ICandidacyService {
             e.printStackTrace();
         }
     }
-
     @Override
     public Page<Candidacy> getAllCandidatures(int pageNumber, int pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         return candidacyRepository.findAll(pageable);
+    }
+
+    @Override
+    public Map<DomainCandidacy, Long> getNombreCandidaturesParDomaine() {
+        List<Candidacy> candidatures = candidacyRepository.findAll();
+        return candidatures.stream()
+                .collect(Collectors.groupingBy(Candidacy::getDomainCandidacy, Collectors.counting()));
     }
 }

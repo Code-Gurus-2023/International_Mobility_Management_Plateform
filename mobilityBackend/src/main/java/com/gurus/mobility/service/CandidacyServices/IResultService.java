@@ -16,6 +16,8 @@ public interface IResultService {
 
     List<Result> findTop10ByOrderByNoteDesc();
 
-
+    Result findById(Integer id);
+    List<Result> findAll();
+    Result save(Result result);
 
 }

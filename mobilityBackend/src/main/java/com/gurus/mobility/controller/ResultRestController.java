@@ -18,9 +18,10 @@ import java.util.List;
 @RequestMapping("/api/result")
 public class ResultRestController {
 
-@Autowired
+    @Autowired
     private IResultService resultService;
-
+    @Autowired
+    private ResultServiceImpl resultServiceImpl;
     @Autowired
     public ResultRestController(IResultService resultService) {
         this.resultService = resultService;
@@ -31,16 +32,35 @@ public class ResultRestController {
         return resultService.getAllResult();
     }
 
-    @GetMapping("/{id}")
+
+    /*@GetMapping("/{id}")
     public Result getResultById(@PathVariable Integer id) {
         return resultService.getResultById(id);
+    }*/
+
+
+    /*@PostMapping("/create")
+    public ResponseEntity<Result> createResult(@Valid @RequestBody Result result) {
+        Result createdResult = resultServiceImpl.createResult(result);
+       return new ResponseEntity<>(createdResult, HttpStatus.CREATED);
+
+    } */
+
+    @PostMapping
+    public ResponseEntity<Result> createResult(@RequestBody Result result) {
+        Result savedResult = resultServiceImpl.save(result);
+        return new ResponseEntity<>(savedResult, HttpStatus.CREATED);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Result> createResult(@Valid @RequestBody Result result) {
-        Result createdResult = resultService.createResult(result);
-        return new ResponseEntity<>(createdResult, HttpStatus.CREATED);
+    @GetMapping("/{id}")
+    public ResponseEntity<Result> getResultById(@PathVariable Integer id) {
+        Result result = resultServiceImpl.findById(id);
+        if (result == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
 
     @PutMapping("/{id}")
     public Result updateResult(@PathVariable Integer id, @Valid @RequestBody Result resultDetails) {
@@ -61,6 +81,11 @@ public class ResultRestController {
     @GetMapping("/top-10")
     public List<Result> getTop10Resultats() {
         return resultService.findTop10ByOrderByNoteDesc();
+    }
+
+    @GetMapping
+    public List<Result> getAllResults() {
+        return resultServiceImpl.findAll();
     }
 
 }

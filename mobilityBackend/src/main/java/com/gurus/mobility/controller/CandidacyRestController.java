@@ -1,7 +1,7 @@
 package com.gurus.mobility.controller;
 
-
 import com.gurus.mobility.entity.Candidacy.Candidacy;
+import com.gurus.mobility.entity.Candidacy.DomainCandidacy;
 import com.gurus.mobility.service.CandidacyServices.ICandidacyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/candidacy")
@@ -70,5 +71,10 @@ public class CandidacyRestController {
             @RequestParam(defaultValue = "id") String sortBy) {
         Page<Candidacy> result = candidacyService.getAllCandidatures(pageNumber, pageSize, sortBy);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/statistiques")
+    public Map<DomainCandidacy, Long> getNombreCandidaturesParDomaine() {
+        return candidacyService.getNombreCandidaturesParDomaine();
     }
 }
