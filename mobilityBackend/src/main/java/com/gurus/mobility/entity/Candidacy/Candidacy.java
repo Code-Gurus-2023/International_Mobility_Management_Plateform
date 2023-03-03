@@ -57,7 +57,7 @@ public class Candidacy implements Serializable {
 
     private boolean archive;
 
-<<<<<<< HEAD
+
     public Candidacy(Integer id, String nom_de_candidature, boolean b) {
 
     }
@@ -84,22 +84,12 @@ public class Candidacy implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-=======
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name = "offer_id_offre")
-    private Offer offer;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
->>>>>>> main
+
+
+
+
     public Offer getOffer() {
         return offer;
     }
@@ -115,11 +105,10 @@ public class Candidacy implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-<<<<<<< HEAD
+
 
     public void changerStatut(StatusCandidacy nouveauStatut) {
         this.statusCandidacy = nouveauStatut;
     }
-=======
->>>>>>> main
+
 }

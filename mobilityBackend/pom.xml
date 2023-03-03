@@ -132,14 +132,13 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-<<<<<<< HEAD
+
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.2.0</version>
 		</dependency>
-=======
->>>>>>> main
+
 	</dependencies>
 
 	<build>
