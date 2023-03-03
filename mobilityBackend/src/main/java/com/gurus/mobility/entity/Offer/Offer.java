@@ -5,6 +5,7 @@ import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.user.User;
 
 
+
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;

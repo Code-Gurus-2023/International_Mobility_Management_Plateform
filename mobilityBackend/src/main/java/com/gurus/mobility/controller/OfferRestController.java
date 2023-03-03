@@ -4,11 +4,11 @@ import com.gurus.mobility.entity.Offer.Destination;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.repository.OfferRepository.IOfferRepository;
 import com.gurus.mobility.service.OfferService.IOfferService;
+import com.gurus.mobility.service.OfferService.OfferServiceImpl;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -38,6 +38,7 @@ public class OfferRestController {
     private IOfferService offerService;
     @Autowired
     private IOfferRepository offerRepository;
+
 
     @GetMapping("/getOffers")
     public List<Offer> getAllOffers() {
@@ -151,14 +152,7 @@ public class OfferRestController {
         Document document = new Document();
         PdfWriter.getInstance(document, baos);
         document.open();
-        // Ajouter un logo
-    /*    byte[] logoBytes = Files.readAllBytes(Paths.get("C:/Code Gurus 2023/International_Mobility_Management_Plateform/logo.png"));
-        Image logo = Image.getInstance(logoBytes);
-        logo.scaleToFit(100, 100);
-        PdfContentByte canvas = writer.getDirectContentUnder();
-        logo.setAbsolutePosition(40, document.getPageSize().getHeight() - 120);
-        canvas.addImage(logo);
-        document.open();*/
+
 
         Image logo = Image.getInstance("C:/Code Gurus 2023/International_Mobility_Management_Plateform/logo.png");
         logo.setAlignment(Element.ALIGN_CENTER);
