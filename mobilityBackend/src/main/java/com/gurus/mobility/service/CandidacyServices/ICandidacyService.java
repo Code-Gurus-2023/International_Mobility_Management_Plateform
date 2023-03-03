@@ -3,7 +3,10 @@ package com.gurus.mobility.service.CandidacyServices;
 
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.Candidacy.DomainCandidacy;
+import com.gurus.mobility.entity.Candidacy.StatusCandidacy;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.util.List;
@@ -26,6 +29,9 @@ public interface ICandidacyService {
 
         Map<DomainCandidacy, Long> getNombreCandidaturesParDomaine();
 
+        /*List<Candidacy> getCandidaturesByStatut(StatusCandidacy statutsCandidacy);
+        List<Candidacy> getCandidaturesByStatutNot(StatusCandidacy statutsCandidacy);*/
 
-    }
+
+}
 

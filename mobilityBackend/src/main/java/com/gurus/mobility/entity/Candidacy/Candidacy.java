@@ -99,5 +99,7 @@ public class Candidacy implements Serializable {
         this.user = user;
     }
 
-   
+    public void changerStatut(StatusCandidacy nouveauStatut) {
+        this.statusCandidacy = nouveauStatut;
+    }
 }
