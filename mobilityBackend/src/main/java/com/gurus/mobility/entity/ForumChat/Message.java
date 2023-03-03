@@ -34,4 +34,15 @@ public class Message implements Serializable {
     @Column(name = "status_msg")
     private MessageStatus statusMsg;
 
+    @ManyToOne
+    @JoinColumn(name = "chat_room_id_ctr")
+    private ChatRoom chatRoom;
+
+    public ChatRoom getChatRoom() {
+        return chatRoom;
+    }
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+    }
 }
