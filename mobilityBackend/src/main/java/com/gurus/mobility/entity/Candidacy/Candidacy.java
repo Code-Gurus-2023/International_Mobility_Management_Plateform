@@ -53,21 +53,13 @@ public class Candidacy implements Serializable {
     @Enumerated(EnumType.STRING)
     private Disponibilite disponibilite;
 
-    private boolean selectionne;
 
-    private boolean archive;
 
     public Candidacy(Integer id, String nom_de_candidature, boolean b) {
 
     }
 
-    public boolean getSelectionne() {
-        return  this.selectionne;
-    }
 
-    public boolean getArchive() {
-        return this.archive;
-    }
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

@@ -38,12 +38,10 @@ public class ResultRestController {
         return resultService.getResultById(id);
     }*/
 
-
     /*@PostMapping("/create")
     public ResponseEntity<Result> createResult(@Valid @RequestBody Result result) {
         Result createdResult = resultServiceImpl.createResult(result);
        return new ResponseEntity<>(createdResult, HttpStatus.CREATED);
-
     } */
 
     @PostMapping

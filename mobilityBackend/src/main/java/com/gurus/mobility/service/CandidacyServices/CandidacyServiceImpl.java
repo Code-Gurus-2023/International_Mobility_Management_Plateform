@@ -59,8 +59,6 @@ public class CandidacyServiceImpl implements ICandidacyService {
         candidacy.setDomainCandidacy(candidacyDetails.getDomainCandidacy());
         candidacy.setStatusCandidacy(candidacyDetails.getStatusCandidacy());
         candidacy.setDisponibilite(candidacyDetails.getDisponibilite());
-        candidacy.setSelectionne(candidacyDetails.getSelectionne());
-        candidacy.setArchive(candidacyDetails.getArchive());
         candidacy.setCoverLetter(candidacyDetails.getCoverLetter());
 
         return candidacyRepository.save(candidacy);

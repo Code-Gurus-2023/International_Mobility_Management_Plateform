@@ -100,6 +100,16 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.fworks</groupId>
+			<artifactId>simplerestdoc</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>nl.tritales.springrestdoc</groupId>
+			<artifactId>springrestdoc</artifactId>
+			<version>0.1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
