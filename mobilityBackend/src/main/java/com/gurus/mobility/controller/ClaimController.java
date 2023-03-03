@@ -1,8 +1,7 @@
 package com.gurus.mobility.controller;
 
-import com.gurus.mobility.entity.alert.Alert;
 import com.gurus.mobility.entity.claim.Claim;
-import com.gurus.mobility.service.IClaimService;
+import com.gurus.mobility.service.ClaimServices.IClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

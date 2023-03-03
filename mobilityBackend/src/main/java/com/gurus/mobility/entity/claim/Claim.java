@@ -1,6 +1,7 @@
 package com.gurus.mobility.entity.claim;
 
 import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -25,7 +26,6 @@ public class Claim implements Serializable {
     public String subjectClm;
     @NotNull
     public String descriptionClm;
-
     public String pathImageClm;
     @Enumerated(EnumType.STRING)
     public Type typeClm;

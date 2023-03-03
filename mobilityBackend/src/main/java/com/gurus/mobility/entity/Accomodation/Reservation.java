@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 @Entity
@@ -27,5 +29,14 @@ public class Reservation implements Serializable {
         private Payement payement;
 
 
+    @ManyToMany(mappedBy = "reservations")
+    private Set<Accomodation> accomodations = new LinkedHashSet<>();
 
+    public Set<Accomodation> getAccomodations() {
+        return accomodations;
+    }
+
+    public void setAccomodations(Set<Accomodation> accomodations) {
+        this.accomodations = accomodations;
+    }
 }
