@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -33,11 +34,9 @@ public class Claim implements Serializable {
     public State stateClm;
     public boolean archiveClm;
     @Column(name = "created_date")
-    @CreatedDate
-    public LocalDate creationDateClm;
+    public LocalDateTime creationDateClm;
     @Column(name = "last_modified_date")
-    @LastModifiedDate
-    public LocalDate modificationDateClm;
+    public LocalDateTime modificationDateClm;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

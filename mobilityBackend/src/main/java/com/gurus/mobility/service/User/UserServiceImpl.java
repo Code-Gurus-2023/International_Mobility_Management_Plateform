@@ -180,8 +180,13 @@ public class UserServiceImpl implements IUserService {
         return "User successfuly Desactivated!";
 
     }
-    @Override
+
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Optional<User> getUserByUsername(String username) {
+        return null;
     }
 }

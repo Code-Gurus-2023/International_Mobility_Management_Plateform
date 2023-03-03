@@ -9,7 +9,10 @@ import com.gurus.mobility.repository.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +31,7 @@ public class ClaimServiceImpl implements IClaimService {
         User user = userRepository.findById(userId).orElseThrow(() -> new UpdateClaimException("object not found with id =" + userId));
         claim.setArchiveClm(false);
         claim.setStateClm(NOT_TRAITED);
+        claim.setCreationDateClm(LocalDateTime.now());
         user.getClaims().add(claim);
         claimRepository.save(claim);
         userRepository.save(user);
@@ -36,8 +40,10 @@ public class ClaimServiceImpl implements IClaimService {
     @Override
     public void updateClaim(Claim claim, Long id) {
         Claim cl = claimRepository.findById(id).orElseThrow(() -> new UpdateClaimException("object not found with id =" + id));
-        if (cl.getStateClm() == NOT_TRAITED)
+        if (cl.getStateClm() == NOT_TRAITED) {
+            cl.setModificationDateClm(LocalDateTime.now());
             claimRepository.save(cl);
+        }
     }
 
     @Override
@@ -49,7 +55,7 @@ public class ClaimServiceImpl implements IClaimService {
 
     @Override
     public List<Claim> getUserClaims(Long idUser) {
-        List<Claim> Lclaims = null;
+        List<Claim> Lclaims = new ArrayList<>();
         for (Claim clms : userRepository.findById(idUser).get().getClaims()) {
             if (clms.isArchiveClm() == false)
                 Lclaims.add(clms);
@@ -71,7 +77,7 @@ public class ClaimServiceImpl implements IClaimService {
     public List<Claim> getBefore() {
         List<Claim> Lclaims = null;
         for (Claim clms : claimRepository.findAll()) {
-            if (clms.getCreationDateClm().isBefore(LocalDate.now()))
+            if (clms.getCreationDateClm().isBefore(LocalDateTime.now()))
                 Lclaims.add(clms);
         }
         return Lclaims;
@@ -81,7 +87,7 @@ public class ClaimServiceImpl implements IClaimService {
     public List<Claim> getAfter() {
         List<Claim> Lclaims = null;
         for (Claim clms : claimRepository.findAll()) {
-            if (clms.getCreationDateClm().isAfter(LocalDate.now()))
+            if (clms.getCreationDateClm().isAfter(LocalDateTime.now()))
                 Lclaims.add(clms);
         }
         return Lclaims;
@@ -91,7 +97,7 @@ public class ClaimServiceImpl implements IClaimService {
     public List<Claim> getAtDate() {
         List<Claim> Lclaims = null;
         for (Claim clms : claimRepository.findAll()) {
-            if (clms.getCreationDateClm().isEqual(LocalDate.now()))
+            if (clms.getCreationDateClm().isEqual(LocalDateTime.now()))
                 Lclaims.add(clms);
         }
         return Lclaims;
@@ -112,7 +118,7 @@ public class ClaimServiceImpl implements IClaimService {
     public List<User> sortUsersByClaimsNumber() {
 
         List<User> users = userRepository.findAll();
-        List<User> sortedUsers = null;
+        List<User> sortedUsers=new ArrayList();
 
         while (users.stream().count() > 0) {
             User user = null;
@@ -132,6 +138,10 @@ public class ClaimServiceImpl implements IClaimService {
     @Override
     public List<Claim> getActiveClaims(){
         return claimRepository.findClaimByArchiveClm(true);
+    }
+
+    public boolean getUseridByClaimid(User user, long id){
+        return user.getClaims().contains(claimRepository.findById(id).get());
     }
 
 

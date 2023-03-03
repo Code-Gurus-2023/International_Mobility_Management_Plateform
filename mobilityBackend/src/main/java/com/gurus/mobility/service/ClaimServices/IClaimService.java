@@ -24,6 +24,7 @@ public interface IClaimService {
     public List<User> sortUsersByClaimsNumber();
     public List<Claim> getActiveClaims();
     public List<Claim> getUserClaims(Long idUser);
+    public boolean getUseridByClaimid(User user, long id);
 
 
 }

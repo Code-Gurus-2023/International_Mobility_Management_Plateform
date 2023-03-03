@@ -28,6 +28,7 @@ public class ResponseServiceImpl implements IResponseService{
     public void addResponse(Response rsp, Long clmId){
         Claim clm= claimRepository.findById(clmId).orElseThrow(()->new UpdateClaimException("object not found with id ="+clmId));
         clm.setStateClm(State.RESOLVED);
+        clm.setResponse(rsp);
         rsp.setClaim(clm);
         responseRepository.save(rsp);
     }
