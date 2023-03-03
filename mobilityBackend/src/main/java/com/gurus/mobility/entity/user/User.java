@@ -1,5 +1,6 @@
 package com.gurus.mobility.entity.user;
 
+
 import com.gurus.mobility.entity.Accomodation.Accomodation;
 import com.gurus.mobility.entity.Accomodation.Reservation;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
@@ -15,10 +16,34 @@ import com.gurus.mobility.entity.claim.Claim;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.HashSet;
+
+import com.gurus.mobility.entity.Accomodation.Accomodation;
+import com.gurus.mobility.entity.Accomodation.Reservation;
+import com.gurus.mobility.entity.Candidacy.Candidacy;
+import com.gurus.mobility.entity.Candidacy.Result;
+import com.gurus.mobility.entity.ForumChat.ChatRoom;
+import com.gurus.mobility.entity.ForumChat.Comment;
+import com.gurus.mobility.entity.ForumChat.Discussion;
+import com.gurus.mobility.entity.ForumChat.Notification;
+import com.gurus.mobility.entity.Offer.Commentaire;
+import com.gurus.mobility.entity.Offer.Offer;
+import com.gurus.mobility.entity.alert.Alert;
+import com.gurus.mobility.entity.claim.Claim;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -28,27 +53,35 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "identifiant"),
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+})
+
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Integer id;
+    public Long id;
     @Column(nullable = false, length = 10)
     public String identifiant;
     @Column(nullable = false)
-    @Size(max = 20)
+
     public String userName;
     @Column(nullable = false)
     @Size(max = 120)
     public String password;
     @Column(nullable = false)
-    @Size(max = 50)
     @Email
     public String email;
-    @Column(nullable = true, length = 64)
-    public String profilePic;
-    public boolean isActive;
+    private String profileImage;
+    private Boolean verified;
+    private String token;
+    private String verificationCode;
 
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime tokenCreationDate;
     public String phoneNumber;
 
     public String kind;
@@ -63,12 +96,22 @@ public class User {
     public String professorDiploma;
 
     public int experienceYears;
-
+    @ManyToOne
+    private FileDB image;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+
+    public User(String identifiant, String userName, String email, String password) {
+        this.identifiant = identifiant;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
+
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

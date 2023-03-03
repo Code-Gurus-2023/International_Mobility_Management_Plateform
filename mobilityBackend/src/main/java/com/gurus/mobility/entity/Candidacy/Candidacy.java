@@ -53,13 +53,9 @@ public class Candidacy implements Serializable {
     @Enumerated(EnumType.STRING)
     private Disponibilite disponibilite;
 
-
-
     public Candidacy(Integer id, String nom_de_candidature, boolean b) {
 
     }
-
-
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -74,6 +70,8 @@ public class Candidacy implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+
 
     public Offer getOffer() {
         return offer;
@@ -91,5 +89,9 @@ public class Candidacy implements Serializable {
         this.user = user;
     }
 
-   
+
+    public void changerStatut(StatusCandidacy nouveauStatut) {
+        this.statusCandidacy = nouveauStatut;
+    }
+
 }

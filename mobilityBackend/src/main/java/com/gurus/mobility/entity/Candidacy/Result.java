@@ -1,6 +1,7 @@
 package com.gurus.mobility.entity.Candidacy;
 
 import com.gurus.mobility.entity.user.StudentSpeciality;
+
 import com.gurus.mobility.entity.user.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -36,11 +37,13 @@ public class Result  implements Serializable {
 
     private float generalAverage;
 
+
     private float score;
 
 
     @Enumerated(EnumType.STRING)
     public StudentSpeciality studentSpeciality;
+
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -56,6 +59,7 @@ public class Result  implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
 
     public float calculateScore() {
         float score;
@@ -78,5 +82,6 @@ public class Result  implements Serializable {
         }
         return score;
     }
+
 
 }

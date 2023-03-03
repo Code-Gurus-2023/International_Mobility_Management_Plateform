@@ -2,6 +2,7 @@ package com.gurus.mobility.service.CandidacyServices;
 
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.Candidacy.DomainCandidacy;
+import com.gurus.mobility.entity.Candidacy.StatusCandidacy;
 import com.gurus.mobility.repository.Candidacy.ICandidacyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class CandidacyServiceImpl implements ICandidacyService {
 
     @Autowired
     private ICandidacyRepository candidacyRepository;
+
+
 
     @Override
     public List<Candidacy> getAllCandidacy() {
@@ -96,12 +99,13 @@ public class CandidacyServiceImpl implements ICandidacyService {
             FileWriter fileWriter = new FileWriter("C:/Spring Boot/Candidatures_archivées.txt", true);
             fileWriter.write(candidature.getIdCandidacy() + "," + candidature.getFirstName() + "," +
                     candidature.getLastName() + "," + candidature.getEmail() + "," +
-                    candidature.getTelephoneNumber() + candidature.getPostalCode() + "," + candidature.getDateCandidacy() + "," + candidature.getAddress()  + "\n");
+                    candidature.getTelephoneNumber() + candidature.getPostalCode() + "," + candidature.getDateCandidacy() + "," + candidature.getAddress() + "\n");
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public Page<Candidacy> getAllCandidatures(int pageNumber, int pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
@@ -114,4 +118,8 @@ public class CandidacyServiceImpl implements ICandidacyService {
         return candidatures.stream()
                 .collect(Collectors.groupingBy(Candidacy::getDomainCandidacy, Collectors.counting()));
     }
+
+
+
 }
+
