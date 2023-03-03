@@ -4,6 +4,7 @@ package com.gurus.mobility.entity.Offer;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.user.User;
 
+
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -46,7 +47,6 @@ public class Offer implements Serializable {
     private Advantages advantages;
 
 
-
     @OneToMany(mappedBy = "offer", orphanRemoval = true)
     private Set<Candidacy> candidacies = new LinkedHashSet<>();
 
@@ -62,7 +62,6 @@ public class Offer implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
 
 
     public Set<Commentaire> getCommentaires() {
@@ -88,6 +87,5 @@ public class Offer implements Serializable {
     public void setCandidacies(Set<Candidacy> candidacies) {
         this.candidacies = candidacies;
     }
-
 
 }

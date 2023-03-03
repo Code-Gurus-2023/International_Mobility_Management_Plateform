@@ -26,7 +26,6 @@ public class Commentaire implements Serializable {
     private LocalDate creationDate;
 
 
-
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "offer_id_offre")
     private Offer offer;
