@@ -31,4 +31,12 @@ public interface    UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByUserName(String username);
 
     User findByToken(String token);
+    /***
+     * Developed by sidaoui mohamed amine
+     * */
+    /*@Query("select count(a) from Accomodation a ")
+    public int nbReservation();
+    @Query("select u from User u where u.roles='ROLE_PROPRIETAIRE_LOGEMENT' ")
+    public List<User> getAllOwners();
+*/
 }

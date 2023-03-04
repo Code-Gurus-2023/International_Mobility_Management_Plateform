@@ -1,22 +1,24 @@
 package com.gurus.mobility.controller.AccomodationController;
 
 
+import com.gurus.mobility.entity.Accomodation.APIResponse;
 import com.gurus.mobility.entity.Accomodation.Accomodation;
 import com.gurus.mobility.service.AccomodationServices.IAccomodationService;
+import com.twilio.base.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-@RestController("/accomodation")
+@RequestMapping("/accomodation")
+@RestController
 public class AccomodationRestController {
 
         @Autowired
         private IAccomodationService accomodationService;
 
         @PostMapping("/addAccomodation/{idOwner}")
-        public Accomodation saveAccomodation(@RequestBody Accomodation accomodation, @PathVariable("idOwner") Integer idOwner) {
+        public Accomodation saveAccomodation(@RequestBody Accomodation accomodation, @PathVariable("idOwner")Long idOwner) {
                 return accomodationService.saveAccomodation(accomodation, idOwner);
         }
 
@@ -37,13 +39,13 @@ public class AccomodationRestController {
 
         /***The purpose of this methode is to indicate that an accomodation is not available that means it will be archived***/
         @PutMapping("/archiveAnAccomodation/{idAcc}")
-        public ResponseEntity<Accomodation> archiverAnAccomodation(@PathVariable Long idAcc) {
+        public ResponseEntity<Accomodation> archiverAnAccomodation(@PathVariable("idAcc") Long idAcc) {
                 return accomodationService.archiverAnAccommodation(idAcc);
         }
 
         /***The purpose of this methode is to indicate that an accomodation is  available that means it will be darchived***/
-        @PutMapping("/archiveAnAccomodation/{idAcc}")
-        public ResponseEntity<Accomodation> darchiverAnAccommodation(@PathVariable Long idAcc) {
+        @PutMapping("/darchiveAnAccomodation/{idAcc}")
+        public ResponseEntity<Accomodation> darchiverAnAccommodation(@PathVariable("idAcc") Long idAcc) {
                 return accomodationService.darchiverAnAccommodation(idAcc);
         }
 
@@ -52,7 +54,22 @@ public class AccomodationRestController {
         public List<Accomodation> getAllArchiveAccomodation() {
                 return accomodationService.getAllArchiveAccomodation();
         }
-
+        /***
+         *The purpose of this method is to display accomodations list by page
+         ***/
+        @GetMapping("/pagination/{offset}/{pageSize}")
+        public APIResponse<Page<Accomodation>> getProduitWithPagination(@PathVariable int offset, @PathVariable int pageSize){
+                Page<Accomodation> accomodationWithPagination = accomodationService.findAccomodationByPagination(offset, pageSize);
+                return new APIResponse<>(accomodationWithPagination.getPageSize(), accomodationWithPagination);
+        }
+        /***
+         * The purpose of this method is to sort accomodations by a specific field
+         ***/
+        @GetMapping("/{champ}")
+        public APIResponse<List<Accomodation>> findAccomodationWithSort(@PathVariable String champ){
+                List<Accomodation> allAccomodations=accomodationService.findAccomodationWithSort(champ);
+                return new APIResponse<>(allAccomodations.size(), allAccomodations);
+        }
 
 
 

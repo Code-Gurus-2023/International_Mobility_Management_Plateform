@@ -1,34 +1,14 @@
 package com.gurus.mobility.entity.user;
 
-<<<<<<< HEAD
-import com.gurus.mobility.entity.Accomodation.Accomodation;
-import com.gurus.mobility.entity.Accomodation.Reservation;
-import com.gurus.mobility.entity.Candidacy.Candidacy;
-import com.gurus.mobility.entity.Candidacy.Result;
-import com.gurus.mobility.entity.ForumChat.ChatRoom;
-import com.gurus.mobility.entity.ForumChat.Comment;
-import com.gurus.mobility.entity.ForumChat.Discussion;
-import com.gurus.mobility.entity.ForumChat.Notification;
-import com.gurus.mobility.entity.Offer.Commentaire;
-import com.gurus.mobility.entity.Offer.Offer;
-import com.gurus.mobility.entity.alert.Alert;
-import com.gurus.mobility.entity.claim.Claim;
-import lombok.*;
-import org.hibernate.Hibernate;
-
-=======
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
->>>>>>> main
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-<<<<<<< HEAD
-=======
 import com.gurus.mobility.entity.Accomodation.Accomodation;
 import com.gurus.mobility.entity.Accomodation.Reservation;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
@@ -44,7 +24,6 @@ import com.gurus.mobility.entity.claim.Claim;
 import lombok.*;
 import org.hibernate.Hibernate;
 
->>>>>>> main
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -105,8 +84,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-<<<<<<< HEAD
-=======
     public User(String identifiant, String userName, String email, String password) {
         this.identifiant = identifiant;
         this.userName = userName;
@@ -114,7 +91,6 @@ public class User {
         this.password = password;
     }
 
->>>>>>> main
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

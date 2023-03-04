@@ -4,15 +4,16 @@ package com.gurus.mobility.service.AccomodationServices;
 import com.gurus.mobility.entity.Accomodation.Accomodation;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.repository.AccomodationRepository.AccomodationRepository;
-import com.gurus.mobility.repository.UserRepository;
-import org.aspectj.weaver.ast.Not;
+import com.gurus.mobility.repository.User.UserRepository;
+import com.twilio.base.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AccomodationServiceImpl implements IAccomodationService{
@@ -22,7 +23,7 @@ public class AccomodationServiceImpl implements IAccomodationService{
     private AccomodationRepository accomodationRepository;
 
     @Override
-    public Accomodation saveAccomodation(Accomodation accomodation,Integer idOwner) {
+    public Accomodation saveAccomodation(Accomodation accomodation,Long idOwner) {
         User user=this.userRepository.findById(idOwner).orElseThrow(null);
         accomodation.setUser(user);
         return accomodationRepository.save(accomodation);
@@ -91,5 +92,19 @@ public class AccomodationServiceImpl implements IAccomodationService{
     public int nbLike() {
         return 0;
     }
+    /**
+     * This method will display a list of accomodations by pages
+     **/
+    public Page<Accomodation> findAccomodationByPagination(int offset, int pageSize){
+        Page<Accomodation> accomodations = (Page<Accomodation>) accomodationRepository.findAll(PageRequest.of(offset, pageSize));
+        return accomodations;
+    }
+    /**
+     *Sort of accomodation by a specific field
+     **/
+    public List<Accomodation> findAccomodationWithSort(String champ){
+        return accomodationRepository.findAll(Sort.by(Sort.Direction.ASC,champ));
+    }
+
 
 }
