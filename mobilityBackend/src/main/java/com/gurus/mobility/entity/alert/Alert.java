@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -34,9 +35,7 @@ public class Alert implements Serializable {
     public String regionAlert;
     public String universiteAlrt;
     @Column(name = "created_date")
-    @CreatedDate
-    public LocalDate alertCreationDate;
+    public LocalDateTime alertCreationDate;
     @Column(name = "last_modified_date")
-    @LastModifiedDate
-    public LocalDate alertModificationDate;
+    public LocalDateTime alertModificationDate;
 }

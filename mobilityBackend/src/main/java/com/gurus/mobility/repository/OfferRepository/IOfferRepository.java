@@ -6,10 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IOfferRepository extends JpaRepository<Offer, Long> {
     LocalDate now = LocalDate.now();
     @Query(value = "SELECT f from Offer f where f.offerCreationDate>= current_time-5")
     public List<Offer> getLastFiveMinutesOffers();
+
+    public List<Offer> findByOfferCreationDateAfter(LocalDateTime time);
 }

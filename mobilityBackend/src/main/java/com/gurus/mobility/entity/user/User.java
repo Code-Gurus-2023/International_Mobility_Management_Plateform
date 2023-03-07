@@ -18,10 +18,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @NoArgsConstructor
@@ -84,7 +81,7 @@ public class User {
     @Setter(AccessLevel.NONE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
-    private Set<Alert> alerts;
+    private List<Alert> alerts;
 
     public User(String identifiant, String userName, String email, String password) {
         this.identifiant = identifiant;
@@ -206,11 +203,11 @@ public class User {
         this.claims = claims;
     }
 
-    public Set<Alert> getAlerts() {
+    public List<Alert> getAlerts() {
         return alerts;
     }
 
-    public void setAlerts(Set<Alert> alerts) {
+    public void setAlerts(List<Alert> alerts) {
         this.alerts = alerts;
     }
 

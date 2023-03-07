@@ -5,6 +5,7 @@ import com.gurus.mobility.entity.claim.Claim;
 import com.gurus.mobility.entity.claim.Response;
 import com.gurus.mobility.entity.user.ERole;
 import com.gurus.mobility.entity.user.User;
+import com.gurus.mobility.repository.ClaimRepositories.ClaimRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import com.gurus.mobility.security.jwt.JwtUtils;
 import com.gurus.mobility.service.ClaimServices.IClaimService;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Iterator;
+
 import java.util.List;
 
 @RestController
@@ -47,11 +48,14 @@ public class ClaimController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ClaimRepository claimRepository;
+
     //simple user can create new claim
     @PostMapping("creat")
     public ResponseEntity createClaim(@RequestBody Claim claim){
-
         User user = authorisation();
+
         iClaimService.createClaim(claim, user.getId());
         return new ResponseEntity<>("claim sended successefully", HttpStatus.OK);
     }
@@ -74,7 +78,7 @@ public class ClaimController {
             iClaimService.updateClaim(claim, idClaim);
             return new ResponseEntity<>("claim updated successefully", HttpStatus.OK);
         }
-        return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>("you don't have access to this url",HttpStatus.FORBIDDEN);
     }
 
     // admin user can access all claims, even they was archived by simple users
@@ -110,10 +114,12 @@ public class ClaimController {
     @GetMapping("sortUsers")
     public ResponseEntity<List<User>> getUsersByClaims(){
         User user = authorisation();
-        //if(user!=null)
-            return new ResponseEntity<>(iClaimService.sortUsersByClaimsNumber(),HttpStatus.OK);
-        //return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        if(user==null)
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(iClaimService.sortUsersByClaimsNumber(),HttpStatus.OK);
+
     }
+
 
     //user admin respond to specific claim
     @PostMapping("responseclaim/{idClaim}")
@@ -125,5 +131,16 @@ public class ClaimController {
         }
         return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
     }
+
+    @PutMapping("/block/{idClaim}")
+    public ResponseEntity blockClaim(@PathVariable("idClaim")Long idClaim){
+        User user = authorisation();
+        if(user==null)
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        iClaimService.blockClaim(idClaim);
+        return new ResponseEntity<>("claim blocked successefully", HttpStatus.OK);
+    }
+
+
 
 }

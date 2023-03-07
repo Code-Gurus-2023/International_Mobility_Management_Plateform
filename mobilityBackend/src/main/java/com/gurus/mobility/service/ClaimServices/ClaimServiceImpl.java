@@ -9,6 +9,9 @@ import com.gurus.mobility.repository.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,6 +44,10 @@ public class ClaimServiceImpl implements IClaimService {
     public void updateClaim(Claim claim, Long id) {
         Claim cl = claimRepository.findById(id).orElseThrow(() -> new UpdateClaimException("object not found with id =" + id));
         if (cl.getStateClm() == NOT_TRAITED) {
+            cl.setDescriptionClm(claim.descriptionClm);
+            cl.setSubjectClm(claim.subjectClm);
+            cl.setTypeClm(claim.typeClm);
+            cl.setPathImageClm(claim.pathImageClm);
             cl.setModificationDateClm(LocalDateTime.now());
             claimRepository.save(cl);
         }

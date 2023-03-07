@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface IAlertService {
-    public void createAlert(Alert alert);
+    public void createAlert(Alert alert, Long userId);
     public List<Alert> getAlertsByUser(Long userId);
     public void sendAlerts ();
     public List<Alert> getAllAlerts();
