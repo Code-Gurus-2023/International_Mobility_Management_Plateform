@@ -5,16 +5,14 @@ import com.gurus.mobility.repository.AlertRepositories.AlertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-public interface IAlertService {
-public void createAlert(Alert alert);
+import java.util.List;
 
-    @Service
-    class AlertServiceImpl implements IAlertService {
-        @Autowired
-        private AlertRepository alertRepository;
-        @Override
-        public void createAlert(Alert alert) {
-            alertRepository.save(alert);
-        }
-    }
+public interface IAlertService {
+    public void createAlert(Alert alert, Long userId);
+    public List<Alert> getAlertsByUser(Long userId);
+    public void sendAlerts ();
+    public List<Alert> getAllAlerts();
+    public void updateAlert(Long id, Alert alert);
+    public void deleteAlert(Alert alert);
+
 }

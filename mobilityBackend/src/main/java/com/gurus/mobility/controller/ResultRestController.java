@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/result")
 public class ResultRestController {
@@ -91,3 +92,4 @@ public class ResultRestController {
     }
 
 }
+

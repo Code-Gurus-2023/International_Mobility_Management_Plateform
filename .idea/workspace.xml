@@ -29,10 +29,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-<<<<<<< HEAD
-=======
+
         <option value="Interface" />
->>>>>>> main
+
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -58,34 +58,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/International_Mobility_Management_Plateform&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-<<<<<<< HEAD
+
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/International_Mobility_Management_Plateform",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "spring.configuration.checksum": "7393daff1b0755731b3c165b370c333a",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+
+
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;7393daff1b0755731b3c165b370c333a&quot;
-=======
+
     &quot;spring.configuration.checksum&quot;: &quot;7393daff1b0755731b3c165b370c333a&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
->>>>>>> main
+
   }
 }</component>
+
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.gurus.mobility.service.User" />
@@ -103,11 +110,16 @@
     </key>
   </component>
   <component name="RunManager">
-<<<<<<< HEAD
-    <configuration name="MobilityApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-=======
+
     <configuration name="MobilityApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
->>>>>>> main
+
+      <module name="mobility" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gurus.mobility.MobilityApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MobilityApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="mobility" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.gurus.mobility.MobilityApplication" />
       <method v="2">
@@ -125,7 +137,11 @@
       <updated>1676544494452</updated>
       <workItem from="1676544496309" duration="1342000" />
       <workItem from="1676634101653" duration="59000" />
-<<<<<<< HEAD
+
+      <workItem from="1677014892896" duration="34671000" />
+      <workItem from="1677365905075" duration="80950000" />
+      <workItem from="1677627472289" duration="408000" />
+
       <workItem from="1677156317039" duration="1294000" />
       <workItem from="1677191521386" duration="10041000" />
       <workItem from="1677489612688" duration="621000" />
@@ -138,11 +154,11 @@
       <workItem from="1677754714883" duration="4509000" />
       <workItem from="1677761443197" duration="2920000" />
       <workItem from="1677847003128" duration="1703000" />
-=======
+
       <workItem from="1677014892896" duration="34671000" />
       <workItem from="1677365905075" duration="80950000" />
       <workItem from="1677627472289" duration="408000" />
->>>>>>> main
+
     </task>
     <servers />
   </component>
