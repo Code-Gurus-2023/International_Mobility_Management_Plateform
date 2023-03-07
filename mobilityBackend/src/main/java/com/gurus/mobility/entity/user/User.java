@@ -58,9 +58,9 @@ public class User {
 
     public String kind;
     public String Location;
+    public String country;
     @Enumerated(EnumType.STRING)
     public StudentSpeciality studentSpeciality;
-
     public String studentLevel;
     @Enumerated(EnumType.STRING)
     public ForumStatus forumStatus;

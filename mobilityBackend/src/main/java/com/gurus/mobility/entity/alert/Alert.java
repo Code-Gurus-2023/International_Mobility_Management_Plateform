@@ -26,6 +26,7 @@ public class Alert implements Serializable {
     @NotNull
     public String alrtName;
     @Enumerated(EnumType.STRING)
+    @NotNull
     public Kind alrtKind;
     @Enumerated(EnumType.STRING)
     public Target alrtTarget;
@@ -33,6 +34,7 @@ public class Alert implements Serializable {
     @Email
     public String alrtEmail;
     public String regionAlert;
+    public String coutryAlert;
     public String universiteAlrt;
     @Column(name = "created_date")
     public LocalDateTime alertCreationDate;

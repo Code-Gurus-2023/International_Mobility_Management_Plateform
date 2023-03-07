@@ -27,7 +27,6 @@ public class Claim implements Serializable {
     public String subjectClm;
     @NotNull
     public String descriptionClm;
-    public String pathImageClm;
     @Enumerated(EnumType.STRING)
     public Type typeClm;
     @Enumerated(EnumType.STRING)

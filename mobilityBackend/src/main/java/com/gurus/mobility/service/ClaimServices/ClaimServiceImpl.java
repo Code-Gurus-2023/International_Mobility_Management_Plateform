@@ -47,7 +47,6 @@ public class ClaimServiceImpl implements IClaimService {
             cl.setDescriptionClm(claim.descriptionClm);
             cl.setSubjectClm(claim.subjectClm);
             cl.setTypeClm(claim.typeClm);
-            cl.setPathImageClm(claim.pathImageClm);
             cl.setModificationDateClm(LocalDateTime.now());
             claimRepository.save(cl);
         }
