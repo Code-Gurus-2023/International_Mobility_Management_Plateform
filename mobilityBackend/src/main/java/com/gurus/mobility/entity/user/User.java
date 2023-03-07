@@ -124,14 +124,6 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Alert> alerts;
 
-    public User(String identifiant, String userName, String email, String password) {
-        this.identifiant = identifiant;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-    }
-
-
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
