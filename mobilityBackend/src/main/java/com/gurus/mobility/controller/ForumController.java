@@ -126,6 +126,32 @@ public class ForumController {
         }
     }
 
+    @PutMapping("/activateDiscussion/{idDsc}")
+    public ResponseEntity activateDsc(@PathVariable("idDsc") Long id) {
+
+        try {
+            String token = request.getHeader("Authorization");
+            if (token != null && token.startsWith("Bearer ")) {
+                token = token.substring(7);
+            }
+
+            //System.out.println(token);
+            User user = userService.getUserByUsername(jwtUtils.
+                    getUserNameFromJwtToken(token));
+
+            if(discussionService.activateDiscussion(id, user.id))
+                return ResponseEntity.status(HttpStatus.CREATED).body("Discussion activated");
+            else
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+        catch (ExpiredJwtException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("JWT token expired");
+        }
+
+
+    }
+
     @PutMapping("/addComment/{idDiscussion}")
     public ResponseEntity addCommentToDiscussion(@RequestBody Comment c, @PathVariable("idDiscussion") Long idDiscussion/*,@RequestParam Long idUser*/) {
 
@@ -175,5 +201,15 @@ public class ForumController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Discussion Doesn't exist or is not activated");
 
         return ResponseEntity.status(HttpStatus.FOUND).body(DiscussionMapper.mapToDto(discussion));
+    }
+
+    @GetMapping("/getMostViewedDiscussions")
+    public ResponseEntity getMostViewedDiscussions() {
+        List<Discussion> discussions = discussionService.getMostViewedDiscussions();
+
+        if(!discussions.isEmpty())
+            return new ResponseEntity<>(discussions, HttpStatus.FOUND);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -53,6 +53,7 @@ public class DiscussionServiceImpl implements IDiscussionService{
         //d.getComments().add(c);
         c.setDiscussion(d);
         c.setCreationDateCmt(LocalDateTime.now());
+        c.setUpVoteCmt(0L);
         d.incrementMessages();
         d.setLastMessageDate(c.getCreationDateCmt());
         //discussionRepository.save(d);
@@ -103,6 +104,21 @@ public class DiscussionServiceImpl implements IDiscussionService{
         return discussionRepository.getMostViewedDiscussions(PageRequest.of(0, 5));
     }
 
+    @Override
+    public Boolean activateDiscussion(Long id, Long idUser) {
+        Discussion d = discussionRepository.
+                findById(id).orElse(null);
+
+        if(d.getUser().id == idUser) {
+            d.setIsActive(true);
+            discussionRepository.save(d);
+
+            return true;
+        }
+
+        return false;
+
+    }
 
 
 }

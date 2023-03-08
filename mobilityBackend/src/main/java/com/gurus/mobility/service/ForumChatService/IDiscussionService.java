@@ -24,4 +24,5 @@ public interface IDiscussionService {
 
     Discussion getDiscussionDetails(Long id);
     List<Discussion> getMostViewedDiscussions();
+    Boolean activateDiscussion(Long id, Long idUser);
 }
