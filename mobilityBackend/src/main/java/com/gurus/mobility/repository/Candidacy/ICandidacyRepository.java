@@ -2,17 +2,13 @@ package com.gurus.mobility.repository.Candidacy;
 
 
 import com.gurus.mobility.entity.Candidacy.Candidacy;
-import com.gurus.mobility.entity.Candidacy.StatusCandidacy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ICandidacyRepository extends JpaRepository<Candidacy, Integer> {

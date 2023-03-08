@@ -82,7 +82,6 @@ public class ResultRestController {
     }
 
 
-
     @GetMapping
     public List<Result> getAllResults() {
         return resultServiceImpl.findAll();

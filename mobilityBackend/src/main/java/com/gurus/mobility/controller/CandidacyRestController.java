@@ -2,7 +2,9 @@ package com.gurus.mobility.controller;
 
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.Candidacy.DomainCandidacy;
+import com.gurus.mobility.entity.Candidacy.Result;
 import com.gurus.mobility.entity.Candidacy.StatusCandidacy;
+import com.gurus.mobility.repository.Candidacy.ICandidacyRepository;
 import com.gurus.mobility.service.CandidacyServices.CandidacyServiceImpl;
 import com.gurus.mobility.service.CandidacyServices.ICandidacyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,18 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/candidacy")
 public class CandidacyRestController {
     @Autowired
     private ICandidacyService candidacyService;
+    @Autowired
+    private ICandidacyRepository candidacyRepository;
+
+    @Autowired
+    private CandidacyServiceImpl candidacyServiceImpl;
 
 
     @GetMapping("/getCandidacy")
@@ -30,10 +38,23 @@ public class CandidacyRestController {
         return candidacyService.getAllCandidacy();
     }
 
-    @GetMapping("/{id}")
+
+    /*@GetMapping("/{id}")
     public Candidacy getCandidacyById(@PathVariable Integer id) {
         return candidacyService.getCandidacyById(id);
+    }*/
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Candidacy> getCandidatureById(@PathVariable Integer idCandidacy) {
+        Optional<Candidacy> candidatureOptional =candidacyRepository.findById(idCandidacy);
+        if (candidatureOptional.isPresent()) {
+            Candidacy candidature = candidatureOptional.get();
+            return ResponseEntity.ok(candidature);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     @PostMapping("/create")
     public ResponseEntity<Candidacy> createCandidacy(@Valid @RequestBody Candidacy candidacy) {
@@ -82,5 +103,6 @@ public class CandidacyRestController {
     public Map<DomainCandidacy, Long> getNombreCandidaturesParDomaine() {
         return candidacyService.getNombreCandidaturesParDomaine();
     }
+
 
 }

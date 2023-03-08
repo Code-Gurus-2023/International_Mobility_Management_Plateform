@@ -1,9 +1,9 @@
 package com.gurus.mobility.service.CandidacyServices;
 
-import com.gurus.mobility.entity.Candidacy.Candidacy;
-import com.gurus.mobility.entity.Candidacy.DomainCandidacy;
-import com.gurus.mobility.entity.Candidacy.StatusCandidacy;
+import com.gurus.mobility.entity.Candidacy.*;
+import com.gurus.mobility.entity.Offer.Profil;
 import com.gurus.mobility.repository.Candidacy.ICandidacyRepository;
+import com.gurus.mobility.repository.Candidacy.IResultRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,15 +11,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -28,6 +26,8 @@ public class CandidacyServiceImpl implements ICandidacyService {
 
     @Autowired
     private ICandidacyRepository candidacyRepository;
+    @Autowired
+    private IResultRepository resultRepository;
 
 
 
@@ -37,7 +37,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
     }
 
     @Override
-    public Candidacy getCandidacyById(Integer id) {
+    public Candidacy getCandidacyById1(Integer id) {
         return candidacyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Candidacy not found with id " + id));
     }
@@ -49,7 +49,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
 
     @Override
     public Candidacy updateCandidacy(Integer id, Candidacy candidacyDetails) {
-        Candidacy candidacy = getCandidacyById(id);
+        Candidacy candidacy = getCandidacyById1(id);
         candidacy.setCv(candidacyDetails.getCv());
         candidacy.setCoverLetter(candidacyDetails.getCoverLetter());
         candidacy.setFirstName(candidacyDetails.getFirstName());
@@ -62,7 +62,8 @@ public class CandidacyServiceImpl implements ICandidacyService {
         candidacy.setDomainCandidacy(candidacyDetails.getDomainCandidacy());
         candidacy.setStatusCandidacy(candidacyDetails.getStatusCandidacy());
         candidacy.setDisponibilite(candidacyDetails.getDisponibilite());
-        candidacy.setCoverLetter(candidacyDetails.getCoverLetter());
+        candidacy.setMoyenneGenerale(candidacyDetails.getMoyenneGenerale());
+        candidacy.setScoree(candidacyDetails.getScoree());
 
         return candidacyRepository.save(candidacy);
     }
@@ -92,7 +93,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
 
     @Override
     public void archiveCandidature(Integer id) {
-        Candidacy candidature = getCandidacyById(id);
+        Candidacy candidature = getCandidacyById1(id);
         candidacyRepository.delete(candidature);
 
         try {
@@ -119,7 +120,19 @@ public class CandidacyServiceImpl implements ICandidacyService {
                 .collect(Collectors.groupingBy(Candidacy::getDomainCandidacy, Collectors.counting()));
     }
 
+    @Override
+    public Candidacy getCandidatureById(Integer idCandidacy) {
+        Optional<Candidacy> candidatureOptional =candidacyRepository.findById(idCandidacy);
+        if (candidatureOptional.isPresent()) {
+            return candidatureOptional.get();
+        } else {
+            throw new CandidatureNotFoundException(idCandidacy);
+        }
+    }
 
 
-}
+
+    }
+
+
 
