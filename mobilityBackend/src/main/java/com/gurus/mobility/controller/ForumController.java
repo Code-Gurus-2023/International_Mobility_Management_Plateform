@@ -1,11 +1,12 @@
 package com.gurus.mobility.controller;
 
+import com.gurus.mobility.dto.DiscussionUpdateDto;
 import com.gurus.mobility.entity.ForumChat.Comment;
 import com.gurus.mobility.entity.ForumChat.Discussion;
 import com.gurus.mobility.entity.user.ERole;
-import com.gurus.mobility.entity.user.Role;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.StudentException;
+import com.gurus.mobility.mapper.DiscussionMapper;
 import com.gurus.mobility.security.jwt.JwtUtils;
 import com.gurus.mobility.service.ForumChatService.IDiscussionService;
 import com.gurus.mobility.service.User.IUserService;
@@ -13,9 +14,6 @@ import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,7 +82,7 @@ public class ForumController {
     }
 
     @PutMapping("updateDiscussion")
-    public ResponseEntity updateDiscussion(@RequestBody Discussion d/*, @RequestBody User user*/) {
+    public ResponseEntity updateDiscussion(@RequestBody DiscussionUpdateDto d/*, @RequestBody User user*/) {
         try {
 
             //This block is for retreiving the user
@@ -97,11 +95,12 @@ public class ForumController {
             User user = userService.getUserByUsername(jwtUtils.
                     getUserNameFromJwtToken(token));
             //-------------------------
-
+            Discussion discussion = discussionService.getDiscussion(d.getId());
+            discussion.setNameDsc(d.getContentDsc());
 
             if(user.getRoles().contains(ERole.ROLE_ETUDIANT))
                 throw new StudentException("NOT A STUDENT");
-            return new ResponseEntity<>(discussionService.updateDiscussion(d), HttpStatus.CREATED);
+            return new ResponseEntity<>(discussionService.updateDiscussion(discussion), HttpStatus.CREATED);
         }
         catch (StudentException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -118,7 +117,11 @@ public class ForumController {
         try {
             discussionService.deactivateDiscussion(id);
             return ResponseEntity.status(HttpStatus.CREATED).body("Discussion deactivated");
-        }catch (Exception e) {
+        }
+        catch (ExpiredJwtException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("JWT token expired");
+        }
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -162,5 +165,15 @@ public class ForumController {
             return new ResponseEntity<>(discussions, HttpStatus.FOUND);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/getDiscussionDetails/{idDsc}")
+    public ResponseEntity getDisscussionDetails(@PathVariable("idDsc") Long idDsc) {
+        Discussion discussion = discussionService.getDiscussionDetails(idDsc);
+
+        if(discussion == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Discussion Doesn't exist or is not activated");
+
+        return ResponseEntity.status(HttpStatus.FOUND).body(DiscussionMapper.mapToDto(discussion));
     }
 }

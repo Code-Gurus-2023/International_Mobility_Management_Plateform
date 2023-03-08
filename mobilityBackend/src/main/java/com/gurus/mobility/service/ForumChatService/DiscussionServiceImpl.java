@@ -27,6 +27,7 @@ public class DiscussionServiceImpl implements IDiscussionService{
 
         discussion.setUser(user);
         discussion.setNbrMessageDsc(0);
+        discussion.setViewsDsc(0L);
         discussion.setIsActive(true);
         return discussionRepository.save(discussion);
     }
@@ -72,6 +73,36 @@ public class DiscussionServiceImpl implements IDiscussionService{
         return discussionRepository.getMostRepliedDiscussions(PageRequest.of(0, 3));
 
     }
+
+    @Override
+    public Discussion getDiscussion(Long id) {
+
+        Discussion discussion = discussionRepository.findById(id).get();
+//        if(discussion != null){
+//            discussion.incrementViews();
+//            discussionRepository.save(discussion);
+//        }
+        return discussion;
+    }
+
+    @Override
+    public Discussion getDiscussionDetails(Long id) {
+
+        Discussion discussion = discussionRepository.findById(id).get();
+        if(!discussion.getIsActive())
+            return null;
+
+        discussion.incrementViews();
+        discussionRepository.save(discussion);
+
+        return discussion;
+    }
+
+    @Override
+    public List<Discussion> getMostViewedDiscussions() {
+        return discussionRepository.getMostViewedDiscussions(PageRequest.of(0, 5));
+    }
+
 
 
 }

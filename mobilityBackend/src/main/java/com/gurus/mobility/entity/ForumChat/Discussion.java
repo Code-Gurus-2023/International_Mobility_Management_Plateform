@@ -7,7 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -53,5 +52,6 @@ public class Discussion implements Serializable {
     public void incrementMessages() {
         this.nbrMessageDsc += 1;
     }
+    public void incrementViews() {this.viewsDsc += 1; }
 
 }

@@ -19,4 +19,9 @@ public interface IDiscussionService {
     List<Discussion> getAll();
 
     List<Discussion> getMostRespondedDiscussions();
+
+    Discussion getDiscussion(Long id);
+
+    Discussion getDiscussionDetails(Long id);
+    List<Discussion> getMostViewedDiscussions();
 }
