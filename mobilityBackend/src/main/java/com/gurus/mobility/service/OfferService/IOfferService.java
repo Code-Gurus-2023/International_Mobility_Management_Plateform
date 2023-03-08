@@ -2,6 +2,7 @@ package com.gurus.mobility.service.OfferService;
 
 import com.gurus.mobility.entity.Offer.Destination;
 import com.gurus.mobility.entity.Offer.Offer;
+import com.gurus.mobility.entity.user.ERole;
 import org.springframework.data.domain.Page;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,13 @@ public interface IOfferService {
     Page<Offer> paginationOffers(int pageNumber, int pageSize, String sortBy);
     List<Offer> getOffresDateSuperieur(LocalDate date);
     Map<Destination, Long> getNombreOffresParDestination();
+    List<Offer> getOffresEnseignant();
+    List<Offer> getOffresEtudiant();
+
+
+
+
+
 
 
 

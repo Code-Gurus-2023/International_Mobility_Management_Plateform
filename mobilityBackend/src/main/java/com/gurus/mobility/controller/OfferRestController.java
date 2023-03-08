@@ -209,6 +209,16 @@ public class OfferRestController {
         headers.setContentLength(baos.size());
         return new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.OK);
     }
+
+    @GetMapping("/enseignant")
+    public List<Offer> getOffresEnseignant() {
+        return offerService.getOffresEnseignant();
+    }
+
+    @GetMapping("/etudiant")
+    public List<Offer> getOffresEtudiant() {
+        return offerService.getOffresEtudiant();
+    }
 }
 
 

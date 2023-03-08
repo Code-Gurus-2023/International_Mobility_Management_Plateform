@@ -1,6 +1,8 @@
 package com.gurus.mobility.repository.OfferRepository;
 
 import com.gurus.mobility.entity.Offer.Offer;
+import com.gurus.mobility.entity.Offer.Profil;
+import com.gurus.mobility.entity.user.ERole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +21,8 @@ public interface IOfferRepository extends JpaRepository<Offer,Integer> {
 
     @Query(value = "SELECT o FROM Offer o WHERE o.dateOffre > :date")
     List<Offer> getOffresDateSuperieur(LocalDate date );
+
+    List<Offer> findByProfil(Profil profil);
 
 
 }

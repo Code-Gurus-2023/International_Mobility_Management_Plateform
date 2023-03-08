@@ -8,6 +8,8 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.gurus.mobility.entity.Offer.Destination;
 import com.gurus.mobility.entity.Offer.Offer;
+import com.gurus.mobility.entity.Offer.Profil;
+import com.gurus.mobility.entity.user.ERole;
 import com.gurus.mobility.repository.OfferRepository.IOfferRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -122,7 +124,6 @@ public class OfferServiceImpl implements IOfferService {
 
             // Création d'un nouveau classeur Excel
             XSSFWorkbook workbook = new XSSFWorkbook();
-
             // Création d'une nouvelle feuille dans le classeur
             XSSFSheet sheet = workbook.createSheet("Offers");
 
@@ -131,9 +132,8 @@ public class OfferServiceImpl implements IOfferService {
             headerRow.createCell(0).setCellValue("ID");
             headerRow.createCell(1).setCellValue("Title");
             headerRow.createCell(2).setCellValue("Image");
-            headerRow.createCell(3).setCellValue("DateOffre");
-            headerRow.createCell(4).setCellValue("nbreCandidats");
-            headerRow.createCell(5).setCellValue("conditions");
+            headerRow.createCell(3).setCellValue("nbreCandidats");
+            headerRow.createCell(4).setCellValue("conditions");
 
 
 
@@ -144,9 +144,8 @@ public class OfferServiceImpl implements IOfferService {
                 row.createCell(0).setCellValue(offer.getIdOffre());
                 row.createCell(1).setCellValue(offer.getTitle());
                 row.createCell(2).setCellValue(offer.getImage());
-                row.createCell(3).setCellValue(offer.getDateOffre());
-                row.createCell(4).setCellValue(offer.getNbreCandidats());
-                row.createCell(5).setCellValue(offer.getConditions());
+                row.createCell(3).setCellValue(offer.getNbreCandidats());
+                row.createCell(4).setCellValue(offer.getConditions());
 
 
 
@@ -184,7 +183,15 @@ public class OfferServiceImpl implements IOfferService {
         return offres.stream().collect(Collectors.groupingBy(Offer::getDestination, Collectors.counting()));
     }
 
+    @Override
+    public List<Offer> getOffresEnseignant() {
+        return offerRepository.findByProfil(Profil.ENSEIGNANT);
+    }
 
+    @Override
+    public List<Offer> getOffresEtudiant() {
+        return offerRepository.findByProfil(Profil.ETUDIANT);
+    }
 
 
 }
