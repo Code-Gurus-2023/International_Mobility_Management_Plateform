@@ -2,6 +2,7 @@ package com.gurus.mobility.service.CommentaireService;
 
 import com.gurus.mobility.entity.Offer.Commentaire;
 import com.gurus.mobility.entity.Offer.Offer;
+import com.gurus.mobility.entity.user.User;
 
 import java.util.List;
 
@@ -13,5 +14,6 @@ public interface ICommentaireService {
     void deleteCommentaire(Integer id);
     boolean detecterBadWords(String commentaire);
     void archiveCommentaire(Integer id);
+
 
 }

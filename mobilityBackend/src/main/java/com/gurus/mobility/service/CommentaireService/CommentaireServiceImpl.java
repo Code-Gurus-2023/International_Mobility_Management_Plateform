@@ -2,6 +2,7 @@ package com.gurus.mobility.service.CommentaireService;
 
 import com.gurus.mobility.entity.Offer.Commentaire;
 import com.gurus.mobility.entity.Offer.Offer;
+import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.repository.OfferRepository.ICommentaireRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,8 @@ public class CommentaireServiceImpl implements ICommentaireService{
             e.printStackTrace();
         }
     }
+
+
 
 
 }
