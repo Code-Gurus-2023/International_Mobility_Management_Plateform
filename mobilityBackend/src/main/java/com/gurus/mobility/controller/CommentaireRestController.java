@@ -7,10 +7,13 @@ import com.gurus.mobility.service.CommentaireService.ICommentaireService;
 import com.gurus.mobility.service.OfferService.IOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import javax.validation.Valid;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,33 +26,39 @@ public class CommentaireRestController {
     @Autowired
     private ICommentaireRepository commentaireRepository;
 
+//    http://localhost:8080/espritmobility/api/commentaires/getCommentaires
     @GetMapping("/getCommentaires")
     public List<Commentaire> getAllCommentaires() {
         return commentaireService.getAllCommentaires();
     }
 
+//    http://localhost:8080/espritmobility/api/commentaires/4
     @GetMapping("/{id}")
     public Commentaire getCommentaireById(@PathVariable Integer id) {
         return commentaireService.getCommentaireById(id);
     }
 
+//    http://localhost:8080/espritmobility/api/commentaires/createCommentaire
     @PostMapping("/createCommentaire")
     public ResponseEntity<Commentaire> createCommentaire(@Valid @RequestBody Commentaire commentaire) {
         Commentaire createdCommentaire = commentaireService.createCommentaire(commentaire);
         return new ResponseEntity<>(createdCommentaire, HttpStatus.CREATED);
     }
 
+//    http://localhost:8080/espritmobility/api/commentaires/5
     @PutMapping("/{id}")
     public Commentaire updateCommentaire(@PathVariable Integer id, @Valid @RequestBody Commentaire commentaireDetails) {
         return commentaireService.updateCommentaire(id, commentaireDetails);
     }
 
+//    http://localhost:8080/espritmobility/api/commentaires/5
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCommentaire(@PathVariable Integer id) {
         commentaireService.deleteCommentaire(id);
         return ResponseEntity.noContent().build();
     }
 
+//    http://localhost:8080/espritmobility/api/commentaires/commentaires/bad-words
     @GetMapping("/commentaires/bad-words")
     public ResponseEntity<List<Boolean>> detecterBadWords() {
         List<Commentaire> commentaires = commentaireRepository.findAll();
@@ -59,5 +68,22 @@ public class CommentaireRestController {
         }
         return ResponseEntity.ok().body(badWordsDetected);
     }
+
+//    http://localhost:8080/espritmobility/api/commentaires/2/archive
+    @PostMapping("/{id}/archive")
+    public void archiveCandidature(@PathVariable Integer id) {
+        commentaireService.archiveCommentaire(id);
+    }
+
+//    http://localhost:8080/espritmobility/api/commentaires/delayCommentaires
+    @GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE, value = "/delayCommentaires")
+    public Flux<Commentaire> getAllCommentairesWithDelay() {
+        Flux<Commentaire> commentaires = Flux.fromIterable(commentaireRepository.findAll());
+        return commentaires.delayElements(Duration.ofMillis(10000));
+    }
+
+
+
+
 
 }

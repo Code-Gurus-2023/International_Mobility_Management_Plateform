@@ -4,7 +4,6 @@ import com.gurus.mobility.entity.Offer.Destination;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.repository.OfferRepository.IOfferRepository;
 import com.gurus.mobility.service.OfferService.IOfferService;
-import com.gurus.mobility.service.OfferService.OfferServiceImpl;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
@@ -17,15 +16,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import javax.servlet.http.HttpServletResponse;
 
 import javax.validation.Valid;
-import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -40,56 +38,69 @@ public class OfferRestController {
     private IOfferRepository offerRepository;
 
 
+
+
+//    http://localhost:8080/espritmobility/api/offers/getOffers
     @GetMapping("/getOffers")
     public List<Offer> getAllOffers() {
         return offerService.getAllOffers();
     }
 
+//    http://localhost:8080/espritmobility/api/offers/4
     @GetMapping("/{id}")
     public Offer getOfferById(@PathVariable Integer id) {
         return offerService.getOfferById(id);
     }
 
+
+//    http://localhost:8080/espritmobility/api/offers/createOffer
     @PostMapping("/createOffer")
     public ResponseEntity<Offer> createOffer(@Valid @RequestBody Offer offer) {
         Offer createdOffer = offerService.createOffer(offer);
         return new ResponseEntity<>(createdOffer, HttpStatus.CREATED);
     }
 
+//    http://localhost:8080/espritmobility/api/offers/10
     @PutMapping("/{id}")
     public Offer updateOffer(@PathVariable Integer id, @Valid @RequestBody Offer offerDetails) {
         return offerService.updateOffer(id, offerDetails);
     }
 
+//    http://localhost:8080/espritmobility/api/offers/10
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOffer(@PathVariable Integer id) {
         offerService.deleteOffer(id);
         return ResponseEntity.noContent().build();
     }
 
+//    http://localhost:8080/espritmobility/api/offers/search?title=offre mobilité etudiant Stutgart
     @GetMapping("/search")
     public ResponseEntity<List<Offer>> searchOffers(@RequestParam(value = "title") String title) {
         List<Offer> offers = offerService.getOffersByTitle(title);
         return new ResponseEntity<>(offers, HttpStatus.OK);
     }
 
+//    http://localhost:8080/espritmobility/api/offers/tri/date
     @GetMapping("/tri/date")
     public ResponseEntity<List<Offer>> trierParDate() {
         List<Offer> offers = offerService.trierParDate();
         return new ResponseEntity<>(offers, HttpStatus.OK);
     }
 
+//    http://localhost:8080/espritmobility/api/offers/9/archive
     @PostMapping("/{id}/archive")
     public void archiveCandidature(@PathVariable Integer id) {
         offerService.archiveOffer(id);
     }
 
+//    http://localhost:8080/espritmobility/api/offers/export/excel
     @GetMapping("/export/excel")
     public void exportOffersToExcel(HttpServletResponse response) {
         offerService.exportOffersToExcel(response);
     }
 
-    @GetMapping
+//    http://localhost:8080/espritmobility/api/offers/pagination?pageNumber=0&pageSize=10&sortBy=idOffre
+    @GetMapping("/pagination")
     public ResponseEntity<Page<Offer>> paginationOffers(
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize,
@@ -97,54 +108,20 @@ public class OfferRestController {
         Page<Offer> result = offerService.paginationOffers(pageNumber, pageSize, sortBy);
         return ResponseEntity.ok(result);
     }
+
+//    http://localhost:8080/espritmobility/api/offers/dateOffer/2023-01-01
     @GetMapping("/dateOffer/{date}")
     public List<Offer> getOffresDateSuperieur(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return offerService.getOffresDateSuperieur(date);
     }
 
+//    http://localhost:8080/espritmobility/api/offers/statistiques
     @GetMapping("/statistiques")
     public Map<Destination, Long> getNombreOffresParDestination() {
         return offerService.getNombreOffresParDestination();
     }
 
-//    @GetMapping(value = "/{id}/pdf", produces = "application/pdf")
-//    public ResponseEntity<byte[]> generateOfferPdf(@PathVariable Integer id) throws Exception {
-//        Offer offer = offerService.getOfferById(id);
-//        if (offer == null) {
-//            System.out.println("Offer not found with id " + id);
-//        }
-//
-//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//        Document document = new Document();
-//        PdfWriter.getInstance(document, outputStream);
-//
-//        document.open();
-//
-//        Paragraph title = new Paragraph("Offer Details");
-//        title.setAlignment(Element.ALIGN_CENTER);
-//        document.add(title);
-//
-//        document.add(new Paragraph("Id: " + offer.getIdOffre()));
-//        document.add(new Paragraph("Title: " + offer.getTitle()));
-//        document.add(new Paragraph("Image: " + offer.getImage()));
-//        document.add(new Paragraph("Conditions: " + offer.getConditions()));
-//        document.add(new Paragraph("Duration: " + offer.getDuration()));
-//        document.add(new Paragraph("Profil: " + offer.getProfil()));
-//        document.add(new Paragraph("NombreCandidats: " + offer.getNbreCandidats()));
-//        document.add(new Paragraph("DateOffre: " + offer.getDateOffre()));
-//        document.add(new Paragraph("Avantages: " + offer.getAdvantages()));
-//
-//        document.close();
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-//        headers.setContentDispositionFormData("attachment", "offer-" + offer.getIdOffre() + ".pdf");
-//        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-//
-//        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
-//        return responseEntity;
-//    }
-
+//    http://localhost:8080/espritmobility/api/offers/pdf
     @GetMapping("/pdf")
     public ResponseEntity<byte[]> generatePDF() throws DocumentException, IOException {
         List<Offer> offres = offerService.getAllOffers();
@@ -210,15 +187,21 @@ public class OfferRestController {
         return new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.OK);
     }
 
+//    http://localhost:8080/espritmobility/api/offers/enseignant
     @GetMapping("/enseignant")
     public List<Offer> getOffresEnseignant() {
         return offerService.getOffresEnseignant();
     }
 
+//    http://localhost:8080/espritmobility/api/offers/etudiant
     @GetMapping("/etudiant")
     public List<Offer> getOffresEtudiant() {
         return offerService.getOffresEtudiant();
     }
+
+
+
+
 }
 
 

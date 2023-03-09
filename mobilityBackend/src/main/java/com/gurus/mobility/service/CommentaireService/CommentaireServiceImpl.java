@@ -1,12 +1,15 @@
 package com.gurus.mobility.service.CommentaireService;
 
 import com.gurus.mobility.entity.Offer.Commentaire;
+import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.repository.OfferRepository.ICommentaireRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,5 +61,21 @@ public class CommentaireServiceImpl implements ICommentaireService{
         }
         return false;
     }
+
+    @Override
+    public void archiveCommentaire(Integer id) {
+        Commentaire commentaire = getCommentaireById(id);
+        commentaireRepository.delete(commentaire);
+
+        try {
+            FileWriter fileWriter = new FileWriter("C:/Code Gurus 2023/International_Mobility_Management_Plateform/commentaires_archivées.txt", true);
+            fileWriter.write(commentaire.getIdComment() + "," + commentaire.getDescription() + "," +
+                    commentaire.getCreationDate() + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
