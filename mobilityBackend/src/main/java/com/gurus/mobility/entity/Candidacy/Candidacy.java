@@ -30,6 +30,7 @@ public class Candidacy implements Serializable {
     private String certificate;
     private String firstName;
     private String lastName;
+
     @Email
     private String email;
 
@@ -46,6 +47,10 @@ public class Candidacy implements Serializable {
 
     private float scoree;
 
+    private int anneeExperience;
+
+    @Enumerated(EnumType.STRING)
+    private Profil profil;
 
     @Enumerated(EnumType.STRING)
     private DomainCandidacy domainCandidacy;

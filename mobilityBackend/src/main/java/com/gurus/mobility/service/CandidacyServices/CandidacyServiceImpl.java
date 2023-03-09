@@ -130,7 +130,53 @@ public class CandidacyServiceImpl implements ICandidacyService {
         }
     }
 
+    @Override
+    public Candidacy updateCandidacyStatus(Integer idCandidacy) {
+        Candidacy candidacy = candidacyRepository.findById(idCandidacy)
+                .orElseThrow(() -> new RuntimeException("Candidacy not found with id " + idCandidacy));
 
+        if (candidacy.getScoree() > 20 && candidacy.getMoyenneGenerale() > 16 && candidacy.getProfil() ==Profil.ETUDIANT) {
+            candidacy.setStatusCandidacy(StatusCandidacy.EN_ATTENTE);
+        } else {
+            candidacy.setStatusCandidacy(StatusCandidacy.REFUSEE);
+        }
+
+        return candidacyRepository.save(candidacy);
+    }
+
+    @Override
+    public List<Candidacy> getCandidatesByStatus(StatusCandidacy statusCandidacy) {
+        return candidacyRepository.findByStatusCandidacy(statusCandidacy);
+    }
+
+    @Override
+    public Candidacy updateCandidatureStatus(Integer idCandidacy) {
+        Candidacy candidature = candidacyRepository.findById(idCandidacy)
+                .orElseThrow(() -> new RuntimeException("Candidacy not found with id " + idCandidacy));
+
+        if (candidature.getStatusCandidacy() == StatusCandidacy.EN_ATTENTE && candidature.getDisponibilite() == Disponibilite.IMMEDIATE && candidature.getProfil() == Profil.ETUDIANT) {
+            candidature.setStatusCandidacy(StatusCandidacy.ACCEPTEE);
+            return candidacyRepository.save(candidature);
+        } else {
+            throw new CandidatureNotEligibleException("Candidature not eligible for automatic acceptance");
+        }
+    }
+    @Override
+    public void accepterOuRefuserCandidature(Integer idCandidacy) {
+        Candidacy candidature = getCandidatureById(idCandidacy);
+
+        if (candidature.getProfil() == Profil.ENSEIGNANT && candidature.getAnneeExperience() > 3) {
+            candidature.setStatusCandidacy(StatusCandidacy.EN_ATTENTE);
+        } else {
+            candidature.setStatusCandidacy(StatusCandidacy.REFUSEE);
+        }
+
+        saveCandidature(candidature);
+    }
+    @Override
+    public Candidacy saveCandidature(Candidacy candidature) {
+        return candidacyRepository.save(candidature);
+    }
 
     }
 

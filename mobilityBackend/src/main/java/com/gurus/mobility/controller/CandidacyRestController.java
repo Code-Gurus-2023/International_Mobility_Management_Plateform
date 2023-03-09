@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class CandidacyRestController {
     private CandidacyServiceImpl candidacyServiceImpl;
 
 
+   //http://localhost:8081/espritmobility/api/candidacy/getCandidacy
     @GetMapping("/getCandidacy")
     public List<Candidacy> getAllCandidacy() {
         return candidacyService.getAllCandidacy();
@@ -44,6 +46,8 @@ public class CandidacyRestController {
         return candidacyService.getCandidacyById(id);
     }*/
 
+
+    //http://localhost:8081/espritmobility/api/candidacy/{id}
     @GetMapping("/{id}")
     public ResponseEntity<Candidacy> getCandidatureById(@PathVariable Integer idCandidacy) {
         Optional<Candidacy> candidatureOptional =candidacyRepository.findById(idCandidacy);
@@ -55,42 +59,52 @@ public class CandidacyRestController {
         }
     }
 
-
+    //http://localhost:8081/espritmobility/api/candidacy/create
     @PostMapping("/create")
     public ResponseEntity<Candidacy> createCandidacy(@Valid @RequestBody Candidacy candidacy) {
         Candidacy createdCandidacy = candidacyService.createCandidacy(candidacy);
         return new ResponseEntity<>(createdCandidacy, HttpStatus.CREATED);
     }
 
+
+    //http://localhost:8081/espritmobility/api/candidacy/{id}
     @PutMapping("/{id}")
     public Candidacy updateCandidacy(@PathVariable Integer id, @Valid @RequestBody Candidacy candidacyDetails) {
         return candidacyService.updateCandidacy(id, candidacyDetails);
     }
 
-    @DeleteMapping("delete/{id}")
+
+    //http://localhost:8081/espritmobility/api/candidacy/delete/{id}
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteCandidacy(@PathVariable Integer id) {
         candidacyService.deleteCandidacy(id);
         return ResponseEntity.noContent().build();
     }
 
+
+    //http://localhost:8081/espritmobility/api/candidacy/search?firstName=ikram
     @GetMapping("/search")
     public ResponseEntity<List<Candidacy>> searchCandidacy(@RequestParam(value = "firstName") String firstName) {
         List<Candidacy> candidacy = candidacyService.getCandidacyByNom(firstName);
         return new ResponseEntity<>(candidacy, HttpStatus.OK);
     }
 
+    //http://localhost:8081/espritmobility/api/candidacy/tri/date
     @GetMapping("/tri/date")
     public ResponseEntity<List<Candidacy>> trierParDate() {
         List<Candidacy> candidacy = candidacyService.trierParDate();
         return new ResponseEntity<>(candidacy, HttpStatus.OK);
     }
 
+    //http://localhost:8081/espritmobility/api/candidacy/{id}/archive
     @PostMapping("/{id}/archive")
     public void archiveCandidature(@PathVariable Integer id) {
         candidacyService.archiveCandidature(id);
     }
 
-    @GetMapping
+
+    //http://localhost:8081/espritmobility/api/candidacy/pagination?pageNumber=0&pageSize=10&sortBy=idCandidacy
+    @GetMapping("/pagination")
     public ResponseEntity<Page<Candidacy>> getAllCandidatures(
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize,
@@ -99,10 +113,46 @@ public class CandidacyRestController {
         return ResponseEntity.ok(result);
     }
 
+
+    //http://localhost:8081/espritmobility/api/candidacy/statistiques
     @GetMapping("/statistiques")
     public Map<DomainCandidacy, Long> getNombreCandidaturesParDomaine() {
         return candidacyService.getNombreCandidaturesParDomaine();
     }
 
+
+    //Selection Candidature Entudiant (ESPRIT)
+    //http://localhost:8081/espritmobility/api/candidacy/update/{idCandidacy}/status
+    @PutMapping("/update/{idCandidacy}/status")
+    public Candidacy updateCandidacyStatus(@PathVariable("idCandidacy") Integer idCandidacy) {
+        return candidacyService.updateCandidacyStatus(idCandidacy);
+    }
+
+    //http://localhost:8081/espritmobility/api/candidacy/pending
+    @GetMapping("/pending")
+    public List<Candidacy> getPendingCandidates() {
+        return candidacyService.getCandidatesByStatus(StatusCandidacy.EN_ATTENTE);
+    }
+
+
+   //Selection Candidature Etudiant (UNIVERSITE)
+   //http://localhost:8081/espritmobility/api/candidacy/put/{idCandidacy}
+    @PutMapping("/put/{idCandidacy}")
+    public Candidacy updateCandidatureStatus(@PathVariable Integer idCandidacy) {
+        return candidacyService.updateCandidatureStatus(idCandidacy);
+    }
+
+    //http://localhost:8081/espritmobility/api/candidacy/save
+    @PostMapping("/save")
+    public Candidacy saveCandidature(@RequestBody Candidacy candidature) {
+        return candidacyService.saveCandidature(candidature);
+    }
+
+    //Selection Candidature Enseignant
+    //http://localhost:8081/espritmobility/api/candidacy/update1/{idCandidacy}
+    @PutMapping("/update1/{idCandidacy}")
+    public void accepterOuRefuserCandidature(@PathVariable Integer idCandidacy) {
+        candidacyService.accepterOuRefuserCandidature(idCandidacy);
+    }
 
 }

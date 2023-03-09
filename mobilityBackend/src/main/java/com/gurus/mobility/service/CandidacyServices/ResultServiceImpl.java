@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -157,7 +158,21 @@ public class ResultServiceImpl implements IResultService {
         return resultRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public void archiveResult(Integer id) {
+        Result result = getResultById(id);
+        resultRepository.delete(result);
 
+        try {
+            FileWriter fileWriter = new FileWriter("C:/Spring Boot/Resultats_archivées.txt", true);
+            fileWriter.write(result.getIdResult() + "," + result.getPl() + "," +
+                    result.getAngular() + "," + result.getDotnet() + "," +
+                    result.getScore() + result.getGeneralAverage() + "," + result.getDate() + "," + result.getDataMining() + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

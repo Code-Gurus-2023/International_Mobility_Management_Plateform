@@ -32,6 +32,13 @@ public interface ICandidacyService {
 
         Candidacy getCandidatureById(Integer idCandidacy);
 
+        Candidacy updateCandidacyStatus(Integer idCandidacy);
 
+        List<Candidacy> getCandidatesByStatus(StatusCandidacy statusCandidacy);
+
+        Candidacy updateCandidatureStatus(Integer idCandidacy);
+
+        void accepterOuRefuserCandidature(Integer idCandidacy);
+        Candidacy saveCandidature(Candidacy candidature);
 }
 

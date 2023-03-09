@@ -6,6 +6,7 @@ import com.gurus.mobility.service.CandidacyServices.ICandidacyService;
 import com.gurus.mobility.service.CandidacyServices.IResultService;
 import com.gurus.mobility.service.CandidacyServices.ResultServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,8 @@ public class ResultRestController {
         this.resultService = resultService;
     }
 
+
+    //http://localhost:8081/espritmobility/api/result/getResult
     @GetMapping("/getResult")
     public List<Result> getAllResult() {
         return resultService.getAllResult();
@@ -44,12 +47,15 @@ public class ResultRestController {
        return new ResponseEntity<>(createdResult, HttpStatus.CREATED);
     } */
 
+
+    //http://localhost:8081/espritmobility/api/result
     @PostMapping
     public ResponseEntity<Result> createResult(@RequestBody Result result) {
         Result savedResult = resultServiceImpl.save(result);
         return new ResponseEntity<>(savedResult, HttpStatus.CREATED);
     }
 
+    //http://localhost:8081/espritmobility/api/result/{id}
     @GetMapping("/{id}")
     public ResponseEntity<Result> getResultById(@PathVariable Integer id) {
         Result result = resultServiceImpl.findById(id);
@@ -59,32 +65,43 @@ public class ResultRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
+    //http://localhost:8081/espritmobility/api/result/{id}
     @PutMapping("/{id}")
     public Result updateResult(@PathVariable Integer id, @Valid @RequestBody Result resultDetails) {
         return resultService.updateResult(id, resultDetails);
     }
 
+    //http://localhost:8081/espritmobility/api/result/delete/{id}
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteResult(@PathVariable Integer id) {
         resultService.deleteResult(id);
         return ResponseEntity.noContent().build();
     }
 
+    //http://localhost:8081/espritmobility/api/result/export/excel
     @GetMapping("/export/excel")
     public void exportResultToExcel(HttpServletResponse response) {
         resultService.exportResultToExcel(response);
     }
 
+    //http://localhost:8081/espritmobility/api/result/top-10
     @GetMapping("/top-10")
     public List<Result> getTop10Resultats() {
         return resultService.findTop10ByOrderByNoteDesc();
     }
 
 
+    //http://localhost:8081/espritmobility/api/result
     @GetMapping
     public List<Result> getAllResults() {
         return resultServiceImpl.findAll();
+    }
+
+
+    //http://localhost:8081/espritmobility/api/result/{id}/archive
+    @PostMapping("/{id}/archive")
+    public void archiveResult(@PathVariable Integer id) {
+        resultService.archiveResult(id);
     }
 
 }
