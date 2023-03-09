@@ -1,14 +1,15 @@
 package com.gurus.mobility.service.ForumChatService;
 
+import com.gurus.mobility.dto.DateCommentDto;
 import com.gurus.mobility.entity.ForumChat.Comment;
 import com.gurus.mobility.repository.ForumChatRepos.ICommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +17,6 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -61,5 +61,25 @@ public class CommentServiceImpl implements ICommentService {
 
         Files.writeString(path, content, StandardOpenOption.APPEND);
 
+    }
+
+    @Override
+    public DateCommentDto getMostCommentedDate() {
+//        for (DateCommentDto d: commentRepository.getMostCommentedDate()
+//             ) {
+//            System.out.println(d);
+//        }
+//        return commentRepository.getMostCommentedDate().get(0);
+
+        List<Object[]> result = commentRepository.getMostCommentedDate();
+        if (!result.isEmpty()) {
+            Object[] row = result.get(0);
+            LocalDate date = ((java.sql.Date) row[0]).toLocalDate();
+            BigInteger count =(BigInteger) row[1];
+            return new DateCommentDto(date, count);
+        } else {
+            // handle empty result
+            return null;
+        }
     }
 }

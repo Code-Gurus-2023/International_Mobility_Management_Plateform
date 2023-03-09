@@ -1,5 +1,6 @@
 package com.gurus.mobility.controller;
 
+import com.gurus.mobility.dto.DateCommentDto;
 import com.gurus.mobility.dto.DiscussionUpdateDto;
 import com.gurus.mobility.entity.ForumChat.Comment;
 import com.gurus.mobility.entity.ForumChat.Discussion;
@@ -8,6 +9,7 @@ import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.StudentException;
 import com.gurus.mobility.mapper.DiscussionMapper;
 import com.gurus.mobility.security.jwt.JwtUtils;
+import com.gurus.mobility.service.ForumChatService.ICommentService;
 import com.gurus.mobility.service.ForumChatService.IDiscussionService;
 import com.gurus.mobility.service.User.IUserService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -28,6 +30,9 @@ public class ForumController {
 
     @Autowired
     IUserService userService;
+
+    @Autowired
+    ICommentService commentService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -211,5 +216,19 @@ public class ForumController {
             return new ResponseEntity<>(discussions, HttpStatus.FOUND);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/getMostRespondedDate", produces = "application/json")
+    @ResponseBody
+    public ResponseEntity getMostViewedDate() {
+        DateCommentDto datecomment = commentService.getMostCommentedDate();
+        if(datecomment != null) {
+            System.out.println(datecomment);
+//            ObjectMapper mapper = new ObjectMapper();
+//            String json = mapper.writeValueAsString(datecomment);
+            return ResponseEntity.status(HttpStatus.FOUND).body(datecomment);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ERROR");
     }
 }
