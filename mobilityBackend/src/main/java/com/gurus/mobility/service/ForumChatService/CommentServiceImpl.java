@@ -17,6 +17,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -81,5 +82,20 @@ public class CommentServiceImpl implements ICommentService {
             // handle empty result
             return null;
         }
+    }
+
+    @Override
+    public List<DateCommentDto> getDateBynbreOfComments() {
+        List<DateCommentDto> dateCommentDtos = new ArrayList<>();
+        List<Object[]> results = commentRepository.getMostCommentedDate();
+
+            for (Object[] result: results) {
+                LocalDate date = ((java.sql.Date) result[0]).toLocalDate();
+                BigInteger count = (BigInteger) result[1];
+                dateCommentDtos.add(new DateCommentDto(date, count));
+            }
+
+            return dateCommentDtos;
+
     }
 }

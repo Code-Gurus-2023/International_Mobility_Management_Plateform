@@ -231,4 +231,14 @@ public class ForumController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ERROR");
     }
+
+    @RequestMapping(value = "/getDatesBynbreOfComments", produces = "application/json")
+    @ResponseBody
+    public ResponseEntity getDatesBynbreOfComments() {
+        List<DateCommentDto> dateCommentDtos = commentService.getDateBynbreOfComments();
+        if(!dateCommentDtos.isEmpty())
+            return ResponseEntity.status(HttpStatus.FOUND).body(dateCommentDtos);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ERROR");
+    }
 }
