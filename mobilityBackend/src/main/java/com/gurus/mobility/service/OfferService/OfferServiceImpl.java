@@ -1,2 +1,3 @@
-package com.gurus.mobility.service.OfferService;public class OfferServiceImpl {
+package com.gurus.mobility.service.OfferService;
+public class OfferServiceImpl {
 }

@@ -35,7 +35,7 @@ public interface IUserService {
 
     public User findById(Long id);
 
-    public Optional<User> getUserByUsername(String username);
+    public User getUserByUsername(String username);
 
 }
 

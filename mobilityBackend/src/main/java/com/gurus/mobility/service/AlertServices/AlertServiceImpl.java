@@ -43,12 +43,71 @@ public class AlertServiceImpl implements IAlertService{
     @Autowired
     private MailContentBuilder mailContentBuilder;
     @Override
-    public void createAlert(Alert alert, Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UpdateClaimException("object not found with id =" + userId));
-        user.getAlerts().add(alert);
-        alert.setAlertCreationDate(LocalDateTime.now());
-        alertRepository.save(alert);
-        userRepository.save(user);
+    public boolean createAlert(Alert alert, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UpdateClaimException("user not found with id =" + userId));
+        switch (alert.getAlrtKind()){
+            case SMS:
+                switch (alert.getAlrtTarget()){
+                    case OFFER_UNIVERSITE:
+                        if(alert.getAlrtPhoneNumber()!=null && alert.getAlrtEmail()==null && alert.getUniversiteAlrt()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                    case COUNTRY:
+                        if(alert.getAlrtPhoneNumber()!=null && alert.getAlrtEmail()==null && alert.getCoutryAlert()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                    case REGION:
+                        if(alert.getAlrtPhoneNumber()!=null && alert.getAlrtEmail()==null && alert.getRegionAlert()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                }
+            case EMAIL:
+                switch (alert.getAlrtTarget()){
+                    case OFFER_UNIVERSITE:
+                        if(alert.getAlrtEmail()!=null && alert.getAlrtEmail()==null && alert.getUniversiteAlrt()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                    case COUNTRY:
+                        if(alert.getAlrtEmail()!=null && alert.getAlrtEmail()==null && alert.getCoutryAlert()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                    case REGION:
+                        if(alert.getAlrtEmail()!=null && alert.getAlrtEmail()==null && alert.getRegionAlert()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                }
+        }
+        return false;
     }
 
     public void sendEmail(String to,String subject, String templateName, Map<String, Object> variables) throws MessagingException{
@@ -95,7 +154,6 @@ public class AlertServiceImpl implements IAlertService{
                             }
                             break;
                     }
-
                 }
                 if(alert.getAlrtKind().equals(Kind.EMAIL)) {
                     switch (alert.getAlrtTarget()) {
@@ -171,23 +229,13 @@ public class AlertServiceImpl implements IAlertService{
     }
 
     @Override
-    public void deleteAlert(Alert alert){
-        alertRepository.delete(alert);
+    public void deleteAlert(Long alert){
+        alertRepository.deleteById(alert);
     }
 
-    public void fixedRateMethod() {
-        List<Offer> lf=iOfferRepository.findByOfferCreationDateAfter(LocalDateTime.now().minusMinutes(5));
-        //List<Offer> lf= iOfferRepository.findAll();
-        PhoneNumber to= new PhoneNumber("+216 53310166");
-        PhoneNumber from= new PhoneNumber("+1 276 296 5689");
-        if(!lf.isEmpty()){
-            for (Offer off:lf) {
-                System.out.println("test test est");
-                Twilio.init("AC0dcec74e1defc2c4d59b1d4d92bb77c7","9b5bf4568d65ed7a82b6e93c23bbf687");
-                Message.creator(to,from,"this is a test message form spring boot app").create();
-            }
-        }else {
-            System.out.println("la liste est vide");
-        }
+    @Override
+    public boolean getUseridBylertid(User user, long id){
+            return user.getAlerts().contains(alertRepository.findById(id));
     }
+
 }
