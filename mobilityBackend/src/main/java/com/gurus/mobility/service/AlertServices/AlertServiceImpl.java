@@ -79,7 +79,7 @@ public class AlertServiceImpl implements IAlertService{
             case EMAIL:
                 switch (alert.getAlrtTarget()){
                     case OFFER_UNIVERSITE:
-                        if(alert.getAlrtEmail()!=null && alert.getAlrtEmail()==null && alert.getUniversiteAlrt()!=null){
+                        if(alert.getAlrtEmail()!=null && alert.getAlrtPhoneNumber()==null && alert.getUniversiteAlrt()!=null){
                             user.getAlerts().add(alert);
                             alert.setAlertCreationDate(LocalDateTime.now());
                             alertRepository.save(alert);
@@ -88,7 +88,7 @@ public class AlertServiceImpl implements IAlertService{
                         }
                         break;
                     case COUNTRY:
-                        if(alert.getAlrtEmail()!=null && alert.getAlrtEmail()==null && alert.getCoutryAlert()!=null){
+                        if(alert.getAlrtEmail()!=null && alert.getAlrtPhoneNumber()==null && alert.getCoutryAlert()!=null){
                             user.getAlerts().add(alert);
                             alert.setAlertCreationDate(LocalDateTime.now());
                             alertRepository.save(alert);
@@ -97,7 +97,7 @@ public class AlertServiceImpl implements IAlertService{
                         }
                         break;
                     case REGION:
-                        if(alert.getAlrtEmail()!=null && alert.getAlrtEmail()==null && alert.getRegionAlert()!=null){
+                        if(alert.getAlrtEmail()!=null && alert.getAlrtPhoneNumber()==null && alert.getRegionAlert()!=null){
                             user.getAlerts().add(alert);
                             alert.setAlertCreationDate(LocalDateTime.now());
                             alertRepository.save(alert);
