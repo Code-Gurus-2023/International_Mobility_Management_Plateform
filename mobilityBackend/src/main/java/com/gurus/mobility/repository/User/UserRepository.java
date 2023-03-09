@@ -4,6 +4,7 @@ import com.gurus.mobility.entity.user.Role;
 import com.gurus.mobility.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,4 +40,8 @@ public interface    UserRepository extends JpaRepository<User,Long> {
     @Query("select u from User u where u.roles='ROLE_PROPRIETAIRE_LOGEMENT' ")
     public List<User> getAllOwners();
 */
+    @Query("select u from User u,Role r where  u.id=:id and r.name='OWNER' and r.id=u.id")
+    public User findUserByIdAndRole(@Param("id") Long id);
+
+
 }

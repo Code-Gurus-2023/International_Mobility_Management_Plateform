@@ -2,17 +2,20 @@ package com.gurus.mobility.service.AccomodationServices;
 
 
 import com.gurus.mobility.entity.Accomodation.Accomodation;
-import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.repository.AccomodationRepository.AccomodationRepository;
 import com.gurus.mobility.repository.User.UserRepository;
-import com.twilio.base.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import javax.servlet.ServletContext;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,16 +24,13 @@ public class AccomodationServiceImpl implements IAccomodationService{
     private UserRepository userRepository;
     @Autowired
     private AccomodationRepository accomodationRepository;
-
+    @Autowired
+    private ServletContext context;
+    /**
+     * This method will get all accomodations list
+     **/
     @Override
-    public Accomodation saveAccomodation(Accomodation accomodation,Long idOwner) {
-        User user=this.userRepository.findById(idOwner).orElseThrow(null);
-        accomodation.setUser(user);
-        return accomodationRepository.save(accomodation);
-    }
-
-    @Override
-    public List<Accomodation> getAccomodation() {
+    public List<Accomodation> getAllAccomodation() {
         return accomodationRepository.findAll();
     }
 
@@ -41,6 +41,7 @@ public class AccomodationServiceImpl implements IAccomodationService{
                                         return ResponseEntity.ok(accomodation);
     }
 
+    @Transactional
     @Override
     public ResponseEntity<Accomodation> updateAccomodation(Long idAcc, Accomodation accomodation) {
         Accomodation newAccomodation=accomodationRepository.findById(idAcc)
@@ -50,18 +51,22 @@ public class AccomodationServiceImpl implements IAccomodationService{
         newAccomodation.setDescription(accomodation.getDescription());
         newAccomodation.setPrice(accomodation.getPrice());
         newAccomodation.setBail(accomodation.getBail());
-        newAccomodation.setCity(accomodation.getCity());
         newAccomodation.setFurniture(accomodation.getFurniture());
-        newAccomodation.setImage(accomodation.getImage());
         newAccomodation.setSize(accomodation.getSize());
         newAccomodation.setRoomNumber(accomodation.getRoomNumber());
+        newAccomodation.setBathroomNumber(accomodation.getBathroomNumber());
         newAccomodation.setAvailability(accomodation.getAvailability());
         newAccomodation.setRules(accomodation.getRules());
         newAccomodation.setCountry(accomodation.getCountry());
+        newAccomodation.setCity(accomodation.getCity());
+        newAccomodation.setLikes(accomodation.getLikes());
+        newAccomodation.setLocation(accomodation.getLocation());
+        newAccomodation.setReservations(accomodation.getReservations());
         Accomodation acc=accomodationRepository.save(newAccomodation);
         return ResponseEntity.ok(acc);
 
     }
+
     /***The purpose of this methode is to indicate that an accomodation is not available that means it will be archived***/
     @Override
     public ResponseEntity<Accomodation> archiverAnAccommodation(Long idAcc) {
@@ -90,15 +95,9 @@ public class AccomodationServiceImpl implements IAccomodationService{
 
     @Override
     public int nbLike() {
-        return 0;
+        return accomodationRepository.nblikes();
     }
-    /**
-     * This method will display a list of accomodations by pages
-     **/
-    public Page<Accomodation> findAccomodationByPagination(int offset, int pageSize){
-        Page<Accomodation> accomodations = (Page<Accomodation>) accomodationRepository.findAll(PageRequest.of(offset, pageSize));
-        return accomodations;
-    }
+
     /**
      *Sort of accomodation by a specific field
      **/
@@ -106,5 +105,27 @@ public class AccomodationServiceImpl implements IAccomodationService{
         return accomodationRepository.findAll(Sort.by(Sort.Direction.ASC,champ));
     }
 
+    /**
+     * To display accomodations list by page
+     **/
+    public List<Accomodation> getAllAccommodationPage(Integer pageNo, Integer pageSize)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+
+        Page<Accomodation> pagedResult = accomodationRepository.findAll(paging);
+
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Accomodation>();
+        }
+    }
+
+    @Override
+    public Accomodation addAcc(Accomodation accomodation) {
+        return accomodationRepository.save(accomodation);
+    }
+
 
 }
+

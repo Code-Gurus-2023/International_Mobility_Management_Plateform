@@ -3,13 +3,21 @@ package com.gurus.mobility.controller.AccomodationController;
 
 import com.gurus.mobility.entity.Accomodation.APIResponse;
 import com.gurus.mobility.entity.Accomodation.Accomodation;
+import com.gurus.mobility.entity.Accomodation.Image;
 import com.gurus.mobility.service.AccomodationServices.IAccomodationService;
-import com.twilio.base.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @RequestMapping("/accomodation")
 @RestController
 public class AccomodationRestController {
@@ -17,14 +25,9 @@ public class AccomodationRestController {
         @Autowired
         private IAccomodationService accomodationService;
 
-        @PostMapping("/addAccomodation/{idOwner}")
-        public Accomodation saveAccomodation(@RequestBody Accomodation accomodation, @PathVariable("idOwner")Long idOwner) {
-                return accomodationService.saveAccomodation(accomodation, idOwner);
-        }
-
         @GetMapping("/getAllAccomodation")
         public List<Accomodation> getAccomodation() {
-                return accomodationService.getAccomodation();
+                return accomodationService.getAllAccomodation();
         }
 
         @GetMapping("/getAccomodationById/{idAcc}")
@@ -32,7 +35,7 @@ public class AccomodationRestController {
                 return accomodationService.getAccomodationById(idAcc);
         }
 
-        @PutMapping("/updateAccomodation/{idAcc}")
+       @PutMapping("/updateAccomodation/{idAcc}")
         public ResponseEntity<Accomodation> updateAccomodation(@PathVariable("idAcc") Long idAcc, @RequestBody Accomodation accomodation) {
                 return accomodationService.updateAccomodation(idAcc, accomodation);
         }
@@ -54,14 +57,7 @@ public class AccomodationRestController {
         public List<Accomodation> getAllArchiveAccomodation() {
                 return accomodationService.getAllArchiveAccomodation();
         }
-        /***
-         *The purpose of this method is to display accomodations list by page
-         ***/
-        @GetMapping("/pagination/{offset}/{pageSize}")
-        public APIResponse<Page<Accomodation>> getProduitWithPagination(@PathVariable int offset, @PathVariable int pageSize){
-                Page<Accomodation> accomodationWithPagination = accomodationService.findAccomodationByPagination(offset, pageSize);
-                return new APIResponse<>(accomodationWithPagination.getPageSize(), accomodationWithPagination);
-        }
+
         /***
          * The purpose of this method is to sort accomodations by a specific field
          ***/
@@ -70,8 +66,48 @@ public class AccomodationRestController {
                 List<Accomodation> allAccomodations=accomodationService.findAccomodationWithSort(champ);
                 return new APIResponse<>(allAccomodations.size(), allAccomodations);
         }
+        @GetMapping("/nbLikes")
+        public int nbLike() {
+                return accomodationService.nbLike();
+        }
+        @GetMapping("/pagination")
+        public ResponseEntity<List<Accomodation>> getAllEmployees(
+                @RequestParam(defaultValue = "0") Integer pageNo,
+                @RequestParam(defaultValue = "10") Integer pageSize
+                )
+        {
+                List<Accomodation> list = accomodationService.getAllAccommodationPage(pageNo, pageSize);
 
+                return new ResponseEntity<List<Accomodation>>(list, new HttpHeaders(), HttpStatus.OK);
+        }
 
+        @PostMapping(value = {"/addAcc"},consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+        public Accomodation addAcc(@RequestPart("accomodation") Accomodation accomodation,
+                                   @RequestPart("imageFile") MultipartFile[] file
+                                   ){
+                try {
+                     Set<Image> imageSet= uploadImage(file);
+                     accomodation.setImages(imageSet);
+                   return   accomodationService.addAcc(accomodation);
+                }catch (Exception e){
+                        System.out.println(e.getMessage());
+                        return null;
+                }
+        }
+        /**
+         *To process images and save them to the database
+         **/
+        public   Set<Image> uploadImage(MultipartFile[] multipartFiles) throws IOException {
+                Set<Image> imageSet=new HashSet<>();
+                for(MultipartFile file:multipartFiles){
+                        Image image=new Image(
+                                file.getOriginalFilename(),
+                                file.getContentType(),
+                                file.getBytes()
+                        );
+                        imageSet.add(image);
+                }
+                return imageSet;
+        }
 
-
-}
+        }

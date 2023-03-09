@@ -131,7 +131,7 @@ public class AuthController {
 
                         break;
                     case "prop":
-                        Role propRole = roleRepository.findByName(ERole.ROLE_PROPRIETAIRE_LOGEMENT)
+                        Role propRole = roleRepository.findByName(ERole.OWNER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(propRole);
 
