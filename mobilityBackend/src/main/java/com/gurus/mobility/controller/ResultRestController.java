@@ -2,15 +2,20 @@ package com.gurus.mobility.controller;
 
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.Candidacy.Result;
+import com.gurus.mobility.entity.user.User;
+import com.gurus.mobility.repository.User.UserRepository;
+import com.gurus.mobility.security.jwt.JwtUtils;
 import com.gurus.mobility.service.CandidacyServices.ICandidacyService;
 import com.gurus.mobility.service.CandidacyServices.IResultService;
 import com.gurus.mobility.service.CandidacyServices.ResultServiceImpl;
+import com.gurus.mobility.service.User.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
@@ -18,6 +23,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/result")
 public class ResultRestController {
+
+    public User authorisation(){
+        String token = request.getHeader("Authorization");
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        return userRepository.findByUserName(jwtUtils.getUserNameFromJwtToken(token)).get();
+    }
+    @Autowired
+    private IUserService iUserService;
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
+    private HttpServletResponse response;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    JwtUtils jwtUtils;
 
     @Autowired
     private IResultService resultService;

@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae1ab75e-9d28-42a1-b13d-8839c298768c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/CandidacyRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/CandidacyRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/ResultRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/ResultRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/Candidacy/Candidacy.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/entity/Candidacy/Candidacy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/Candidacy/ICandidacyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/repository/Candidacy/ICandidacyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/CandidacyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/CandidacyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ICandidacyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ICandidacyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/IResultService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/IResultService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ResultServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ResultServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +115,7 @@
       <workItem from="1678221506577" duration="13506000" />
       <workItem from="1678266777148" duration="2656000" />
       <workItem from="1678271430313" duration="13633000" />
-      <workItem from="1678296138149" duration="18646000" />
+      <workItem from="1678296138149" duration="18756000" />
     </task>
     <servers />
   </component>
