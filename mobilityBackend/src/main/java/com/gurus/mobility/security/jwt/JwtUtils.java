@@ -26,7 +26,7 @@ public class JwtUtils {
 
     private String jwtSecret = "EspritSecretKey";
 
-    private int jwtExpirationMs = 120000;
+    private int jwtExpirationMs = 12000000;
 
     private String jwtCookie = "EspritCookie";
 

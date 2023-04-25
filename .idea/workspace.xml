@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae1ab75e-9d28-42a1-b13d-8839c298768c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/CandidacyRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/CandidacyRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/JwtUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/CandidacyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/CandidacyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ICandidacyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ICandidacyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ResultServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ResultServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +120,19 @@
       <workItem from="1678221506577" duration="13506000" />
       <workItem from="1678266777148" duration="2656000" />
       <workItem from="1678271430313" duration="13633000" />
-      <workItem from="1678296138149" duration="18756000" />
+      <workItem from="1678296138149" duration="18984000" />
+      <workItem from="1678352632323" duration="8336000" />
+      <workItem from="1678370321914" duration="1100000" />
+      <workItem from="1678371641613" duration="66000" />
+      <workItem from="1678806414096" duration="680000" />
+      <workItem from="1680140416062" duration="618000" />
+      <workItem from="1680141345224" duration="114000" />
+      <workItem from="1680398278751" duration="944000" />
+      <workItem from="1682289508799" duration="606000" />
+      <workItem from="1682331217925" duration="2985000" />
+      <workItem from="1682346520375" duration="625000" />
+      <workItem from="1682435283230" duration="12182000" />
+      <workItem from="1682454573625" duration="2192000" />
     </task>
     <servers />
   </component>

@@ -2,8 +2,11 @@ package com.gurus.mobility.service.CandidacyServices;
 
 import com.gurus.mobility.entity.Candidacy.*;
 import com.gurus.mobility.entity.Offer.Profil;
+import com.gurus.mobility.entity.user.User;
+import com.gurus.mobility.exception.UpdateCandidacyException;
 import com.gurus.mobility.repository.Candidacy.ICandidacyRepository;
 import com.gurus.mobility.repository.Candidacy.IResultRepository;
+import com.gurus.mobility.repository.User.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +31,8 @@ public class CandidacyServiceImpl implements ICandidacyService {
     private ICandidacyRepository candidacyRepository;
     @Autowired
     private IResultRepository resultRepository;
-
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Override
@@ -110,6 +114,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
     @Override
     public Page<Candidacy> getAllCandidatures(int pageNumber, int pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+
         return candidacyRepository.findAll(pageable);
     }
 
@@ -122,7 +127,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
 
     @Override
     public Candidacy getCandidatureById(Integer idCandidacy) {
-        Optional<Candidacy> candidatureOptional =candidacyRepository.findById(idCandidacy);
+        Optional<Candidacy> candidatureOptional = candidacyRepository.findById(idCandidacy);
         if (candidatureOptional.isPresent()) {
             return candidatureOptional.get();
         } else {
@@ -135,7 +140,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
         Candidacy candidacy = candidacyRepository.findById(idCandidacy)
                 .orElseThrow(() -> new RuntimeException("Candidacy not found with id " + idCandidacy));
 
-        if (candidacy.getScoree() > 20 && candidacy.getMoyenneGenerale() > 16 && candidacy.getProfil() ==Profil.ETUDIANT) {
+        if (candidacy.getScoree() > 20 && candidacy.getMoyenneGenerale() > 16 && candidacy.getProfil() == Profil.ETUDIANT) {
             candidacy.setStatusCandidacy(StatusCandidacy.EN_ATTENTE);
         } else {
             candidacy.setStatusCandidacy(StatusCandidacy.REFUSEE);
@@ -161,6 +166,7 @@ public class CandidacyServiceImpl implements ICandidacyService {
             throw new CandidatureNotEligibleException("Candidature not eligible for automatic acceptance");
         }
     }
+
     @Override
     public void accepterOuRefuserCandidature(Integer idCandidacy) {
         Candidacy candidature = getCandidatureById(idCandidacy);
@@ -173,12 +179,30 @@ public class CandidacyServiceImpl implements ICandidacyService {
 
         saveCandidature(candidature);
     }
+
     @Override
     public Candidacy saveCandidature(Candidacy candidature) {
         return candidacyRepository.save(candidature);
     }
 
+    @Override
+    public List<Candidacy> getCandidacyByUser(Long userId) {
+        return userRepository.findById(userId).get().getCandidacies().stream().toList();
     }
+
+    @Override
+    public void createCandidacy(Candidacy candidacy, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UpdateCandidacyException("object not found with id =" + userId));
+        user.getCandidacies().add(candidacy);
+        //candidacy.setAlertCreationDate(LocalDateTime.now());
+        candidacyRepository.save(candidacy);
+        userRepository.save(user);
+    }
+
+
+}
+
+
 
 
 

@@ -31,6 +31,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/candidacy")
 public class CandidacyRestController {
+
     public User authorisation(){
         String token = request.getHeader("Authorization");
         if (token != null && token.startsWith("Bearer ")) {
@@ -59,10 +60,10 @@ public class CandidacyRestController {
 
 
    //http://localhost:8081/espritmobility/api/candidacy/getCandidacy
-    @GetMapping("/getCandidacy")
-    public List<Candidacy> getAllCandidacy() {
+    /*@GetMapping("/getCandidacy")
+    /public List<Candidacy> getAllCandidacy() {
         return candidacyService.getAllCandidacy();
-    }
+    }*/
 
 
     /*@GetMapping("/{id}")
@@ -177,6 +178,31 @@ public class CandidacyRestController {
     @PutMapping("/update1/{idCandidacy}")
     public void accepterOuRefuserCandidature(@PathVariable Integer idCandidacy) {
         candidacyService.accepterOuRefuserCandidature(idCandidacy);
+    }
+
+    //http://localhost:8081/espritmobility/api/candidacy/mycandidacy
+    @GetMapping("/mycandidacy")
+    public ResponseEntity<List<Candidacy>> getAllCandidacy(){
+        User user= authorisation();
+        if(user == null)
+            return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(candidacyService.getCandidacyByUser(user.getId()),HttpStatus.OK);
+    }
+
+    @PostMapping("/candidature")
+    public ResponseEntity ajouterCandidacy (@RequestBody Candidacy candidacy){
+        User user= authorisation();
+        if(user == null)
+            return new ResponseEntity<>("you should be connected",HttpStatus.FORBIDDEN);
+        candidacyService.createCandidacy(candidacy, user.getId());
+        return new ResponseEntity<>("candidacy registred successefully", HttpStatus.OK);
+    }
+    @GetMapping("/candidatures")
+    public ResponseEntity<List<Candidacy>> getUserCandidacy(){
+        User user= authorisation();
+        if(user == null)
+            return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(candidacyService.getAllCandidacy(),HttpStatus.OK);
     }
 
 }

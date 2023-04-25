@@ -84,13 +84,13 @@ public class ResultServiceImpl implements IResultService {
         try {
             List<Result> results = resultRepository.findAll();
 
-
+// Création d'un nouveau classeur Excel
             XSSFWorkbook workbook = new XSSFWorkbook();
 
-
+// Création d'une nouvelle feuille dans le classeur
             XSSFSheet sheet = workbook.createSheet("Results");
 
-
+// Création d'une ligne pour les titres des colonnes
             XSSFRow headerRow = sheet.createRow(0);
             headerRow.createCell(0).setCellValue("idResult");
             headerRow.createCell(1).setCellValue("pl");
@@ -104,7 +104,7 @@ public class ResultServiceImpl implements IResultService {
             headerRow.createCell(9).setCellValue("generalAverage");
             headerRow.createCell(10).setCellValue("score");
 
-
+// Remplissage des données des candidatures
             int rowNum = 1;
             for (Result result : results) {
                 XSSFRow row = sheet.createRow(rowNum++);
@@ -121,10 +121,11 @@ public class ResultServiceImpl implements IResultService {
                 row.createCell(10).setCellValue(result.getScore());
 
             }
-
+// Configuration de l'en-tête de la réponse HTTP
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setHeader("Content-Disposition", "attachment; filename=\"results.csv\"");
 
+            // Écriture du classeur dans le flux de sortie HTTP
             ServletOutputStream outputStream = response.getOutputStream();
             workbook.write(outputStream);
             outputStream.close();

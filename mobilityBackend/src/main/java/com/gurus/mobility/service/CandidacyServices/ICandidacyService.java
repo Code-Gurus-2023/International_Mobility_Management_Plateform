@@ -5,6 +5,7 @@ import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.Candidacy.DomainCandidacy;
 import com.gurus.mobility.entity.Candidacy.Result;
 import com.gurus.mobility.entity.Candidacy.StatusCandidacy;
+import com.gurus.mobility.entity.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,5 +41,10 @@ public interface ICandidacyService {
 
         void accepterOuRefuserCandidature(Integer idCandidacy);
         Candidacy saveCandidature(Candidacy candidature);
+        public List<Candidacy> getCandidacyByUser(Long userId);
+
+         void createCandidacy(Candidacy candidacy, Long userId);
+
+
 }
 
