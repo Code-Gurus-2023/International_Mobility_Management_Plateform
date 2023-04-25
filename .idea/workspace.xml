@@ -29,6 +29,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+
+        <option value="Interface" />
+
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -40,6 +43,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="2LojnJLpxO4tHImZcx7L79y0mGQ" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -48,6 +58,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RequestMappingsPanelOrder0": "0",
@@ -71,6 +82,17 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+
+
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;7393daff1b0755731b3c165b370c333a&quot;
+
+    &quot;spring.configuration.checksum&quot;: &quot;7393daff1b0755731b3c165b370c333a&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+
+  }
+}</component>
+
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.gurus.mobility.service.User" />
@@ -88,15 +110,11 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="International_Mobility_Management_Plateform" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="International_Mobility_Management_Plateform" />
-      <option name="filePath" />
+
+    <configuration name="MobilityApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+
+      <module name="mobility" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gurus.mobility.MobilityApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -119,9 +137,28 @@
       <updated>1676544494452</updated>
       <workItem from="1676544496309" duration="1342000" />
       <workItem from="1676634101653" duration="59000" />
+
       <workItem from="1677014892896" duration="34671000" />
       <workItem from="1677365905075" duration="80950000" />
       <workItem from="1677627472289" duration="408000" />
+
+      <workItem from="1677156317039" duration="1294000" />
+      <workItem from="1677191521386" duration="10041000" />
+      <workItem from="1677489612688" duration="621000" />
+      <workItem from="1677535798765" duration="10702000" />
+      <workItem from="1677579273543" duration="3247000" />
+      <workItem from="1677595190974" duration="604000" />
+      <workItem from="1677617987951" duration="8640000" />
+      <workItem from="1677676922321" duration="7201000" />
+      <workItem from="1677712898970" duration="781000" />
+      <workItem from="1677754714883" duration="4509000" />
+      <workItem from="1677761443197" duration="2920000" />
+      <workItem from="1677847003128" duration="1703000" />
+
+      <workItem from="1677014892896" duration="34671000" />
+      <workItem from="1677365905075" duration="80950000" />
+      <workItem from="1677627472289" duration="408000" />
+
     </task>
     <servers />
   </component>

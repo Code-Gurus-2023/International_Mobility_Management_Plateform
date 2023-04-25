@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
@@ -37,7 +36,7 @@ public class AccomodationServiceImpl implements IAccomodationService{
     @Override
     public ResponseEntity<Accomodation> getAccomodationById(Long idAcc) {
         Accomodation accomodation=accomodationRepository.findById(idAcc)
-                    .orElseThrow(()->new NotFoundException("We didn't found the accomodation"));
+                    .orElseThrow();
                                         return ResponseEntity.ok(accomodation);
     }
 
@@ -45,7 +44,7 @@ public class AccomodationServiceImpl implements IAccomodationService{
     @Override
     public ResponseEntity<Accomodation> updateAccomodation(Long idAcc, Accomodation accomodation) {
         Accomodation newAccomodation=accomodationRepository.findById(idAcc)
-                .orElseThrow(()->new NotFoundException("we didn't found the accomodation to update it"));
+                .orElseThrow();
         newAccomodation.setTitle(accomodation.getTitle());
         newAccomodation.setUser(accomodation.getUser());
         newAccomodation.setDescription(accomodation.getDescription());
@@ -71,7 +70,7 @@ public class AccomodationServiceImpl implements IAccomodationService{
     @Override
     public ResponseEntity<Accomodation> archiverAnAccommodation(Long idAcc) {
         Accomodation accomodation=accomodationRepository.findById(idAcc)
-                .orElseThrow(()->new NotFoundException("We didn't found the accomodation you are looking for"));
+                .orElseThrow();
             accomodation.setAvailability(false);
             return  ResponseEntity.ok(accomodation);
     }
@@ -79,7 +78,7 @@ public class AccomodationServiceImpl implements IAccomodationService{
     @Override
     public ResponseEntity<Accomodation> darchiverAnAccommodation(Long idAcc) {
         Accomodation accomodation=accomodationRepository.findById(idAcc)
-                .orElseThrow(()->new NotFoundException("We didn't found the accomodation you are looking for"));
+                .orElseThrow();
         accomodation.setAvailability(true);
         return  ResponseEntity.ok(accomodation);
     }
