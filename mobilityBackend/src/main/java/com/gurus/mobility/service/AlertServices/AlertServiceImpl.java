@@ -12,7 +12,9 @@ import com.gurus.mobility.repository.User.UserRepository;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,11 +22,14 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
+@Slf4j
 @Service
 public class AlertServiceImpl implements IAlertService{
     @Autowired
@@ -38,19 +43,82 @@ public class AlertServiceImpl implements IAlertService{
     @Autowired
     private MailContentBuilder mailContentBuilder;
     @Override
-    public void createAlert(Alert alert, Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UpdateClaimException("object not found with id =" + userId));
-        user.getAlerts().add(alert);
-        alert.setAlertCreationDate(LocalDateTime.now());
-        alertRepository.save(alert);
-        userRepository.save(user);
+    public boolean createAlert(Alert alert, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UpdateClaimException("user not found with id =" + userId));
+        switch (alert.getAlrtKind()){
+            case SMS:
+                switch (alert.getAlrtTarget()){
+                    case OFFER_UNIVERSITE:
+                        if(alert.getAlrtPhoneNumber()!=null && alert.getAlrtEmail()==null && alert.getUniversiteAlrt()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                    case COUNTRY:
+                        if(alert.getAlrtPhoneNumber()!=null && alert.getAlrtEmail()==null && alert.getCoutryAlert()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                    case REGION:
+                        if(alert.getAlrtPhoneNumber()!=null && alert.getAlrtEmail()==null && alert.getRegionAlert()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                }
+            case EMAIL:
+                switch (alert.getAlrtTarget()){
+                    case OFFER_UNIVERSITE:
+                        if(alert.getAlrtEmail()!=null && alert.getAlrtPhoneNumber()==null && alert.getUniversiteAlrt()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                    case COUNTRY:
+                        if(alert.getAlrtEmail()!=null && alert.getAlrtPhoneNumber()==null && alert.getCoutryAlert()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                    case REGION:
+                        if(alert.getAlrtEmail()!=null && alert.getAlrtPhoneNumber()==null && alert.getRegionAlert()!=null){
+                            user.getAlerts().add(alert);
+                            alert.setAlertCreationDate(LocalDateTime.now());
+                            alertRepository.save(alert);
+                            userRepository.save(user);
+                            return true;
+                        }
+                        break;
+                }
+        }
+        return false;
+    }
+
+    public void sendEmail(String to,String subject, String templateName, Map<String, Object> variables) throws MessagingException{
+        mailContentBuilder.build(to,subject,templateName,variables);
     }
 
     @Override
     @Scheduled(fixedRate = 300000)
     public void sendAlerts (){
         List<Offer> offerList= iOfferRepository.findByOfferCreationDateAfter(LocalDateTime.now().minusMinutes(5));
-        Twilio.init("AC0dcec74e1defc2c4d59b1d4d92bb77c7","9b5bf4568d65ed7a82b6e93c23bbf687");
+        Twilio.init("AC0dcec74e1defc2c4d59b1d4d92bb77c7","a836176260ce9ad3507ddf04491e3b3c");
         PhoneNumber from= new PhoneNumber("+1 276 296 5689");
         SimpleMailMessage message= new SimpleMailMessage();
         List<Alert> alertList= alertRepository.findAll();
@@ -71,7 +139,7 @@ public class AlertServiceImpl implements IAlertService{
                             if(alert.getRegionAlert().equals(offer.getUser().getLocation())){
                                 System.out.println("sending alert ...");
                                 PhoneNumber userPhone= new PhoneNumber("+216 "+alert.getAlrtPhoneNumber());
-                                String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+"in the region "+offer.getUser().getLocation()+ "has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
+                                String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+" in the region "+offer.getUser().getLocation()+" has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
                                         "This message was sent automatically.Thank you for not responding";
                                 Message.creator(userPhone,from,msg).create();
                             }
@@ -79,59 +147,59 @@ public class AlertServiceImpl implements IAlertService{
                         case COUNTRY:
                             if (alert.getCoutryAlert().equals(offer.getUser().getCountry())){
                                 System.out.println("sending alert ...");
-                                String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+"in the country "+offer.getUser().getCountry()+ "has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
+                                String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+" in the country "+offer.getUser().getCountry()+" has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
                                         "This message was sent automatically.Thank you for not responding";
                                 PhoneNumber userPhone= new PhoneNumber("+216 "+alert.getAlrtPhoneNumber());
                                 Message.creator(userPhone,from,msg).create();
                             }
                             break;
                     }
-
                 }
                 if(alert.getAlrtKind().equals(Kind.EMAIL)) {
                     switch (alert.getAlrtTarget()) {
                         case OFFER_UNIVERSITE:
                             if (alert.getUniversiteAlrt().equals(offer.getUser().getUserName())) {
                                 System.out.println("sending alert ...");
-                                String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+" has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
+                                String msg="We inform you that university "+offer.getUser().getUserName().toUpperCase()+" has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
                                         "This message was sent automatically.Thank you for not responding";
-                                //message.setFrom("leithhamza.ghandri@esprit.tn");
-                                //message.setTo(alert.getAlrtEmail());
-                                //message.setSubject("Esprit Mobilty Alert");
-                                //message.setText(mailContentBuilder.build(msg));
-                                //javaMailSender.send(message);
-                                MimeMessagePreparator messagePreparator=mimeMessage -> {
-                                    MimeMessageHelper messageHelper=new MimeMessageHelper(mimeMessage);
-                                    messageHelper.setFrom("leithhamza.ghandri@esprit.tn");
-                                    messageHelper.setTo(alert.getAlrtEmail());
-                                    messageHelper.setSubject("Esprit Mobilty Alert");
-                                    messageHelper.setText(mailContentBuilder.build(msg));
-                                };
-                                javaMailSender.send(messagePreparator);
+                                Map<String, Object> variables = new HashMap<>();
+                                variables.put("subject", "Welcome to my website!");
+                                variables.put("message", msg);
+                                try{
+                                    sendEmail(alert.getAlrtEmail(),"ESPRIT OFFER UNIVERSITY ALERT","mailTemplate",variables);
+                                }catch (Exception e){
+                                    System.out.println(e);
+                                }
                             }
                             break;
                         case REGION:
                             if (alert.getRegionAlert().equals(offer.getUser().getLocation())){
                                 System.out.println("sending alert ...");
-                                String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+"in the region "+offer.getUser().getLocation()+ "has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
+                                String msg="We inform you that university "+offer.getUser().getUserName().toUpperCase()+" in the region "+offer.getUser().getLocation().toUpperCase()+ " has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
                                         "This message was sent automatically.Thank you for not responding";
-                                message.setFrom("leithhamza.ghandri@esprit.tn");
-                                message.setTo(alert.getAlrtEmail());
-                                message.setSubject("Esprit Mobilty Alert");
-                                message.setText(mailContentBuilder.build(msg));
-                                javaMailSender.send(message);
+                                Map<String, Object> variables = new HashMap<>();
+                                variables.put("subject", "Welcome to my website!");
+                                variables.put("message", msg);
+                                try{
+                                    sendEmail(alert.getAlrtEmail(),"ESPRIT REGION UNIVERSITY ALERT","mailTemplate",variables);
+                                }catch (Exception e){
+                                    System.out.println(e);
+                                }
                             }
                             break;
                         case COUNTRY:
                             if (alert.getCoutryAlert().equals(offer.getUser().getCountry())) {
                                 System.out.println("sending alert ...");
-                                String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+"in the country "+offer.getUser().getCountry()+ "has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
+                                String msg="We inform you that university "+offer.getUser().getUserName().toUpperCase()+" in the "+offer.getUser().getCountry().toUpperCase()+ " country has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
                                         "This message was sent automatically.Thank you for not responding";
-                                message.setFrom("leithhamza.ghandri@esprit.tn");
-                                message.setTo(alert.getAlrtEmail());
-                                message.setSubject("Esprit Mobilty Alert");
-                                message.setText(mailContentBuilder.build(msg));
-                                javaMailSender.send(message);
+                                Map<String, Object> variables = new HashMap<>();
+                                variables.put("subject", "Welcome to my website!");
+                                variables.put("message", msg);
+                                try{
+                                    sendEmail(alert.getAlrtEmail(),"ESPRIT COUNTRY UNIVERSITY ALERT","mailTemplate",variables);
+                                }catch (Exception e){
+                                    System.out.println(e);
+                                }
                             }
                             break;
                     }
@@ -139,29 +207,7 @@ public class AlertServiceImpl implements IAlertService{
             }
         }
     }
- /*if(alert.getAlrtTarget().equals(Target.OFFER_UNIVERSITE) && alert.getUniversiteAlrt().equals(offer.getUser().getUserName())){
-                        System.out.println("sending alert ...");
-                        String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+" has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
-                                "This message was sent automatically.Thank you for not responding";
-                        PhoneNumber userPhone= new PhoneNumber("+216 "+alert.getAlrtPhoneNumber());
-                        Message.creator(userPhone,from,msg).create();
-                    }
 
-                    if(alert.getAlrtTarget().equals(Target.REGION) && alert.getRegionAlert().equals(offer.getUser().getLocation())){
-                        System.out.println("sending alert ...");
-                        PhoneNumber userPhone= new PhoneNumber("+216 "+alert.getAlrtPhoneNumber());
-                        String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+"in the region "+offer.getUser().getLocation()+ "has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
-                                "This message was sent automatically.Thank you for not responding";
-                        Message.creator(userPhone,from,msg).create();
-                    }
-
-                    if(alert.getAlrtTarget().equals(Target.COUNTRY) && alert.getCoutryAlert().equals(offer.getUser().getCountry())){
-                        System.out.println("sending alert ...");
-                        String msg="Good Morning,\nWe inform you that university "+offer.getUser().getUserName().toUpperCase()+"in the country "+offer.getUser().getCountry()+ "has published a mobility offer.\nTo apply for this offer, please access the ESPRIT MOBILITY platform.\n" +
-                                "This message was sent automatically.Thank you for not responding";
-                        PhoneNumber userPhone= new PhoneNumber("+216 "+alert.getAlrtPhoneNumber());
-                        Message.creator(userPhone,from,"The university "+offer.getUser().getUserName() +" in region "+offer.getUser().getLocation()+" posted an offer").create();
-                    }*/
 
     @Override
     public List<Alert> getAlertsByUser(Long userId){
@@ -183,23 +229,13 @@ public class AlertServiceImpl implements IAlertService{
     }
 
     @Override
-    public void deleteAlert(Alert alert){
-        alertRepository.delete(alert);
+    public void deleteAlert(Long alert){
+        alertRepository.deleteById(alert);
     }
 
-    public void fixedRateMethod() {
-        List<Offer> lf=iOfferRepository.findByOfferCreationDateAfter(LocalDateTime.now().minusMinutes(5));
-        //List<Offer> lf= iOfferRepository.findAll();
-        PhoneNumber to= new PhoneNumber("+216 53310166");
-        PhoneNumber from= new PhoneNumber("+1 276 296 5689");
-        if(!lf.isEmpty()){
-            for (Offer off:lf) {
-                System.out.println("test test est");
-                Twilio.init("AC0dcec74e1defc2c4d59b1d4d92bb77c7","9b5bf4568d65ed7a82b6e93c23bbf687");
-                Message.creator(to,from,"this is a test message form spring boot app").create();
-            }
-        }else {
-            System.out.println("la liste est vide");
-        }
+    @Override
+    public boolean getUseridBylertid(User user, long id){
+            return user.getAlerts().contains(alertRepository.findById(id));
     }
+
 }

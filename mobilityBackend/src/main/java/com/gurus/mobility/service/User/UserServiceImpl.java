@@ -200,8 +200,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Optional<User> getUserByUsername(String username) {
-        return null;
+    public User getUserByUsername(String username) {
+        return userRepository.findByEmail(username);
     }
 
 }

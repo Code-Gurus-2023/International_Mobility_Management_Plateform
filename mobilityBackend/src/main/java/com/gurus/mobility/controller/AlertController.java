@@ -3,6 +3,7 @@ package com.gurus.mobility.controller;
 import com.gurus.mobility.entity.alert.Alert;
 import com.gurus.mobility.entity.user.ERole;
 import com.gurus.mobility.entity.user.User;
+import com.gurus.mobility.repository.AlertRepositories.AlertRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import com.gurus.mobility.security.jwt.JwtUtils;
 import com.gurus.mobility.service.AlertServices.IAlertService;
@@ -33,15 +34,20 @@ public class AlertController {
     private IAlertService iAlertService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AlertRepository alertRepository;
 
     @PostMapping()
     public ResponseEntity ajouterAlert (@RequestBody Alert alert){
         User user= authorisation();
         if(user == null)
             return new ResponseEntity<>("you should be connected",HttpStatus.FORBIDDEN);
-        iAlertService.createAlert(alert, user.getId());
-        return new ResponseEntity<>("alert registred successefully", HttpStatus.OK);
+        if(iAlertService.createAlert(alert, user.getId()))
+            return new ResponseEntity<>("alert registred successefully", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("make sur for your request",HttpStatus.BAD_REQUEST);
     }
+
     @GetMapping("/alerts")
     public ResponseEntity<List<Alert>> getUserAlerts(){
         User user= authorisation();
@@ -57,8 +63,13 @@ public class AlertController {
         return new ResponseEntity<>(iAlertService.getAlertsByUser(user.getId()),HttpStatus.OK);
     }
 
-    @DeleteMapping("{idUser}/{idAlert}")
-    public ResponseEntity deleteAlert(@PathVariable("idUser")int idUser, @PathVariable("idAlert")int idAlert){
-        return null;
+    @DeleteMapping("/delete/{idAlert}")
+    public ResponseEntity deleteAlert(@PathVariable("idAlert")long idAlert){
+        User user= authorisation();
+        if(iAlertService.getUseridBylertid(user,idAlert)){
+            iAlertService.deleteAlert(idAlert);
+            return new ResponseEntity<>("alert deleted successefully", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
     }
 }

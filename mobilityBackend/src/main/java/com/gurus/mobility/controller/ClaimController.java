@@ -1,25 +1,35 @@
 package com.gurus.mobility.controller;
 
+import com.google.zxing.WriterException;
+import com.gurus.mobility.config.QRCodeGenerator;
 import com.gurus.mobility.entity.claim.Claim;
 
 import com.gurus.mobility.entity.claim.Response;
+import com.gurus.mobility.entity.claim.State;
+import com.gurus.mobility.entity.claim.Type;
 import com.gurus.mobility.entity.user.ERole;
 import com.gurus.mobility.entity.user.User;
+import com.gurus.mobility.payload.request.QrRequest;
 import com.gurus.mobility.repository.ClaimRepositories.ClaimRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import com.gurus.mobility.security.jwt.JwtUtils;
+import com.gurus.mobility.service.AlertServices.MailContentBuilder;
 import com.gurus.mobility.service.ClaimServices.IClaimService;
 import com.gurus.mobility.service.ClaimServices.IResponseService;
 import com.gurus.mobility.service.User.IUserService;
-import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingRequestValueException;
 import org.springframework.web.bind.annotation.*;
-
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.websocket.server.PathParam;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.List;
 
 @RestController
@@ -50,6 +60,10 @@ public class ClaimController {
     private UserRepository userRepository;
     @Autowired
     private ClaimRepository claimRepository;
+    @Autowired
+    private QRCodeGenerator qrCodeGenerator;
+    @Autowired
+    private MailContentBuilder mailContentBuilder;
 
     //simple user can create new claim
     @PostMapping("creat")
@@ -140,6 +154,57 @@ public class ClaimController {
         iClaimService.blockClaim(idClaim);
         return new ResponseEntity<>("claim blocked successefully", HttpStatus.OK);
     }
+
+    public void sendEmail(String to,String subject, String templateName, Map<String, Object> variables) throws MessagingException {
+        mailContentBuilder.build(to,subject,templateName,variables);
+    }
+    static int randomNumber;
+    static String mail;
+    @PostMapping(value = "/qr/generate", produces = MediaType.IMAGE_JPEG_VALUE)
+    public void generateQr(@RequestBody QrRequest qr, HttpServletResponse response) throws MissingRequestValueException, WriterException, IOException {
+
+
+        for (User user:userRepository.findAll()) {
+            if(qr.getEmail().equals(user.getEmail())){
+                Random rand = new Random();
+                Set<Integer> set = new HashSet<>();
+                int min = 1000000;
+                int max = 9999999;
+                int range = max - min + 1;
+                randomNumber = rand.nextInt(range) + min;
+                while (set.contains(randomNumber)) {
+                    randomNumber = rand.nextInt(range) + min;
+                }
+                set.add(randomNumber);
+                qrCodeGenerator.generateQr(Integer.toString(randomNumber), response.getOutputStream());
+
+                mail=user.getEmail();
+
+            }
+
+        }
+
+    }
+
+    @PostMapping("/qr/verify")
+    public ResponseEntity verifCode(@RequestBody QrRequest qr){
+        if(qr.getCode().equals(Integer.toString(randomNumber))){
+            Claim clm= new Claim(
+                    "i cont login to my account",
+                    "when i try to log to my account, i got login failed",
+                    Type.TECHNICAL_FAILURE,
+                    State.NOT_TRAITED,
+                    false,
+                    LocalDateTime.now()
+            );
+            iClaimService.createClaim(clm, iUserService.getUserByUsername(mail).getId());
+            return new ResponseEntity<>("claim sended secufully", HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>("code error",HttpStatus.NOT_FOUND);
+    }
+
+
 
 
 
