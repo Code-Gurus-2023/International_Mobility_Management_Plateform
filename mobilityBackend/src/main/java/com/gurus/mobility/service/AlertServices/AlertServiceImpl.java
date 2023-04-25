@@ -118,7 +118,7 @@ public class AlertServiceImpl implements IAlertService{
     @Scheduled(fixedRate = 300000)
     public void sendAlerts (){
         List<Offer> offerList= iOfferRepository.findByOfferCreationDateAfter(LocalDateTime.now().minusMinutes(5));
-        Twilio.init("AC0dcec74e1defc2c4d59b1d4d92bb77c7","7aa1128e771ef3e6b9a8d1a91d584e0a");
+        Twilio.init("AC0dcec74e1defc2c4d59b1d4d92bb77c7","a836176260ce9ad3507ddf04491e3b3c");
         PhoneNumber from= new PhoneNumber("+1 276 296 5689");
         SimpleMailMessage message= new SimpleMailMessage();
         List<Alert> alertList= alertRepository.findAll();
