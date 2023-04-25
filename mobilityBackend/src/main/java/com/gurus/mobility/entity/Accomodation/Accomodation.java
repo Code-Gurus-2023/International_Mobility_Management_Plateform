@@ -25,7 +25,6 @@ public class Accomodation implements Serializable {
         private int size;
         private int roomNumber;
         private int bathroomNumber;
-        private String image;
         private Boolean furniture;
         private String country;
         private String city;
@@ -35,6 +34,18 @@ public class Accomodation implements Serializable {
         private double bail;
         private String rules;
         private Boolean likes;
+
+
+        @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @JoinTable(name = "Accomodations_Image",
+                       joinColumns = {
+                        @JoinColumn(name="Accomodation_id")
+                       },
+                inverseJoinColumns = {
+                @JoinColumn(name = "image_id")
+                }
+        )
+        private Set<Image> images;
 
         @Getter(AccessLevel.NONE)
         @Setter(AccessLevel.NONE)

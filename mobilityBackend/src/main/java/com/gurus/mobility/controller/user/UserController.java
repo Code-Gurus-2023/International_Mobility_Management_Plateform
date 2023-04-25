@@ -4,6 +4,7 @@ import com.gurus.mobility.dto.UserList;
 import com.gurus.mobility.entity.user.FileDB;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.payload.response.MessageResponse;
+import com.gurus.mobility.repository.AccomodationRepository.AccomodationRepository;
 import com.gurus.mobility.repository.User.FileDBRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import com.gurus.mobility.service.User.IFileStorageService;
@@ -29,6 +30,9 @@ public class UserController {
 
     @Autowired
     private FileDBRepository ImageRepository;
+    @Autowired
+    private AccomodationRepository accomodationRepository;
+
 
     private ImageService imageService;
 
@@ -81,6 +85,10 @@ public class UserController {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
         }
+    }
+    @GetMapping("/getUserByIdAndRole/{id}")
+    public User getUserByIdAndRole(@PathVariable("id") Long id){
+        return userService.getUserByIdAndRole(id);
     }
 
 }

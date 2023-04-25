@@ -1,23 +1,17 @@
 package com.gurus.mobility.service.User;
 
+import com.gurus.mobility.entity.Accomodation.Accomodation;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.UserNotFoundException;
+import com.gurus.mobility.repository.AccomodationRepository.AccomodationRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.ServletContext;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,6 +27,10 @@ public class UserServiceImpl implements IUserService {
     UserRepository userRepository;
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private ServletContext context;
+    @Autowired
+    private AccomodationRepository accomodationRepository;
 
 
     @Override
@@ -180,6 +178,21 @@ public class UserServiceImpl implements IUserService {
         return "User successfuly Desactivated!";
 
     }
+
+    @Override
+    public User getUserByIdAndRole(Long id) {
+        return userRepository.findUserByIdAndRole(id);
+    }
+    @Override
+    public User affecterAccToOwner(Long idAcc, Long idUser) {
+        Accomodation accomodation=accomodationRepository.findById(idAcc)
+                .orElse(null);
+        User user=userRepository.findUserByIdAndRole(idUser);
+        user.getAccomodations().add(accomodation);
+        return userRepository.save(user);
+    }
+
+
 
 
     public User findById(Long id) {

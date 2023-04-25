@@ -1,20 +1,22 @@
 package com.gurus.mobility.service.AccomodationServices;
 
+import com.gurus.mobility.entity.Accomodation.Accomodation;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+
 public interface IAccomodationService {
-   /* public Accomodation saveAccomodation(Accomodation accomodation);
-    public List<Accomodation> getAccomodation();
+    public List<Accomodation> getAllAccomodation();
     public ResponseEntity<Accomodation> getAccomodationById(Long idAcc);
-    public ResponseEntity<Accomodation> updateAccomodation(Long idAcc, Accomodation accomodation);
-    public ResponseEntity<Map<String,Boolean>> deleteAccomodation(Long idAcc);
-    public ResponseEntity<Map<String,Boolean>> archiverAnAccommodation(Long idAcc);
+    //public ResponseEntity<Accomodation> updateAccomodation(Long idAcc, Accomodation accomodation);
+    public ResponseEntity<Accomodation> archiverAnAccommodation(Long idAcc);
+    public ResponseEntity<Accomodation> darchiverAnAccommodation(Long idAcc);
     public List<Accomodation> getAllArchiveAccomodation();
-    public ResponseEntity<Map<String,Boolean>> darchiverAnAccommodation(Long idAcc);
     public int nbReservation();
-    public int nbLike();*/
+    public int nbLike();
+    public List<Accomodation> findAccomodationWithSort(String champ);
+    public List<Accomodation> getAllAccommodationPage(Integer pageNo, Integer pageSize);
 
-
-
-
-
-
-}
+    Accomodation addAcc(Accomodation accomodation);
+    public ResponseEntity<Accomodation> updateAccomodation(Long idAcc, Accomodation accomodation);
+    }

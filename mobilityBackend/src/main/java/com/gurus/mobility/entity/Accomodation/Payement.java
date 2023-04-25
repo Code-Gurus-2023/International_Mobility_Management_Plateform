@@ -17,7 +17,7 @@ public class Payement implements Serializable {
     private Long  idPayement;
     private String name;
     private String currency;
-    private double amount;
+    private long amount;
     private String successUrl;
     private String cancelUrl;
     @OneToOne(mappedBy = "payement", cascade = CascadeType.ALL)
