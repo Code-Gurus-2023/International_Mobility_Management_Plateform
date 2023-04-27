@@ -1,28 +1,20 @@
 package com.gurus.mobility.service.User;
 
+import com.gurus.mobility.entity.claim.Claim;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.UserNotFoundException;
+import com.gurus.mobility.repository.ClaimRepositories.ClaimRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -31,6 +23,8 @@ public class UserServiceImpl implements IUserService {
     private static final long EXPIRE_TOKEN_AFTER_MINUTES = 30;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    ClaimRepository claimRepository;
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -68,12 +62,12 @@ public class UserServiceImpl implements IUserService {
         user.setUserName(updateuser.getUserName());
         user.setEmail(updateuser.getEmail());
         user.setLocation(updateuser.getLocation());
+        user.setCountry(updateuser.getCountry());
         user.setPhoneNumber(updateuser.getPhoneNumber());
         user.setExperienceYears(updateuser.getExperienceYears());
         user.setProfessorDiploma(updateuser.getProfessorDiploma());
         user.setStudentLevel(updateuser.getStudentLevel());
         user.setStudentSpeciality(updateuser.getStudentSpeciality());
-        user.setProfileImage(updateuser.getProfileImage());
         user.setPassword(bCryptPasswordEncoder.encode(updateuser.getPassword()));
         userRepository.save(user);
         return user;
@@ -180,4 +174,26 @@ public class UserServiceImpl implements IUserService {
         return "User successfuly Desactivated!";
 
     }
+
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Optional<User> getUserByUsername(String username) {
+        return null;
+    }
+
+    @Override
+    public int NBClaimsLastDate(LocalDateTime date, Long userid)
+    {
+        User user = findById(userid);
+        Set<Claim> claims = user.getClaims();
+        Set<Claim> claimsFiltered = claims.stream()
+                .filter(claim -> claim.getCreationDateClm().isAfter(date))
+                .collect(Collectors.toSet());
+        return claimsFiltered.size();
+    }
+
 }

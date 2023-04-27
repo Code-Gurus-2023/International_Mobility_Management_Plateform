@@ -15,8 +15,9 @@ import java.time.LocalDate;
 public class Response {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int idRsp;
+    public Long idRsp;
     public String descriptionRsp;
+    public boolean archiveRsp;
     @Column(name = "created_date")
     @CreatedDate
     public LocalDate creationDateRsp;
