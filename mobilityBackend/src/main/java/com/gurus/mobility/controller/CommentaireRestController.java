@@ -105,6 +105,34 @@ public class CommentaireRestController {
         return commentaires.delayElements(Duration.ofMillis(10000));
     }
 
+    @PostMapping("/ajouterCommentaire")
+    public ResponseEntity ajouterCommentaire (@RequestBody Commentaire commentaire){
+        User user= authorisation();
+        if(user == null)
+            return new ResponseEntity<>("you should be connected",HttpStatus.FORBIDDEN);
+        commentaireService.createCommentaire2(commentaire, user.getId());
+        return new ResponseEntity<>("comment registred successefully", HttpStatus.OK);
+    }
+
+
+
+    @GetMapping("/myCommentaires")
+    public ResponseEntity<List<Commentaire>> getAllMyCommentaires(){
+        User user= authorisation();
+        if(user == null)
+            return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(commentaireService.getCommentaireByUser(user.getId()),HttpStatus.OK);
+    }
+
+    @GetMapping("/UserCommentaires")
+    public ResponseEntity<List<Commentaire>> getUserCommentaires(){
+        User user= authorisation();
+        if(user == null)
+            return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(commentaireService.getAllCommentaires(),HttpStatus.OK);
+    }
+
+
 
 
 }

@@ -3,7 +3,9 @@ package com.gurus.mobility.service.CommentaireService;
 import com.gurus.mobility.entity.Offer.Commentaire;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.entity.user.User;
+import com.gurus.mobility.exception.UpdateOfferException;
 import com.gurus.mobility.repository.OfferRepository.ICommentaireRepository;
+import com.gurus.mobility.repository.User.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import java.util.List;
 public class CommentaireServiceImpl implements ICommentaireService{
     @Autowired
     private ICommentaireRepository commentaireRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<Commentaire> getAllCommentaires() {
@@ -77,6 +81,25 @@ public class CommentaireServiceImpl implements ICommentaireService{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Commentaire> getCommentaireByUser(Long userId){
+        return userRepository.findById(userId).get().getCommentaires().stream().toList();
+    }
+
+    @Override
+    public void createCommentaire2(Commentaire commentaire, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UpdateOfferException("object not found with id =" + userId));
+        user.getCommentaires().add(commentaire);
+        //offer.setAlertCreationDate(LocalDateTime.now());
+        commentaireRepository.save(commentaire);
+        userRepository.save(user);
+    }
+
+    public boolean getUseridByCommentaireid(User user, int id){
+        return user.getCommentaires().contains(commentaireRepository.findById(id).get());
+    }
+
 
 
 

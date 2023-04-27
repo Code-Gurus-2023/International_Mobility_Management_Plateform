@@ -14,6 +14,9 @@ public interface ICommentaireService {
     void deleteCommentaire(Integer id);
     boolean detecterBadWords(String commentaire);
     void archiveCommentaire(Integer id);
+    List<Commentaire> getCommentaireByUser(Long userId);
 
+    void createCommentaire2(Commentaire commentaire, Long userId);
+    boolean getUseridByCommentaireid(User user, int id);
 
 }

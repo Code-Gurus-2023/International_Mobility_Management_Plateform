@@ -3,6 +3,7 @@ package com.gurus.mobility.service.OfferService;
 import com.gurus.mobility.entity.Offer.Destination;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.entity.user.ERole;
+import com.gurus.mobility.entity.user.User;
 import org.springframework.data.domain.Page;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,17 @@ public interface IOfferService {
     Map<Destination, Long> getNombreOffresParDestination();
     List<Offer> getOffresEnseignant();
     List<Offer> getOffresEtudiant();
+//    public List<Offer> getAllOffers1();
+    List<Offer> getOfferByUser(Long userId);
+
+     void createOffer2(Offer offer, Long userId);
+     boolean getUseridByOfferid(User user, int id);
+
+
+
+
+
+
 
 
 

@@ -217,6 +217,8 @@ public class User {
         return alerts;
     }
 
+
+
     public void setAlerts(Set<Alert> alerts) {
         this.alerts = alerts;
     }

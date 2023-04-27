@@ -6,6 +6,7 @@ import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.repository.OfferRepository.IOfferRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import com.gurus.mobility.security.jwt.JwtUtils;
+import com.gurus.mobility.service.AlertServices.IAlertService;
 import com.gurus.mobility.service.OfferService.IOfferService;
 import com.gurus.mobility.service.User.IUserService;
 import com.itextpdf.text.*;
@@ -54,6 +55,11 @@ public class OfferRestController {
     private UserRepository userRepository;
     @Autowired
     JwtUtils jwtUtils;
+
+
+
+    @Autowired
+    private IAlertService iAlertService;
 
     @Autowired
     private IOfferService offerService;
@@ -222,8 +228,46 @@ public class OfferRestController {
         return offerService.getOffresEtudiant();
     }
 
+//    @GetMapping("/allOffers")
+//    public ResponseEntity<List<Offer>> getAllOffers1(){
+//
+//        String token = request.getHeader("Authorization");
+//        if (token != null && token.startsWith("Bearer ")) {
+//            token = token.substring(7);
+//        }
+//        User user = userRepository.findByUserName(jwtUtils.getUserNameFromJwtToken(token)).get();
+//        //if(!user.getRoles().contains(ERole.ROLE_ADMIN))
+//        //return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+//        return new ResponseEntity<>(offerService.getAllOffers1(),HttpStatus.OK);
+//    }
 
 
+    @PostMapping("/ajouterOffer")
+    public ResponseEntity ajouterOffer (@RequestBody Offer offer){
+        User user= authorisation();
+        if(user == null)
+            return new ResponseEntity<>("you should be connected",HttpStatus.FORBIDDEN);
+        offerService.createOffer2(offer, user.getId());
+        return new ResponseEntity<>("offer registred successefully", HttpStatus.OK);
+    }
+
+
+
+    @GetMapping("/myOffers")
+    public ResponseEntity<List<Offer>> getAllMyOffers(){
+        User user= authorisation();
+        if(user == null)
+            return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(offerService.getOfferByUser(user.getId()),HttpStatus.OK);
+    }
+
+    @GetMapping("/Useroffers")
+    public ResponseEntity<List<Offer>> getUserOffers(){
+        User user= authorisation();
+        if(user == null)
+            return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(offerService.getAllOffers(),HttpStatus.OK);
+    }
 
 }
 

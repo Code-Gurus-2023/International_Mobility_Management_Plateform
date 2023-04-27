@@ -10,6 +10,8 @@ import com.gurus.mobility.entity.Offer.Destination;
 import com.gurus.mobility.entity.Offer.Offer;
 import com.gurus.mobility.entity.Offer.Profil;
 import com.gurus.mobility.entity.user.ERole;
+import com.gurus.mobility.entity.user.User;
+import com.gurus.mobility.exception.UpdateOfferException;
 import com.gurus.mobility.repository.OfferRepository.IOfferRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -30,6 +32,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+import com.gurus.mobility.repository.User.UserRepository;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -39,6 +42,8 @@ public class OfferServiceImpl implements IOfferService {
     @Autowired
     private IOfferRepository offerRepository;
 
+    @Autowired
+    private UserRepository userRepository;
     @Override
     public List<Offer> getAllOffers() {
         return offerRepository.findAll();
@@ -72,6 +77,9 @@ public class OfferServiceImpl implements IOfferService {
 
         return offerRepository.save(offer);
     }
+
+
+
 
 
     @Override
@@ -137,7 +145,7 @@ public class OfferServiceImpl implements IOfferService {
 
 
 
-            // Remplissage des données des candidatures
+            // Remplissage des données des offres
             int rowNum = 1;
             for (Offer offer : offers) {
                 XSSFRow row = sheet.createRow(rowNum++);
@@ -193,5 +201,27 @@ public class OfferServiceImpl implements IOfferService {
         return offerRepository.findByProfil(Profil.ETUDIANT);
     }
 
+//    @Override
+//    public List<Offer> getAllOffers1() {
+//        return offerRepository.findAll();
+//    }
+
+    @Override
+    public List<Offer> getOfferByUser(Long userId){
+        return userRepository.findById(userId).get().getOffers().stream().toList();
+    }
+
+    @Override
+    public void createOffer2(Offer offer, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UpdateOfferException("object not found with id =" + userId));
+        user.getOffers().add(offer);
+        //offer.setAlertCreationDate(LocalDateTime.now());
+        offerRepository.save(offer);
+        userRepository.save(user);
+    }
+
+    public boolean getUseridByOfferid(User user, int id){
+        return user.getOffers().contains(offerRepository.findById(id).get());
+    }
 
 }
