@@ -43,22 +43,22 @@ public class ClaimController {
         return userRepository.findByUserName(jwtUtils.getUserNameFromJwtToken(token)).get();
     }
 
-    @Autowired
+    @Autowired(required = false)
     private IClaimService iClaimService;
-    @Autowired
+    @Autowired(required = false)
     private IUserService iUserService;
-    @Autowired
+    @Autowired(required = false)
     private IResponseService iResponseService;
-    @Autowired
+    @Autowired(required = false)
     private HttpServletRequest request;
-    @Autowired
+    @Autowired(required = false)
     private HttpServletResponse response;
-    @Autowired
+    @Autowired(required = false)
     JwtUtils jwtUtils;
 
-    @Autowired
+    @Autowired(required = false)
     private UserRepository userRepository;
-    @Autowired
+    @Autowired(required = false)
     private ClaimRepository claimRepository;
     @Autowired
     private QRCodeGenerator qrCodeGenerator;

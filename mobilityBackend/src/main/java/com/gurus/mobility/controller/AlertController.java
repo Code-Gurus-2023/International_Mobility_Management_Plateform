@@ -1,7 +1,6 @@
 package com.gurus.mobility.controller;
 
 import com.gurus.mobility.entity.alert.Alert;
-import com.gurus.mobility.entity.user.ERole;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.repository.AlertRepositories.AlertRepository;
 import com.gurus.mobility.repository.User.UserRepository;
@@ -26,15 +25,15 @@ public class AlertController {
         return userRepository.findByUserName(jwtUtils.getUserNameFromJwtToken(token)).get();
     }
 
-    @Autowired
+    @Autowired(required = false)
     private HttpServletRequest request;
-    @Autowired
+    @Autowired(required = false)
     JwtUtils jwtUtils;
-    @Autowired
+    @Autowired(required = false)
     private IAlertService iAlertService;
-    @Autowired
+    @Autowired(required = false)
     private UserRepository userRepository;
-    @Autowired
+    @Autowired(required = false)
     private AlertRepository alertRepository;
 
     @PostMapping()

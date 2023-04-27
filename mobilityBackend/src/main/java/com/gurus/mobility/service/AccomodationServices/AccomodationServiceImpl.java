@@ -19,11 +19,11 @@ import java.util.List;
 
 @Service
 public class AccomodationServiceImpl implements IAccomodationService{
-    @Autowired
+    @Autowired(required = false)
     private UserRepository userRepository;
-    @Autowired
+    @Autowired(required = false)
     private AccomodationRepository accomodationRepository;
-    @Autowired
+    @Autowired(required = false)
     private ServletContext context;
     /**
      * This method will get all accomodations list

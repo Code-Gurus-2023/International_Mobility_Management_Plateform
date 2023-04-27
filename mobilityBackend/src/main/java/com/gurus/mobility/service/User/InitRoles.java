@@ -18,11 +18,12 @@ public class InitRoles {
     public void createRolesInDatabse(){
         if(roleRepository.findAll().isEmpty()){
             Role roleAdmine =new Role(ERole.ROLE_ADMIN);
+            Role roleMod =new Role(ERole.ROLE_MODERATEUR);
             Role roleEtudiant =new Role(ERole.ROLE_ETUDIANT);
             Role roleEnseignant =new Role(ERole.ROLE_ENSEIGNANT);
             Role roleUniversity =new Role(ERole.ROLE_UNIVERSITE);
             Role roleProprietaire =new Role(ERole.OWNER);
-            List<Role> roles= Arrays.asList(roleAdmine,roleEtudiant,roleEnseignant,roleUniversity,roleProprietaire);
+            List<Role> roles= Arrays.asList(roleAdmine,roleEtudiant,roleEnseignant,roleUniversity,roleProprietaire,roleMod);
             roleRepository.saveAll(roles);
         }
     }

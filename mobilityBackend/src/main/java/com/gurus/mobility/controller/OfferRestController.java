@@ -20,9 +20,9 @@ public class OfferRestController {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
+    @Autowired(required = false)
     private HttpServletRequest request;
-    @Autowired
+    @Autowired(required = false)
     private HttpServletResponse response;
     @Autowired
     JwtUtils jwtUtils;

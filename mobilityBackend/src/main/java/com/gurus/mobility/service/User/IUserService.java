@@ -1,14 +1,12 @@
 package com.gurus.mobility.service.User;
 
-
-import com.gurus.mobility.controller.ClaimController;
 import com.gurus.mobility.entity.user.User;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.List;
+
 import java.util.Optional;
-
-
 
 
 public interface IUserService {
@@ -43,5 +41,6 @@ public interface IUserService {
 
     public User getUserByUsername(String username);
 
+    int NBClaimsLastDate (LocalDateTime date, Long userid);
 }
 

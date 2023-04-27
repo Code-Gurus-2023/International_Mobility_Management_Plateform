@@ -1,5 +1,9 @@
 package com.gurus.mobility.service.User;
 
+import com.gurus.mobility.entity.claim.Claim;
+import com.gurus.mobility.entity.user.User;
+import com.gurus.mobility.exception.UserNotFoundException;
+import com.gurus.mobility.repository.ClaimRepositories.ClaimRepository;
 import com.gurus.mobility.entity.Accomodation.Accomodation;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.UserNotFoundException;
@@ -14,22 +18,23 @@ import javax.servlet.ServletContext;
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
 public class UserServiceImpl implements IUserService {
 
     private static final long EXPIRE_TOKEN_AFTER_MINUTES = 30;
-    @Autowired
+    @Autowired(required = false)
     UserRepository userRepository;
+    @Autowired(required = false)
+    ClaimRepository claimRepository;
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-    @Autowired
+    @Autowired(required = false)
     private ServletContext context;
-    @Autowired
+    @Autowired(required = false)
     private AccomodationRepository accomodationRepository;
 
 
@@ -66,12 +71,12 @@ public class UserServiceImpl implements IUserService {
         user.setUserName(updateuser.getUserName());
         user.setEmail(updateuser.getEmail());
         user.setLocation(updateuser.getLocation());
+        user.setCountry(updateuser.getCountry());
         user.setPhoneNumber(updateuser.getPhoneNumber());
         user.setExperienceYears(updateuser.getExperienceYears());
         user.setProfessorDiploma(updateuser.getProfessorDiploma());
         user.setStudentLevel(updateuser.getStudentLevel());
         user.setStudentSpeciality(updateuser.getStudentSpeciality());
-        user.setProfileImage(updateuser.getProfileImage());
         user.setPassword(bCryptPasswordEncoder.encode(updateuser.getPassword()));
         userRepository.save(user);
         return user;
@@ -202,6 +207,17 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User getUserByUsername(String username) {
         return userRepository.findByEmail(username);
+    }
+
+    @Override
+    public int NBClaimsLastDate(LocalDateTime date, Long userid)
+    {
+        User user = findById(userid);
+        Set<Claim> claims = user.getClaims();
+        Set<Claim> claimsFiltered = claims.stream()
+                .filter(claim -> claim.getCreationDateClm().isAfter(date))
+                .collect(Collectors.toSet());
+        return claimsFiltered.size();
     }
 
 }
