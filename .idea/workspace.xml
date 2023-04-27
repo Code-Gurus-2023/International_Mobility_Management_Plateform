@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae1ab75e-9d28-42a1-b13d-8839c298768c" name="Changes" comment="">
+    <list default="true" id="ae1ab75e-9d28-42a1-b13d-8839c298768c" name="Changes" comment="Adding Token">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/CandidacyRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/controller/CandidacyRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/security/jwt/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/CandidacyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/CandidacyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ICandidacyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ICandidacyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ResultServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/mobilityBackend/src/main/java/com/gurus/mobility/service/CandidacyServices/ResultServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
