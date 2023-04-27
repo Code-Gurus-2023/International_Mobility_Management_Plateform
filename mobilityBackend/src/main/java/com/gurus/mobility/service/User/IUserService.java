@@ -23,16 +23,23 @@ public interface IUserService {
 
     String verify(String verificationCode);
 
-
     String forgotPassword(String email);
 
     String resetPassword(String token, String password);
 
     String Verified(Long idUser);
 
+    /**
+     * Developed by sidaoui
+     **/
+    public User getUserByIdAndRole(Long id);
+
+    public User affecterAccToOwner(Long idAcc,Long idUser);
+
+
     public User findById(Long id);
 
-    public Optional<User> getUserByUsername(String username);
+    public User getUserByUsername(String username);
 
     int NBClaimsLastDate (LocalDateTime date, Long userid);
 }

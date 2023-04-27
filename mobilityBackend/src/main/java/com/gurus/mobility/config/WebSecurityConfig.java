@@ -20,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.gurus.mobility.service.User.UserDetailsServiceImpl;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 //@EnableWebSecurity
@@ -83,7 +84,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 //	}
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain springSecurityFilterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -97,5 +98,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
         return http.build();
     }
+
+
 
 }

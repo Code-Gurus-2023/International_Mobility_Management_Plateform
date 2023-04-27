@@ -4,12 +4,17 @@ import com.gurus.mobility.entity.claim.Claim;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.exception.UserNotFoundException;
 import com.gurus.mobility.repository.ClaimRepositories.ClaimRepository;
+import com.gurus.mobility.entity.Accomodation.Accomodation;
+import com.gurus.mobility.entity.user.User;
+import com.gurus.mobility.exception.UserNotFoundException;
+import com.gurus.mobility.repository.AccomodationRepository.AccomodationRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -21,12 +26,16 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements IUserService {
 
     private static final long EXPIRE_TOKEN_AFTER_MINUTES = 30;
-    @Autowired
+    @Autowired(required = false)
     UserRepository userRepository;
-    @Autowired
+    @Autowired(required = false)
     ClaimRepository claimRepository;
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    @Autowired(required = false)
+    private ServletContext context;
+    @Autowired(required = false)
+    private AccomodationRepository accomodationRepository;
 
 
     @Override
@@ -175,14 +184,29 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    @Override
+    public User getUserByIdAndRole(Long id) {
+        return userRepository.findUserByIdAndRole(id);
+    }
+    @Override
+    public User affecterAccToOwner(Long idAcc, Long idUser) {
+        Accomodation accomodation=accomodationRepository.findById(idAcc)
+                .orElse(null);
+        User user=userRepository.findUserByIdAndRole(idUser);
+        user.getAccomodations().add(accomodation);
+        return userRepository.save(user);
+    }
+
+
+
 
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Optional<User> getUserByUsername(String username) {
-        return null;
+    public User getUserByUsername(String username) {
+        return userRepository.findByEmail(username);
     }
 
     @Override

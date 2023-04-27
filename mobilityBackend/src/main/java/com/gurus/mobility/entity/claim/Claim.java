@@ -51,4 +51,13 @@ public class Claim implements Serializable {
         this.response = response;
     }
 
+    public Claim(String a, String b, Type c, State d, boolean e, LocalDateTime f){
+        this.subjectClm=a;
+        this.descriptionClm=b;
+        this.typeClm=c;
+        this.stateClm=d;
+        this.archiveClm=e;
+        this.creationDateClm=f;
+    }
+
 }
