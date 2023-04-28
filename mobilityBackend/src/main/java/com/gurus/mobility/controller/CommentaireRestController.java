@@ -99,11 +99,11 @@ public class CommentaireRestController {
     }
 
 //    http://localhost:8080/espritmobility/api/commentaires/delayCommentaires
-    @GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE, value = "/delayCommentaires")
-    public Flux<Commentaire> getAllCommentairesWithDelay() {
-        Flux<Commentaire> commentaires = Flux.fromIterable(commentaireRepository.findAll());
-        return commentaires.delayElements(Duration.ofMillis(10000));
-    }
+//    @GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE, value = "/delayCommentaires")
+//    public Flux<Commentaire> getAllCommentairesWithDelay() {
+//        Flux<Commentaire> commentaires = Flux.fromIterable(commentaireRepository.findAll());
+//        return commentaires.delayElements(Duration.ofMillis(10000));
+//    }
 
     @PostMapping("/ajouterCommentaire")
     public ResponseEntity ajouterCommentaire (@RequestBody Commentaire commentaire){
