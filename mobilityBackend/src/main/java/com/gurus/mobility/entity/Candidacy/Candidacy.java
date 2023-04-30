@@ -1,14 +1,16 @@
 package com.gurus.mobility.entity.Candidacy;
 
 import com.gurus.mobility.entity.Offer.Offer;
+import com.gurus.mobility.entity.Offer.Profil;
+import com.gurus.mobility.entity.user.ERole;
 import com.gurus.mobility.entity.user.User;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -28,19 +30,27 @@ public class Candidacy implements Serializable {
     private String certificate;
     private String firstName;
     private String lastName;
+
     @Email
     private String email;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateCandidacy;
+    @CreatedDate
+    private LocalDate dateCandidacy;
 
-    @Pattern(regexp="\\+?[0-9]+")
     private int telephoneNumber;
 
     private String address;
 
-    @Pattern(regexp = "\\d{4}", message = "Code postal est invalide")
     private int postalCode;
+
+    private float moyenneGenerale;
+
+    private float scoree;
+
+    private int anneeExperience;
+
+    @Enumerated(EnumType.STRING)
+    private Profil profil;
 
     @Enumerated(EnumType.STRING)
     private DomainCandidacy domainCandidacy;
@@ -51,8 +61,10 @@ public class Candidacy implements Serializable {
     @Enumerated(EnumType.STRING)
     private Disponibilite disponibilite;
 
-    private boolean isSelected;
-    private boolean isArchived;
+
+    public Candidacy(Integer id, String nom_de_candidature, boolean b) {
+
+    }
 
 
     @Getter(AccessLevel.NONE)
@@ -69,6 +81,7 @@ public class Candidacy implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+
     public Offer getOffer() {
         return offer;
     }
@@ -84,4 +97,10 @@ public class Candidacy implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+
+
+
+
+
 }
