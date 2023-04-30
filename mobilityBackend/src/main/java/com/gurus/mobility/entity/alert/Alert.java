@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -25,6 +26,7 @@ public class Alert implements Serializable {
     @NotNull
     public String alrtName;
     @Enumerated(EnumType.STRING)
+    @NotNull
     public Kind alrtKind;
     @Enumerated(EnumType.STRING)
     public Target alrtTarget;
@@ -32,11 +34,10 @@ public class Alert implements Serializable {
     @Email
     public String alrtEmail;
     public String regionAlert;
+    public String coutryAlert;
     public String universiteAlrt;
     @Column(name = "created_date")
-    @CreatedDate
-    public LocalDate alertCreationDate;
+    public LocalDateTime alertCreationDate;
     @Column(name = "last_modified_date")
-    @LastModifiedDate
-    public LocalDate alertModificationDate;
+    public LocalDateTime alertModificationDate;
 }

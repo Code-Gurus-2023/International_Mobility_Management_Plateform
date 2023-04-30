@@ -19,15 +19,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-
+import java.util.*;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
+
 
 @Entity
 @NoArgsConstructor
@@ -67,9 +69,9 @@ public class User {
 
     public String kind;
     public String Location;
+    public String country;
     @Enumerated(EnumType.STRING)
     public StudentSpeciality studentSpeciality;
-
     public String studentLevel;
     @Enumerated(EnumType.STRING)
     public ForumStatus forumStatus;
@@ -96,13 +98,14 @@ public class User {
     @Setter(AccessLevel.NONE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
-    private Set<Alert> alerts = new LinkedHashSet<>();
+    private List<Alert> alerts;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
-    private Set<Claim> claims = new LinkedHashSet<>();
+    private Set<Claim> claims;
+
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -209,11 +212,11 @@ public class User {
         this.claims = claims;
     }
 
-    public Set<Alert> getAlerts() {
+    public List<Alert> getAlerts() {
         return alerts;
     }
 
-    public void setAlerts(Set<Alert> alerts) {
+    public void setAlerts(List<Alert> alerts) {
         this.alerts = alerts;
     }
 

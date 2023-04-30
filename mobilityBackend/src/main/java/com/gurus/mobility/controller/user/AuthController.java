@@ -131,7 +131,7 @@ public class AuthController {
 
                         break;
                     case "prop":
-                        Role propRole = roleRepository.findByName(ERole.ROLE_PROPRIETAIRE_LOGEMENT)
+                        Role propRole = roleRepository.findByName(ERole.OWNER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(propRole);
 
@@ -148,6 +148,14 @@ public class AuthController {
                         roles.add(ensRole);
 
                         break;
+
+                    case "mod":
+                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATEUR)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(modRole);
+
+                        break;
+
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_ETUDIANT)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -228,7 +236,7 @@ public class AuthController {
     @GetMapping(value = "/sendSMS")
     public ResponseEntity<String> sendSMS(String msg) {
         var sid = "ACfb68709b4f45aa6b53fd1e70e5772af7";
-        var authToken = "de6d5949031f6e205b0e029d8203540a";
+        var authToken = "1a8c73f38068f8f429b6aadf11d21860";
         Twilio.init(sid, authToken);
 
         Message.creator(new PhoneNumber("+216 54 963 533"),

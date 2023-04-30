@@ -56,7 +56,7 @@ public class ForumController {
 
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        //String token = (String) authentication.getCredentials();
-//        User user = userService.getUserByUsername(jwtUtils.
+//        User user = userService.getUserByUserName(jwtUtils.
 //                getUserNameFromJwtToken((String) authentication.getCredentials()));
 
 
@@ -69,7 +69,7 @@ public class ForumController {
             }
 
             //System.out.println(token);
-            User user = userService.getUserByUsername(jwtUtils.
+            User user = userService.getUserByUserName(jwtUtils.
                     getUserNameFromJwtToken(token));
             //User u = userService.getUserById(idUser);
 
@@ -97,7 +97,7 @@ public class ForumController {
             }
 
             //System.out.println(token);
-            User user = userService.getUserByUsername(jwtUtils.
+            User user = userService.getUserByUserName(jwtUtils.
                     getUserNameFromJwtToken(token));
             //-------------------------
             Discussion discussion = discussionService.getDiscussion(d.getId());
@@ -141,7 +141,7 @@ public class ForumController {
             }
 
             //System.out.println(token);
-            User user = userService.getUserByUsername(jwtUtils.
+            User user = userService.getUserByUserName(jwtUtils.
                     getUserNameFromJwtToken(token));
 
             if(discussionService.activateDiscussion(id, user.id))
@@ -167,7 +167,7 @@ public class ForumController {
             }
 
             User user = userService
-                    .getUserByUsername(jwtUtils
+                    .getUserByUserName(jwtUtils
                     .getUserNameFromJwtToken(token));
 
 
