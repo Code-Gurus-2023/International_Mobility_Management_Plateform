@@ -1,6 +1,7 @@
 package com.gurus.mobility.service.CandidacyServices;
 
 
+import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.Candidacy.Result;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,5 +20,6 @@ public interface IResultService {
     Result findById(Integer id);
     List<Result> findAll();
     Result save(Result result);
+    void archiveResult(Integer id);
 
 }

@@ -40,9 +40,9 @@ public class Result  implements Serializable {
 
     private float score;
 
-
     @Enumerated(EnumType.STRING)
     public StudentSpeciality studentSpeciality;
+
 
 
     @Getter(AccessLevel.NONE)
@@ -51,6 +51,9 @@ public class Result  implements Serializable {
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private User user;
+
+
+
 
     public User getUser() {
         return user;

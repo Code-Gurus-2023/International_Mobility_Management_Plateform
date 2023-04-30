@@ -22,6 +22,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.gurus.mobility.service.User.UserDetailsServiceImpl;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
+import javax.servlet.Filter;
+
 @Configuration
 //@EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -94,7 +96,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
         http.authenticationProvider(authenticationProvider());
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore((Filter) authenticationJwtTokenFilter(), (Class<? extends Filter>) UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
