@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -79,13 +80,13 @@ public class ResultServiceImpl implements IResultService {
         try {
             List<Result> results = resultRepository.findAll();
 
-
+// Création d'un nouveau classeur Excel
             XSSFWorkbook workbook = new XSSFWorkbook();
 
-
+// Création d'une nouvelle feuille dans le classeur
             XSSFSheet sheet = workbook.createSheet("Results");
 
-
+// Création d'une ligne pour les titres des colonnes
             XSSFRow headerRow = sheet.createRow(0);
             headerRow.createCell(0).setCellValue("idResult");
             headerRow.createCell(1).setCellValue("pl");
@@ -99,7 +100,7 @@ public class ResultServiceImpl implements IResultService {
             headerRow.createCell(9).setCellValue("generalAverage");
             headerRow.createCell(10).setCellValue("score");
 
-
+// Remplissage des données des candidatures
             int rowNum = 1;
             for (Result result : results) {
                 XSSFRow row = sheet.createRow(rowNum++);
@@ -116,10 +117,11 @@ public class ResultServiceImpl implements IResultService {
                 row.createCell(10).setCellValue(result.getScore());
 
             }
-
+// Configuration de l'en-tête de la réponse HTTP
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setHeader("Content-Disposition", "attachment; filename=\"results.csv\"");
 
+            // Écriture du classeur dans le flux de sortie HTTP
             ServletOutputStream outputStream = response.getOutputStream();
             workbook.write(outputStream);
             outputStream.close();
@@ -153,7 +155,21 @@ public class ResultServiceImpl implements IResultService {
         return resultRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public void archiveResult(Integer id) {
+        Result result = getResultById(id);
+        resultRepository.delete(result);
 
+        try {
+            FileWriter fileWriter = new FileWriter("C:/Spring Boot/Resultats_archivées.txt", true);
+            fileWriter.write(result.getIdResult() + "," + result.getPl() + "," +
+                    result.getAngular() + "," + result.getDotnet() + "," +
+                    result.getScore() + result.getGeneralAverage() + "," + result.getDate() + "," + result.getDataMining() + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 
