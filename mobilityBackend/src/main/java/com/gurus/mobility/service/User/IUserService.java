@@ -29,6 +29,7 @@ public interface IUserService {
 
     String Verified(Long idUser);
 
+    User getUserByUserName(String username);
     /**
      * Developed by sidaoui
      **/
