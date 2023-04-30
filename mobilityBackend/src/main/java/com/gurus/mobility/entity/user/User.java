@@ -1,6 +1,5 @@
 package com.gurus.mobility.entity.user;
 
-
 import com.gurus.mobility.entity.Accomodation.Accomodation;
 import com.gurus.mobility.entity.Accomodation.Reservation;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
@@ -15,33 +14,21 @@ import com.gurus.mobility.entity.alert.Alert;
 import com.gurus.mobility.entity.claim.Claim;
 import lombok.*;
 import org.hibernate.Hibernate;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import com.gurus.mobility.entity.Accomodation.Accomodation;
-import com.gurus.mobility.entity.Accomodation.Reservation;
-import com.gurus.mobility.entity.Candidacy.Candidacy;
-import com.gurus.mobility.entity.Candidacy.Result;
-import com.gurus.mobility.entity.ForumChat.ChatRoom;
-import com.gurus.mobility.entity.ForumChat.Comment;
-import com.gurus.mobility.entity.ForumChat.Discussion;
-import com.gurus.mobility.entity.ForumChat.Notification;
-import com.gurus.mobility.entity.Offer.Commentaire;
-import com.gurus.mobility.entity.Offer.Offer;
-import com.gurus.mobility.entity.alert.Alert;
-import com.gurus.mobility.entity.claim.Claim;
-import lombok.*;
-import org.hibernate.Hibernate;
-
-
 import java.util.*;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.*;
 
 
 @Entity
@@ -106,7 +93,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)

@@ -185,9 +185,16 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User getUserByUserName(String username) {
+        return userRepository.findByUserName(username)
+                .orElseThrow(() -> new UserNotFoundException("user not found"));
+    }
+
+    @Override
     public User getUserByIdAndRole(Long id) {
         return userRepository.findUserByIdAndRole(id);
     }
+
     @Override
     public User affecterAccToOwner(Long idAcc, Long idUser) {
         Accomodation accomodation=accomodationRepository.findById(idAcc)
@@ -219,5 +226,4 @@ public class UserServiceImpl implements IUserService {
                 .collect(Collectors.toSet());
         return claimsFiltered.size();
     }
-
 }

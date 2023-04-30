@@ -28,7 +28,6 @@ public class JwtUtils {
 
     private int jwtExpirationMs = 3600000;
 
-
     private String jwtCookie = "EspritCookie";
 
     private String jwtRefreshCookie = "EspritRefreshCookie";
