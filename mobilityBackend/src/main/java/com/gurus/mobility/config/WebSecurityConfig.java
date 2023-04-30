@@ -20,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.gurus.mobility.service.User.UserDetailsServiceImpl;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import javax.servlet.Filter;
 
@@ -99,5 +100,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
         return http.build();
     }
+
+
 
 }

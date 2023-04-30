@@ -1,5 +1,6 @@
 package com.gurus.mobility.entity.ForumChat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gurus.mobility.entity.user.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -7,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -29,35 +31,20 @@ public class Comment implements Serializable {
     @Column(name = "content_cmt")
     private String contentCmt;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.REMOVE)
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "creation_date_cmt")
     @CreatedDate
-    private LocalDate creationDateCmt;
+    private LocalDateTime creationDateCmt;
 
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "discussion_id_dsc")
     private Discussion discussion;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Discussion getDiscussion() {
-        return discussion;
-    }
-
-    public void setDiscussion(Discussion discussion) {
-        this.discussion = discussion;
-    }
 }

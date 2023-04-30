@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/result")
 public class ResultRestController {
@@ -119,7 +120,6 @@ public class ResultRestController {
     public List<Result> getAllResults() {
         return resultServiceImpl.findAll();
     }
-
 
     //http://localhost:8081/espritmobility/api/result/{id}/archive
     @PostMapping("/{id}/archive")

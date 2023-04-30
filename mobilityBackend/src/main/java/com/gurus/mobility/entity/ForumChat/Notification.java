@@ -27,18 +27,12 @@ public class Notification implements Serializable {
     @Column(name = "sender_name_ntf", length = 50)
     private String senderNameNtf;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public User getUser() {
-        return user;
-    }
+    public Notification(Long idMsg, Long senderIdCtr, String userName) {}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+
 }

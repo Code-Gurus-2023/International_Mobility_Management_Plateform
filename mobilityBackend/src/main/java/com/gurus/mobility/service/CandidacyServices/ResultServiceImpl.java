@@ -1,12 +1,10 @@
 package com.gurus.mobility.service.CandidacyServices;
 
-
-import com.gurus.mobility.entity.Candidacy.Candidacy;
-import com.gurus.mobility.entity.Candidacy.DomainCandidacy;
 import com.gurus.mobility.entity.Candidacy.Result;
 import com.gurus.mobility.repository.Candidacy.IResultRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 @Service

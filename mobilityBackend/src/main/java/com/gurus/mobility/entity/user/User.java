@@ -1,6 +1,5 @@
 package com.gurus.mobility.entity.user;
 
-
 import com.gurus.mobility.entity.Accomodation.Accomodation;
 import com.gurus.mobility.entity.Accomodation.Reservation;
 import com.gurus.mobility.entity.Candidacy.Candidacy;
@@ -15,7 +14,6 @@ import com.gurus.mobility.entity.alert.Alert;
 import com.gurus.mobility.entity.claim.Claim;
 import lombok.*;
 import org.hibernate.Hibernate;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,26 +25,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-
-import com.gurus.mobility.entity.Accomodation.Accomodation;
-import com.gurus.mobility.entity.Accomodation.Reservation;
-import com.gurus.mobility.entity.Candidacy.Candidacy;
-import com.gurus.mobility.entity.Candidacy.Result;
-import com.gurus.mobility.entity.ForumChat.ChatRoom;
-import com.gurus.mobility.entity.ForumChat.Comment;
-import com.gurus.mobility.entity.ForumChat.Discussion;
-import com.gurus.mobility.entity.ForumChat.Notification;
-import com.gurus.mobility.entity.Offer.Commentaire;
-import com.gurus.mobility.entity.Offer.Offer;
-import com.gurus.mobility.entity.alert.Alert;
-import com.gurus.mobility.entity.claim.Claim;
-import lombok.*;
-import org.hibernate.Hibernate;
-
-
+import java.util.*;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
+
 
 @Entity
 @NoArgsConstructor
@@ -86,9 +69,9 @@ public class User {
 
     public String kind;
     public String Location;
+    public String country;
     @Enumerated(EnumType.STRING)
     public StudentSpeciality studentSpeciality;
-
     public String studentLevel;
     @Enumerated(EnumType.STRING)
     public ForumStatus forumStatus;
@@ -104,7 +87,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-
     public User(String identifiant, String userName, String email, String password) {
         this.identifiant = identifiant;
         this.userName = userName;
@@ -112,18 +94,18 @@ public class User {
         this.password = password;
     }
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private List<Alert> alerts;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
-    private Set<Alert> alerts = new LinkedHashSet<>();
+    private Set<Claim> claims;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private Set<Claim> claims = new LinkedHashSet<>();
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -230,11 +212,11 @@ public class User {
         this.claims = claims;
     }
 
-    public Set<Alert> getAlerts() {
+    public List<Alert> getAlerts() {
         return alerts;
     }
 
-    public void setAlerts(Set<Alert> alerts) {
+    public void setAlerts(List<Alert> alerts) {
         this.alerts = alerts;
     }
 

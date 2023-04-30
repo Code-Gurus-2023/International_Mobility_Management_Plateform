@@ -4,6 +4,7 @@ import com.gurus.mobility.dto.UserList;
 import com.gurus.mobility.entity.user.FileDB;
 import com.gurus.mobility.entity.user.User;
 import com.gurus.mobility.payload.response.MessageResponse;
+import com.gurus.mobility.repository.AccomodationRepository.AccomodationRepository;
 import com.gurus.mobility.repository.User.FileDBRepository;
 import com.gurus.mobility.repository.User.UserRepository;
 import com.gurus.mobility.service.User.IFileStorageService;
@@ -17,6 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+
+
 @RestController
 @RequestMapping("/api")
 @NoArgsConstructor
@@ -29,6 +33,9 @@ public class UserController {
 
     @Autowired
     private FileDBRepository ImageRepository;
+    @Autowired
+    private AccomodationRepository accomodationRepository;
+
 
     private ImageService imageService;
 
@@ -82,5 +89,15 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
         }
     }
+    @GetMapping("/getUserByIdAndRole/{id}")
+    public User getUserByIdAndRole(@PathVariable("id") Long id){
+        return userService.getUserByIdAndRole(id);
+    }
 
+    @GetMapping("Getlastclaimsbyuser/{userid}")
+    public int GetNBClaimsLastDate (@PathVariable Long userid)
+    {
+        LocalDateTime date = LocalDateTime. of(2022, 11, 26, 13, 55, 36, 123);
+       return  userService.NBClaimsLastDate(date, userid);
+    }
 }
