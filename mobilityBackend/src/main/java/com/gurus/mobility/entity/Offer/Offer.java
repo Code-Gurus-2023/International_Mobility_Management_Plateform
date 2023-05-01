@@ -1,9 +1,14 @@
 package com.gurus.mobility.entity.Offer;
 
+
 import com.gurus.mobility.entity.Candidacy.Candidacy;
 import com.gurus.mobility.entity.user.User;
+
+
+
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,12 +33,13 @@ public class Offer implements Serializable {
 
     private String title;
     private String image;
-    @Temporal(TemporalType.DATE)
-    private Date dateOffre;
-
-    @Column(name = "created_date")
     @CreatedDate
-    public LocalDateTime offerCreationDate;
+    private LocalDate dateOffre;
+
+    @CreatedDate
+    private LocalDateTime offerCreationDate;
+
+
     private Integer nbreCandidats;
     @Enumerated(EnumType.STRING)
     private Profil profil;
@@ -45,6 +51,7 @@ public class Offer implements Serializable {
     private String conditions;
     @Enumerated(EnumType.STRING)
     private Advantages advantages;
+
 
     @OneToMany(mappedBy = "offer", orphanRemoval = true)
     private Set<Candidacy> candidacies = new LinkedHashSet<>();
@@ -61,6 +68,7 @@ public class Offer implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 
     public Set<Commentaire> getCommentaires() {
         return commentaires;
@@ -85,4 +93,5 @@ public class Offer implements Serializable {
     public void setCandidacies(Set<Candidacy> candidacies) {
         this.candidacies = candidacies;
     }
+
 }

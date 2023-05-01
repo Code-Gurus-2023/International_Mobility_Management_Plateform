@@ -28,13 +28,13 @@ public class AlertController {
 
     @Autowired(required = false)
     private HttpServletRequest request;
-    @Autowired(required = false)
+    @Autowired
     JwtUtils jwtUtils;
-    @Autowired(required = false)
+    @Autowired
     private IAlertService iAlertService;
-    @Autowired(required = false)
+    @Autowired
     private UserRepository userRepository;
-    @Autowired(required = false)
+    @Autowired
     private AlertRepository alertRepository;
 
     @PostMapping()
