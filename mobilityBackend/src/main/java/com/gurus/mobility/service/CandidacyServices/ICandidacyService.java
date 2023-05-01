@@ -17,6 +17,7 @@ import java.util.Map;
 public interface ICandidacyService {
 
         List<Candidacy> getAllCandidacy();
+        List<Candidacy> getAllCandidacy2();
         Candidacy getCandidacyById1(Integer id);
         Candidacy createCandidacy(Candidacy candidacy);
         Candidacy updateCandidacy(Integer id, Candidacy candidacyDetails);

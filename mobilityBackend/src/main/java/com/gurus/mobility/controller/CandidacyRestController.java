@@ -60,10 +60,10 @@ public class CandidacyRestController {
 
 
    //http://localhost:8081/espritmobility/api/candidacy/getCandidacy
-    /*@GetMapping("/getCandidacy")
-    /public List<Candidacy> getAllCandidacy() {
+    @GetMapping("/getCandidacy2")
+    public List<Candidacy> getAllCandidacy2() {
         return candidacyService.getAllCandidacy();
-    }*/
+    }
 
 
     /*@GetMapping("/{id}")
@@ -90,6 +90,11 @@ public class CandidacyRestController {
         Candidacy createdCandidacy = candidacyService.createCandidacy(candidacy);
         return new ResponseEntity<>(createdCandidacy, HttpStatus.CREATED);
     }
+
+    /*@PostMapping("/create")
+    public Candidacy createCandidacy(@RequestBody Candidacy candidacy) {
+        return candidacyService.createCandidacy(candidacy);
+    }*/
 
 
     //http://localhost:8081/espritmobility/api/candidacy/{id}

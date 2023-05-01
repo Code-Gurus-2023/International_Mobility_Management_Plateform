@@ -41,6 +41,10 @@ public class CandidacyServiceImpl implements ICandidacyService {
     }
 
     @Override
+    public List<Candidacy> getAllCandidacy2() {
+        return candidacyRepository.findAll();
+    }
+    @Override
     public Candidacy getCandidacyById1(Integer id) {
         return candidacyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Candidacy not found with id " + id));
