@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/alert")
-@CrossOrigin("http://localhost:63280/")
+@CrossOrigin("http://localhost:4200/")
 public class AlertController {
     public User authorisation(){
         String token = request.getHeader("Authorization");
