@@ -1,0 +1,49 @@
+
+<div class="inner-banner">
+    <div class="container">
+        <div class="inner-title text-center">
+            <h3>Privacy Policy</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><i class='bx bx-chevron-right'></i></li>
+                <li>Privacy Policy</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="inner-banner-shape">
+        <div class="shape-one"><img src="assets/img/inner-banner/banner-shape1.png" alt="Images"></div>
+        <div class="shape-two"><img src="assets/img/inner-banner/banner-shape2.png" alt="Images"></div>
+        <div class="shape-three"><img src="assets/img/inner-banner/banner-shape3.png" alt="Images"></div>
+        <div class="inner-banner-dots"><img src="assets/img/shape/dots-shape.png" alt="Images"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="col">
+        <div class="col-md-8 offset-md-3">
+            <h1 class="text-center">Add Claim</h1>
+            <form (ngSubmit)= "onSubmit()">
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" class="form-control" id="alrtName" [(ngModel)]="claim.subjectClm" name="firstName">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" id="alrtKind" [(ngModel)]="claim.descriptionClm" name="firstName">
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <input type="text" class="form-control" id="alrtEmail" [(ngModel)]="claim.typeClm" name="lastName">
+                </div>
+
+                <button type="submit" class="btn btn-success">Submit</button>
+                
+            </form>
+        </div>
+    </div>
+</div>
+<div class="terms-conditions-area pt-50 pb-70">
+    <div class="container">
+    </div>
+</div>
+

@@ -34,6 +34,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/Claim/")
+@CrossOrigin("http://localhost:4200/")
 public class ClaimController {
     public User authorisation(){
         String token = request.getHeader("Authorization");
@@ -52,14 +53,15 @@ public class ClaimController {
     @Autowired(required = false)
     private HttpServletRequest request;
     @Autowired(required = false)
+    private ClaimRepository claimRepository;
+
+    @Autowired(required = false)
     private HttpServletResponse response;
     @Autowired(required = false)
     JwtUtils jwtUtils;
 
     @Autowired(required = false)
     private UserRepository userRepository;
-    @Autowired(required = false)
-    private ClaimRepository claimRepository;
     @Autowired
     private QRCodeGenerator qrCodeGenerator;
     @Autowired
@@ -203,6 +205,12 @@ public class ClaimController {
         else
             return new ResponseEntity<>("code error",HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("clm/{idClaim}")
+    public Claim getclaim(@PathVariable("idClaim")Long idClaim){
+        return claimRepository.findById(idClaim).get();
+    }
+
 
 
 

@@ -33,6 +33,10 @@ import { BlogComponent } from './components/pages/blog/blog.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { AlertModule } from './alert/alert.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from './alert/service/auth-interceptor.service';
+import { ClaimModule } from './claim/claim/claim.module';
 
 @NgModule({
   declarations: [
@@ -70,9 +74,16 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
   ],
   imports: [
     BrowserModule,
+    AlertModule,
+    ClaimModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

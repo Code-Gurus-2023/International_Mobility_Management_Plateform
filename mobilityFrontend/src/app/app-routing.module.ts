@@ -23,6 +23,12 @@ import { BlogDetailsComponent } from './components/pages/blog-details/blog-detai
 import { ContactComponent } from './components/pages/contact/contact.component';
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {DropdownComponent} from "./components/dropdown/dropdown.component";
+import { AlertsComponent } from './alert/alerts/alerts.component';
+import { AlertListComponent } from './alert/alert-list/alert-list.component';
+import { AddAlertsComponent } from './alert/add-alerts/add-alerts.component';
+import { ClaimsComponent } from './claim/claims/claims.component';
+import { AddClaimComponent } from './claim/add-claim/add-claim.component';
+import { UpdateClaimComponent } from './claim/update-claim/update-claim.component';
 
 const routes: Routes = [
     {path: '', component: SeoAgencyComponent},
@@ -46,6 +52,14 @@ const routes: Routes = [
     {path: 'blog', component: BlogComponent},
     {path: 'blog-details', component: BlogDetailsComponent},
     {path: 'contact', component: ContactComponent},
+    {path: 'alert', component: AlertsComponent},
+    {path: 'alert/newalert', component: AddAlertsComponent},
+    {path: 'claim', component: ClaimsComponent},
+    {path: 'claim/newclaim', component: AddClaimComponent},
+    {path: 'claim/updateclaim/:id', component: UpdateClaimComponent},
+
+
+
     {
         path: 'dashboard',
         component: DashboardComponent,
