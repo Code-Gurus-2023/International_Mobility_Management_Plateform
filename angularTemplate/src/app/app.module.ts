@@ -9,6 +9,8 @@ import { PersonalPageComponent } from './frontoffice/personal-page/personal-page
 import { AlertComponent } from './frontoffice/alert/alert.component';
 import { InterceptorService } from './frontoffice/services/interceptor.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './frontoffice/navbar/navbar.component';
+import { FooterComponent } from './frontoffice/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
     BaseBackComponent,
     BaseFrontComponent,
     PersonalPageComponent,
-    AlertComponent
+    AlertComponent,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     HttpClientModule,
