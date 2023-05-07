@@ -1,0 +1,298 @@
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+  
+        <a href="index.html" class="logo d-flex align-items-center">
+        
+          <h1>Esprit Mobility</h1>
+          
+        </a>
+  
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">Offers</a></li>
+            <li><a href="services.html">Forum</a></li>
+            <li><a href="pricing.html">Alerts</a></li>
+            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <ul>
+                <li><a href="#">Drop Down 1</a></li>
+                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                  <ul>
+                    <li><a href="#">Deep Drop Down 1</a></li>
+                    <li><a href="#">Deep Drop Down 2</a></li>
+                    <li><a href="#">Deep Drop Down 3</a></li>
+                    <li><a href="#">Deep Drop Down 4</a></li>
+                    <li><a href="#">Deep Drop Down 5</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Drop Down 2</a></li>
+                <li><a href="#">Drop Down 3</a></li>
+                <li><a href="#">Drop Down 4</a></li>
+              </ul>
+            </li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a class="get-a-quote" href="get-a-quote.html">Sign In</a></li>
+          </ul>
+        </nav>
+  
+      </div>
+    </header>
+    <!-- End Header -->
+  
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero d-flex align-items-center">
+    </section>
+
+ 
+<div style="background-image: linear-gradient(rgb(222, 222, 222), #f5f8f9);"> 
+    <div class="seven">
+        <h1 class="alert">Alerts</h1>
+    </div>
+    <section class="content"  >
+            <div class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                          <div class="card card-default">
+                            <div class="card-header">
+                              <h3 class="card-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                My Alerts
+                              </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div *ngFor = "let alerts of alerts">
+                                    <div class="card card-danger card-outline">
+                                        <a class="d-block w-100" data-toggle="collapse" href="#azer">
+                                            <div class="card-header">
+                                                <h4 class="card-title w-100">
+                                                    {{alerts.alrtName}}
+                                                </h4>
+                                            </div>
+                                        </a>
+                                        <div id="azer" class="collapse" data-parent="#accordion">
+                                            <div class="project-actions text-right">
+                                                <a class="btn btn-info btn-sm" href="#">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </div>
+                                            <div class="card-body">
+                                                Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+              
+                        <div class="col-md-6">
+                          <div class="card card-default">
+                            <div class="card-header">
+                              <h3 class="card-title">
+                                <i class="fas fa-bullhorn"></i>
+                                New Alert
+                              </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Alert Name</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Name For Alert">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Alert Type</label>
+                                <div class="card-body table-responsive pad">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                      <label class="btn btn-secondary active">
+                                        <input type="radio" name="options" id="option_a1" autocomplete="off" checked> SMS
+                                      </label>
+                                      <label class="btn btn-secondary">
+                                        <input type="radio" name="options" id="option_a2" autocomplete="off"> EMAIL
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label>Phone number</label>
+                  
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                      </div>
+                                      <input type="text" class="form-control"
+                                             data-inputmask="'mask': ['99999999']" data-mask>
+                                    </div>
+                                    <!-- /.input group -->
+                                  </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Name For Alert">
+                                </div>
+
+                            
+                                    <div class="form-group">
+                                      <label>Country Alert</label>
+                                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                        <option selected="selected">Alabama</option>
+                                        <option>Alaska</option>
+                                        <option>California</option>
+                                        <option>Delaware</option>
+                                        <option>Tennessee</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                      </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Region Alert</label>
+                                        <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                          <option selected="selected">Alabama</option>
+                                          <option>Alaska</option>
+                                          <option>California</option>
+                                          <option>Delaware</option>
+                                          <option>Tennessee</option>
+                                          <option>Texas</option>
+                                          <option>Washington</option>
+                                        </select>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label>University Alert</label>
+                                        <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                          <option selected="selected">Alabama</option>
+                                          <option>Alaska</option>
+                                          <option>California</option>
+                                          <option>Delaware</option>
+                                          <option>Tennessee</option>
+                                          <option>Texas</option>
+                                          <option>Washington</option>
+                                        </select>
+                                      </div>
+                                    <!-- /.form-group -->
+
+
+
+                                    <button type="button" class="btn btn-block bg-gradient-success btn-sm">Create Alert</button>
+                                    <button type="button" class="btn btn-block bg-gradient-danger btn-sm">Reset</button>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      
+
+                <div class="row">
+                    <div class="col-12 mt-3 text-center">
+                        <p class="lead">
+                            <a href="contact-us.html">Contact us</a>,
+                            if you found not the right anwser or you have a other question?<br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+</div>
+
+   
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+  
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-5 col-md-12 footer-info">
+            <a href="index.html" class="logo d-flex align-items-center">
+              <span>Esprit</span>
+            </a>
+            <p>The Private Higher School of Engineering and Technology or ESPRIT, is a private
+              engineering school in Tunisia based in Ariana and accredited by the Ministry of Higher
+              Education and Scientific Research (approval N°2003-03)</p>
+            <div class="social-links d-flex mt-4">
+              <a href="https://twitter.com/Esprit_News" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="https://www.facebook.com/esprit.tn" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="https://www.instagram.com/esprit_ingenieur/" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="https://www.linkedin.com/school/esprit_2/" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+  
+          <div class="col-lg-2 col-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+  
+          <div class="col-lg-2 col-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><a href="#">Web Design</a></li>
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">Product Management</a></li>
+              <li><a href="#">Marketing</a></li>
+              <li><a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+  
+          <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+            <h4>Contact Us</h4>
+            <p>
+              1, 2 rue André Ampère - 2083 -<br>
+              Pôle Technologique<br>
+              El Ghazala <br><br>
+              <strong>Phone:</strong> (+216) 70 250 000<br>
+              <strong>Email:</strong> contact@esprit.tn<br>
+            </p>
+  
+          </div>
+  
+        </div>
+      </div>
+  
+      <div class="container mt-4">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Esprit</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/logis-bootstrap-logistics-website-template/ -->
+          2022/2023
+        </div>
+      </div>
+  
+    </footer><!-- End Footer -->
+    <!-- End Footer -->
+  
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  
+    <div id="preloader"></div>
+
+</body>
+
