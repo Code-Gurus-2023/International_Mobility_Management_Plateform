@@ -8,7 +8,7 @@ import { Alert } from 'src/app/models/alert';
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent implements OnInit  {
 
   constructor(private alertServie: AlertService, private router: Router) { }
 
