@@ -7,10 +7,11 @@ import { BaseBackComponent } from './backoffice/base-back/base-back.component';
 import { BaseFrontComponent } from './frontoffice/base-front/base-front.component';
 import { PersonalPageComponent } from './frontoffice/personal-page/personal-page.component';
 import { AlertComponent } from './frontoffice/alert/alert.component';
-import { InterceptorService } from './frontoffice/services/interceptor.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './frontoffice/navbar/navbar.component';
 import { FooterComponent } from './frontoffice/footer/footer.component';
+import { ForumModule } from './Forum/forum.module';
+import { AuthInterceptor } from './auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -25,12 +26,13 @@ import { FooterComponent } from './frontoffice/footer/footer.component';
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ForumModule
   ],
   providers: [
     {
       provide:HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
+      useClass: AuthInterceptor,
       multi: true
     }
   ],

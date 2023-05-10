@@ -1,0 +1,67 @@
+<section id="hero" class="hero d-flex align-items-center">
+</section>
+<div class="mt-3">
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Timelime example  -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="ms-5 mb-3">
+            <a [routerLink]="['/forum']"> <i class="fa fa-reply-all" aria-hidden="true"></i></a> 
+          </div>
+          <!-- The time line -->
+          <div class="timeline">
+            <div>
+              <i class="fas fa-user bg-green"></i>
+              <div class="timeline-item">
+                <!-- <span class="time"><i class="fas fa-clock"></i> 12:05</span> -->
+                <h3 class="timeline-header">Question :</h3>
+
+                <div class="timeline-body">
+                  {{ discussionDetails.question}}
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let comment of discussionDetails.comments">
+              <i class="fas fa-comments bg-yellow"></i>
+              <div class="timeline-item">
+                <span class="time"><i class="fas fa-clock"></i> {{ comment.creationDate | date: 'dd/MM/yy, hh:m a'
+                  }}</span>
+                <h3 class="timeline-header"><a href="#">{{ comment.username }}</a></h3>
+                <div class="timeline-body">
+                  {{ comment.contentCmt }}
+                </div>
+              </div>
+            </div>
+            <div>
+              <!-- <i class="fas fa-clock bg-gray"></i> -->
+            </div>
+          </div>
+        </div>
+        <!-- /.col -->
+        <div class="card">
+          <div class="card">
+            <form #f="ngForm">
+              <div class="input-group">
+                <input 
+                    type="text"  
+                    placeholder="Type Message ..." 
+                    class="form-control"
+                    id="contentCmt"
+                    required="true"
+                    name="contentCmt"
+                    [(ngModel)]="comment!.contentCmt"
+                    #contentCmt="ngModel"
+                >
+                <span class="input-group-append">
+                  <button type="submit" class="btn btn-danger" (click)="addCmt()">Send</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.timeline -->
+  </section>
+</div>

@@ -1,0 +1,28 @@
+<div class="card card-danger">
+    <div class="card-header">
+      <h3 class="card-title">Add your question</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form #f="ngForm">
+      <div class="card-body">
+        <div class="form-group">
+          <input 
+            type="text"  
+            required 
+            class="form-control"  
+            placeholder="Ask !!!!!" 
+            id="nameDsc"
+            name="nameDsc"
+            [(ngModel)]="discussion!.nameDsc"
+            #nameDsc="ngModel"
+           >
+        </div>
+      </div>
+      <!-- /.card-body -->
+
+      <div class="card-footer">
+        <button type="submit" class="btn btn-danger" (click)="addDiscussion()">Submit</button>
+      </div>
+    </form>
+  </div>
