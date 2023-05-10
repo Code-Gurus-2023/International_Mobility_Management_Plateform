@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Discussion } from '../_Models/Discussion.model';
+import { ForumService } from '../_services/forum.service';
 
 @Component({
   selector: 'app-forum-stats',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForumStatsComponent implements OnInit {
 
-  constructor() { }
+  discussions : Discussion[] = []
+  constructor( private forumService: ForumService) { }
 
   ngOnInit(): void {
+    this.getDiscussions()
+  }
+
+  getDiscussions() {
+    this.forumService.getMostViewedDiscussions().subscribe(
+      (data) => {
+        this.discussions = data
+        //console.log(this.discussions)
+        this.discussions = this.discussions.slice(0, 3)
+        console.log(this.discussions)
+      }
+    )
   }
 
 }

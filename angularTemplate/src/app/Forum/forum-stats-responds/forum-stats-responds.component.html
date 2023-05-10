@@ -1,6 +1,6 @@
 <div class="card card-danger">
     <div class="card-header">
-      <h3 class="card-title">Most viewed questions</h3>
+      <h3 class="card-title">Most Responded questions</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
@@ -9,7 +9,7 @@
           <tr>
             <th style="width: 10px"></th>
             <th></th>
-            <th style="text-align: center;">Views</th>
+            <th style="text-align: center;">Responses</th>
           </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
             <td> <a [routerLink]="['/discussion', dis.idDsc]">{{ dis.nameDsc }}</a> </td>
             <td>
               <div style="text-align: center;">
-                {{ dis.viewsDsc }}
+                {{ dis.nbrMessageDsc }}
               </div>
             </td>
           </tr>

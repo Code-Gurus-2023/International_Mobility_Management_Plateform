@@ -8,7 +8,7 @@ export class AuthInterceptor {
 
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyYW1leiIsImlhdCI6MTY4MzY3MDU5MywiZXhwIjoxNjgzNjc0MTkzfQ.PMGd9IfNPyRkY2nptjLs790meG-Zo8IBt8CQPhBeCzFD7cdmGKd8A5MdJncmcUrzVFqe-oDtkpk992U4r2djOg";
+    const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyYW1leiIsImlhdCI6MTY4MzczNDk5NiwiZXhwIjoxNjgzNzM4NTk2fQ.Bca3-B52OW4auwoGUYMJrb0n1qDoRhQ8163oVRN1ssuAX_X66IiaikK1mh1C87xLsY3CLP5sRIEX-3x2Ja7ElQ";
     if (authToken) {
       const authReq = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${ authToken }`)

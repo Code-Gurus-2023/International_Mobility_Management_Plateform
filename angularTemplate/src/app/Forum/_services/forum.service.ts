@@ -35,4 +35,8 @@ export class ForumService {
   getMostViewedDiscussions() {
     return this.http.get<Discussion[]>(this.apiPathService.path + API_URL + '/getMostViewedDiscussions')
   }
+
+  getMostResponededDiscussions() {
+    return this.http.get<Discussion[]>(this.apiPathService.path + API_URL + '/getMostRepliedDiscussions')
+  }
 }

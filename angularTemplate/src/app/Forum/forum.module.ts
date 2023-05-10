@@ -12,6 +12,7 @@ import { ForumDiscussionComponent } from './forum-discussion/forum-discussion.co
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ForumStatsComponent } from './forum-stats/forum-stats.component';
 import { PaginationModule } from '../pagination/pagination.module';
+import { ForumStatsRespondsComponent } from './forum-stats-responds/forum-stats-responds.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PaginationModule } from '../pagination/pagination.module';
     ForumContentComponent,
     ForumAddQuestionComponent,
     ForumDiscussionComponent,
-    ForumStatsComponent
+    ForumStatsComponent,
+    ForumStatsRespondsComponent
   ],
   imports: [
     CommonModule,
