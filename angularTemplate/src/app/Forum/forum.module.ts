@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { ForumDiscussionComponent } from './forum-discussion/forum-discussion.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ForumStatsComponent } from './forum-stats/forum-stats.component';
+import { PaginationModule } from '../pagination/pagination.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ForumStatsComponent } from './forum-stats/forum-stats.component';
     CommonModule,
     ForumRoutingModule,
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    PaginationModule
   ],
   providers: [
     ForumService

@@ -1,0 +1,63 @@
+
+<table class="table table-striped projects">
+    <thead>
+        <tr>
+            <th style="width: 40%">
+                Question
+            </th>
+            <th style="width: 8%">
+                Views
+            </th>
+            <th>
+                Nbr Of Messages
+            </th>
+            <th style="width: 8%" class="text-center">
+                Last message
+            </th>
+            <th style="width: 8%" class="text-center">
+                Status
+            </th>
+            <th style="width: 20%">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let discussion of discussions | paginate: { itemsPerPage: 5, currentPage: p }">
+            <td>
+                {{ discussion.nameDsc }}
+            </td>
+            <td style="text-align: center;"> 
+                {{ discussion.viewsDsc }}
+            </td>
+            <td style="text-align: center;">
+                {{ discussion.nbrMessageDsc}}
+            </td>
+            <td class="project-state">
+                {{ discussion.lastMessageDate | date:'dd/M/yy hh:mm a' }}
+            </td>
+            <td>
+                <span class="badge badge-success" *ngIf="discussion.isActive == true">Activated</span>
+                <span class="badge badge-danger" *ngIf="discussion.isActive == false">Deactivated</span>
+            </td>
+            <td class="project-actions text-right">
+                <a class="btn btn-primary btn-sm" href="#">
+                    <i class="fas fa-folder">
+                    </i>
+                    View
+                </a>
+                <a class="btn btn-info btn-sm ms-1" href="#">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    Edit
+                </a>
+                <a class="btn btn-danger btn-sm ms-1" href="#">
+                    <i class="fas fa-trash">
+                    </i>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </tfoot>
+</table>

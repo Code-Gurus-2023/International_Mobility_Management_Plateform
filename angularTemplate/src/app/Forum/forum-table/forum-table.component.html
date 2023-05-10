@@ -27,7 +27,7 @@
             <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
                     <tbody>
-                        <tr *ngFor="let discussion of discussions">
+                        <tr *ngFor="let discussion of discussions | paginate: { itemsPerPage: 5, currentPage: p }">
                             <!-- <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td> -->
                             <td> <a [routerLink]="['/discussion', discussion.idDsc]">{{ discussion.nameDsc }}</a>
                             </td>
@@ -48,6 +48,9 @@
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </tfoot>
                 </table>
                 <!-- /.table -->
             </div>

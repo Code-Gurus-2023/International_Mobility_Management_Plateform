@@ -12,6 +12,7 @@ export class ForumTableComponent implements OnInit {
 
   discussions: Discussion[] = [];
   question: any;
+  p: number = 1;
   constructor(private forumService: ForumService, private router: Router) { }
 
   ngOnInit(): void {
