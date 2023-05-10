@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController()
+@CrossOrigin("http://localhost:4200/")
 @RequestMapping("/api/forum")
 public class ForumController {
 
@@ -76,7 +77,7 @@ public class ForumController {
 
             if(user.getRoles().contains(ERole.ROLE_ETUDIANT))
                 throw new StudentException("NOT A STUDENT");
-            return new ResponseEntity<>(discussionService.addDiscussion(d, user), HttpStatus.CREATED);
+            return new ResponseEntity<>(discussionService.addDiscussion(d, user), HttpStatus.OK);
         }
         catch (StudentException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -178,7 +179,7 @@ public class ForumController {
                 throw new StudentException("NOT A STUDENT");
 
             discussionService.addComment(c, idDiscussion);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Comment added");
+            return ResponseEntity.status(HttpStatus.OK).body("Comment added");
         }
         catch (StudentException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -205,7 +206,7 @@ public class ForumController {
         if(discussion == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Discussion Doesn't exist or is not activated");
 
-        return ResponseEntity.status(HttpStatus.FOUND).body(DiscussionMapper.mapToDto(discussion));
+        return ResponseEntity.status(HttpStatus.OK).body(DiscussionMapper.mapToDto(discussion));
     }
 
     @GetMapping("/getMostViewedDiscussions")
