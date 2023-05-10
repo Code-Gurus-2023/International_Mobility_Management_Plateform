@@ -194,7 +194,7 @@ public class ForumController {
         List<Discussion> discussions = discussionService.getMostRespondedDiscussions();
 
         if(!discussions.isEmpty())
-            return new ResponseEntity<>(discussions, HttpStatus.FOUND);
+            return new ResponseEntity<>(discussions, HttpStatus.OK);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -214,7 +214,7 @@ public class ForumController {
         List<Discussion> discussions = discussionService.getMostViewedDiscussions();
 
         if(!discussions.isEmpty())
-            return new ResponseEntity<>(discussions, HttpStatus.FOUND);
+            return new ResponseEntity<>(discussions, HttpStatus.OK);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -227,7 +227,7 @@ public class ForumController {
             System.out.println(datecomment);
 //            ObjectMapper mapper = new ObjectMapper();
 //            String json = mapper.writeValueAsString(datecomment);
-            return ResponseEntity.status(HttpStatus.FOUND).body(datecomment);
+            return ResponseEntity.status(HttpStatus.OK).body(datecomment);
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ERROR");
@@ -238,7 +238,7 @@ public class ForumController {
     public ResponseEntity getDatesBynbreOfComments() {
         List<DateCommentDto> dateCommentDtos = commentService.getDateBynbreOfComments();
         if(!dateCommentDtos.isEmpty())
-            return ResponseEntity.status(HttpStatus.FOUND).body(dateCommentDtos);
+            return ResponseEntity.status(HttpStatus.OK).body(dateCommentDtos);
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ERROR");
     }
