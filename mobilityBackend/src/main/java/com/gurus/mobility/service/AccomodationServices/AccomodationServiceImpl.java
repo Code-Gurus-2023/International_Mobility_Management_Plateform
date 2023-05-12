@@ -124,6 +124,11 @@ public class AccomodationServiceImpl implements IAccomodationService{
     public Accomodation addAcc(Accomodation accomodation) {
         return accomodationRepository.save(accomodation);
     }
+    /****************************Pagination des pages***********************************/
+    public Page<Accomodation> findProduitByPagination(int offset,int pageSize){
+        Page<Accomodation> accomodations = accomodationRepository.findAll(PageRequest.of(offset, pageSize));
+        return accomodations;
+    }
 
 
 }

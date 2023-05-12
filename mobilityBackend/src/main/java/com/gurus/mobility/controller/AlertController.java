@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/alert")
+@CrossOrigin("http://localhost:4200/")
 public class AlertController {
     public User authorisation(){
         String token = request.getHeader("Authorization");
@@ -65,11 +66,11 @@ public class AlertController {
 
     @DeleteMapping("/delete/{idAlert}")
     public ResponseEntity deleteAlert(@PathVariable("idAlert")long idAlert){
-        User user= authorisation();
-        if(iAlertService.getUseridBylertid(user,idAlert)){
+        //User user= authorisation();
+        //if(iAlertService.getUseridBylertid(user,idAlert)){
             iAlertService.deleteAlert(idAlert);
             return new ResponseEntity<>("alert deleted successefully", HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+        //}
+        //return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
     }
 }

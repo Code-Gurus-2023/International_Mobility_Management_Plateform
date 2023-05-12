@@ -1,0 +1,186 @@
+<body>
+    
+    <!-- End Header -->
+  
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero d-flex align-items-center">
+    </section>
+
+ 
+<div style="background-image: linear-gradient(rgb(222, 222, 222), #f5f8f9);"> 
+    <div class="seven">
+        <h1 class="alert">Alerts</h1>
+    </div>
+    <section class="content"  >
+            <div class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                          <div class="card card-default">
+                            <div class="card-header">
+                              <h3 class="card-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                My Alerts
+                              </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div *ngFor = "let alerts of alerts">
+                                    <div class="card card-danger card-outline">
+                                        <a class="d-block w-100" data-toggle="collapse" href="#azer">
+                                            <div class="card-header">
+                                                <h4 class="card-title w-100">
+                                                    {{alerts.alrtName}}
+                                                </h4>
+                                            </div>
+                                        </a>
+                                        <div id="azer" class="collapse" data-parent="#accordion">
+                                            <div class="project-actions text-right">
+                                                <a class="btn btn-info btn-sm" href="#">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </div>
+                                            <div class="card-body">
+                                                Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+              
+                        <div class="col-md-6">
+                          <div class="card card-default">
+                            <div class="card-header">
+                              <h3 class="card-title">
+                                <i class="fas fa-bullhorn"></i>
+                                New Alert
+                              </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Alert Name</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Name For Alert">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Alert Type</label>
+                                <div class="card-body table-responsive pad">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                      <label class="btn btn-secondary active">
+                                        <input type="radio" name="options" id="option_a1" autocomplete="off" checked> SMS
+                                      </label>
+                                      <label class="btn btn-secondary">
+                                        <input type="radio" name="options" id="option_a2" autocomplete="off"> EMAIL
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label>Phone number</label>
+                  
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                      </div>
+                                      <input type="text" class="form-control"
+                                             data-inputmask="'mask': ['99999999']" data-mask>
+                                    </div>
+                                    <!-- /.input group -->
+                                  </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Name For Alert">
+                                </div>
+
+                            
+                                    <div class="form-group">
+                                      <label>Country Alert</label>
+                                      <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                        <option selected="selected">Alabama</option>
+                                        <option>Alaska</option>
+                                        <option>California</option>
+                                        <option>Delaware</option>
+                                        <option>Tennessee</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                      </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Region Alert</label>
+                                        <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                          <option selected="selected">Alabama</option>
+                                          <option>Alaska</option>
+                                          <option>California</option>
+                                          <option>Delaware</option>
+                                          <option>Tennessee</option>
+                                          <option>Texas</option>
+                                          <option>Washington</option>
+                                        </select>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label>University Alert</label>
+                                        <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                          <option selected="selected">Alabama</option>
+                                          <option>Alaska</option>
+                                          <option>California</option>
+                                          <option>Delaware</option>
+                                          <option>Tennessee</option>
+                                          <option>Texas</option>
+                                          <option>Washington</option>
+                                        </select>
+                                      </div>
+                                    <!-- /.form-group -->
+
+
+
+                                    <button type="button" class="btn btn-block bg-gradient-success btn-sm">Create Alert</button>
+                                    <button type="button" class="btn btn-block bg-gradient-danger btn-sm">Reset</button>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      
+
+                <div class="row">
+                    <div class="col-12 mt-3 text-center">
+                        <p class="lead">
+                            <a href="contact-us.html">Contact us</a>,
+                            if you found not the right anwser or you have a other question?<br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+</div>
+
+   
+
+    
+  
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  
+    <!-- <div id="preloader"></div> -->
+
+</body>
+
