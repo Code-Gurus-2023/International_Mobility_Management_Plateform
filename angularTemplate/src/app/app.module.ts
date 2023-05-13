@@ -11,6 +11,9 @@ import { InterceptorService } from './frontoffice/services/interceptor.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './frontoffice/navbar/navbar.component';
 import { FooterComponent } from './frontoffice/footer/footer.component';
+import { OwnerModule } from './owner/owner.module';
+import { PortailComponent } from './frontoffice/portail/portail.component';
+import { BackendModule } from './backend/backend.module';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,19 @@ import { FooterComponent } from './frontoffice/footer/footer.component';
     PersonalPageComponent,
     AlertComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    PortailComponent,
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    OwnerModule,
+    BackendModule,
+
+  ],
+  exports:[
+      NavbarComponent,
   ],
   providers: [
     {

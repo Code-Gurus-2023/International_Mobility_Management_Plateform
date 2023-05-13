@@ -1,0 +1,147 @@
+<form #f="ngForm">
+
+  <div class="container mt-5 mb-5" *ngIf="steps==1">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-lg fa-building me-2"></i>Reserve an Accomodation
+        </h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Start date Reserve" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="End date Reserve" />
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Country"  />
+              </div>
+
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Person number"  />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary" (click)="step2()">
+            Next>>
+          </button>
+        </div>
+    </div>
+    <!-- /.card -->
+  </div>
+
+  <div class="container mt-5 mb-5 mt-3" *ngIf="steps==2" >
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-lg fa-building me-2"></i>Pay an advance
+        </h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Your name" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Currency" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="amount"  />
+              </div>
+
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Person number"  />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <button type="submit" class="btn btn-primary" (click)="backStep1()">
+           Previous
+          </button>
+          <button type="submit" class="btn btn-primary" style="margin-left: 87%;" (click)="step3()">
+            Next>>
+          </button>
+        </div>
+    </div>
+    <!-- /.card -->
+  </div>
+  <div class="container mt-5 mb-5" *ngIf="steps==3">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-lg fa-building me-2"></i>Reserve an Accomodation
+        </h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Start date Reserve" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="End date Reserve" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Country"  />
+              </div>
+
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Person number"  />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer d-flex justify-content-start">
+          <button type="submit" class="btn btn-primary" (click)="backStep2()">
+          Previous
+         </button>
+         <button type="submit" class="btn btn-primary" style="margin-left: 87%;">
+           Valider
+         </button>
+        </div>
+    </div>
+    <!-- /.card -->
+  </div>
+
+  </form>

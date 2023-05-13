@@ -3,23 +3,19 @@ package com.gurus.mobility.controller.AccomodationController;
 
 import com.gurus.mobility.entity.Accomodation.APIResponse;
 import com.gurus.mobility.entity.Accomodation.Accomodation;
-import com.gurus.mobility.entity.Accomodation.Image;
 import com.gurus.mobility.service.AccomodationServices.IAccomodationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RequestMapping("/accomodation")
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class AccomodationRestController {
 
         @Autowired
@@ -80,34 +76,15 @@ public class AccomodationRestController {
 
                 return new ResponseEntity<List<Accomodation>>(list, new HttpHeaders(), HttpStatus.OK);
         }
+    @PostMapping("addAccomodation")
+    public Accomodation addAcc(@RequestBody Accomodation accomodation) {
+        return accomodationService.addAcc(accomodation);
+    }
+    @GetMapping("/pagination/{offset}/{pageSize}")
+    public APIResponse<Page<Accomodation>> getAccomodationWithPagination(@PathVariable int offset, @PathVariable int pageSize){
+        Page<Accomodation> accomodationeWithPagination = accomodationService.findProduitByPagination(offset, pageSize);
+        return new APIResponse<>(accomodationeWithPagination.getSize(), accomodationeWithPagination);
+    }
 
-        @PostMapping(value = {"/addAcc"},consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-        public Accomodation addAcc(@RequestPart("accomodation") Accomodation accomodation,
-                                   @RequestPart("imageFile") MultipartFile[] file
-                                   ){
-                try {
-                     Set<Image> imageSet= uploadImage(file);
-                     accomodation.setImages(imageSet);
-                   return   accomodationService.addAcc(accomodation);
-                }catch (Exception e){
-                        System.out.println(e.getMessage());
-                        return null;
-                }
-        }
-        /**
-         *To process images and save them to the database
-         **/
-        public   Set<Image> uploadImage(MultipartFile[] multipartFiles) throws IOException {
-                Set<Image> imageSet=new HashSet<>();
-                for(MultipartFile file:multipartFiles){
-                        Image image=new Image(
-                                file.getOriginalFilename(),
-                                file.getContentType(),
-                                file.getBytes()
-                        );
-                        imageSet.add(image);
-                }
-                return imageSet;
-        }
 
-        }
+}

@@ -1,0 +1,108 @@
+
+<div class="container-fluid">
+<div class="row">
+  <!------------------------Fil d'ariane------------------------------->
+    <div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ms-3 mt-5 alert alert-primary" >
+          <li class="breadcrumb-item"><a routerLink="/owner/accomodationOffers">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Offer Accomodation Details</li>
+        </ol>
+      </nav>
+    </div>
+  <!--colonne pour les images-->
+  <div class="col">
+    <div class="ms-3">
+      <img class="card-img-top border border-3 border-dark p-0 mb-5" src="../../../assets/accomodation.jpg" width="25%" height="25%">
+    </div>
+  </div>
+  <div class="col">
+    <div class="h4" style="margin-top:10%;color: blue;">
+
+    </div>
+    <div class="h5">
+      {{accomodation.title}}<span class="ms-2 mt-4 " style="color:dimgray;"></span>
+      <span class="ms-2 border-start border-4 border-dark" style="color: #00a400;">
+        <!--Pour l'affichage du stock de produit -->
+      <span class="ms-3" *ngIf="accomodation.availability == true">Available</span>
+      <span class="text-danger ms-3" *ngIf="accomodation.availability==false">Not Available</span>
+    </span>
+  </div>
+    <!--Affichage de prix-->
+    <div class="mt-3">
+      <span class="h5">Location:</span>
+      <span class="ms-2 h6"><i class="fa-solid fa-flag"></i></span>
+      <span class="ms-2 h6">{{accomodation.country}}</span>
+      <span class="ms-2 h6 border-start border-4 border-dark "><i class=" ms-1 fa-solid fa-city"></i></span>
+      <span class="ms-2 h6">{{accomodation.city}}</span>
+      <span class="ms-2 h6 border-start border-4 border-dark "><i class="ms-1 fa-solid fa-location-dot"></i></span>
+      <span class="ms-2 h6">{{accomodation.location}}</span>
+    </div>
+    <div class="mt-3">
+      <span class="h5">Description :</span>
+      <span class="ms-2 h6">{{accomodation.description}}</span>
+    </div>
+    <div class="mt-3 ">
+      <span class=" h5 "><i class="fa-solid fa-bed"></i>  </span>
+      <span class="ms-2 h6">{{accomodation.roomNumber}}  </span>
+      <span class="h6">BedRoom</span>
+      <span class="ms-2 h5 border-start border-4 border-dark "><i class="ms-1 fa-solid fa-restroom"></i></span>
+      <span class="ms-2 h6">{{accomodation.bathroomNumber}}  </span>
+      <span class="h6">RestRoom</span>
+
+
+    </div>
+    <div class="mt-3 h2 ">
+      <span class="me-0 h5 ">Size :{{accomodation.size}}m²  </span>
+      <span class="ms-2 h5 border-start border-4 border-dark "><i class="ms-1 fa-solid fa-couch"></i></span>
+      <span class="ms-2 h6" *ngIf="accomodation.furniture ==true">The house is Well furniture  </span>
+      <span class="ms-2 h6" *ngIf="accomodation.furniture ==false">The house is not furniture  </span>
+
+    </div>
+    <div class="mt-3 ">
+      <span class="me-0 h5 ">Price :{{accomodation.price}} </span>
+      <span class="h5"><i class="fa-solid fa-dollar-sign"></i></span>
+      <span class="ms-2 h5 border-start border-4 border-dark "><i class="ms-1 fa-sharp fa-solid fa-money-bill"></i></span>
+      <span class="ms-2 h5">{{accomodation.bail}}  </span>
+      <span class="h5"><i class="fa-solid fa-dollar-sign"></i></span>
+      <span class="h6">You must also pay the bail</span>
+    </div>
+    <div class="mt-3 ">
+      <span class="me-0 h5 ">Rules:</span>
+      <span class="h6">{{accomodation.rules}}</span>
+
+    </div>
+    <hr>
+    <!--Description du produit-->
+    <div class="mt-3 h6 mt-1">
+
+    </div>
+    <!--Espace pour ajouter des produit au panier-->
+    <div class="row">
+      <div class="col">
+        <div class="mt-4" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+          <button class="btn btn-outline-success rounded-0" (click)="toReserve()">Reserve</button>
+        </div>
+      </div>
+      <div class="col mt-4 h5 ">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" style="margin-left: 25%;">
+
+        <button class="mt-5 btn btn-outline-primary  rounded-pill">
+          <i class="fab fa-facebook "></i>
+        </button>
+        <button class="mt-5 ms-5 btn btn-outline-danger  rounded-pill">
+          <i class="fab fa-instagram"></i>
+        </button>
+        <button class="mt-5 ms-5 btn btn-outline-info  rounded-pill">
+          <i class="fab fa-twitter"></i>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>

@@ -1,6 +1,7 @@
 package com.gurus.mobility.service.AccomodationServices;
 
 import com.gurus.mobility.entity.Accomodation.Accomodation;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -19,4 +20,5 @@ public interface IAccomodationService {
 
     Accomodation addAcc(Accomodation accomodation);
     public ResponseEntity<Accomodation> updateAccomodation(Long idAcc, Accomodation accomodation);
-    }
+    public Page<Accomodation> findProduitByPagination(int offset, int pageSize);
+}

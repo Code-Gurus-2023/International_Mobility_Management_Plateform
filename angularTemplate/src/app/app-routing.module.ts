@@ -6,14 +6,29 @@ import { BaseFrontComponent } from './frontoffice/base-front/base-front.componen
 import { AlertComponent } from './frontoffice/alert/alert.component';
 
 const routes: Routes = [
-  {path: '',component: BaseFrontComponent},
+  {path: 'home',component:BaseFrontComponent},
   {path: 'dash',component: BaseBackComponent},
   {path: 'myaccount',component: PersonalPageComponent},
   {path: 'alerts',component: AlertComponent},
+
+  {
+    path:'owner',
+    loadChildren: ()=>
+    import('./owner/owner.module').then((o) => o.OwnerModule),
+  },
+   {
+    path:'dashboard',
+    loadChildren: ()=>
+    import('./backend/backend.module').then((b) => b.BackendModule),
+  },
+  {path:'', redirectTo:'home',pathMatch:'full'},
+
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
+
 })
 export class AppRoutingModule { }

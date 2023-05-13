@@ -1,0 +1,137 @@
+<!-- ----------------Modal --------------------->
+<div class="modal fade" id="modifier" tabindex="-1" aria-labelledby="modifier" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update accomodation Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closebutton></button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm">
+          <div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Accomodation offer title"
+                  required name="title" ngModel #t="ngModel" [(ngModel)]="accomodation.title"  />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="t.invalid && t.touched">
+                  Title field required !
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Accomodation offer description" required
+                    name="description" ngModel #d="ngModel" [(ngModel)]="accomodation.description" />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="d.invalid && d.touched">
+                  Description field required !
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Country" required name="country" ngModel
+                    #c="ngModel" [(ngModel)]="accomodation.country" />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="c.invalid && c.touched">
+                  Country field required !
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="City" required name="city" ngModel #ct="ngModel"
+                    [(ngModel)]="accomodation.city" />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="ct.invalid && ct.touched">
+                  City field required !
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Location" required name="location" ngModel
+                    #l="ngModel" [(ngModel)]="accomodation.location" />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="l.invalid && l.touched">
+                  Location field required !
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="size" required name="size" ngModel #s="ngModel"
+                    [(ngModel)]="accomodation.size" />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="s.invalid && s.touched">
+                  Size field required !
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Price" required name="price" ngModel #p="ngModel"
+                    [(ngModel)]="accomodation.price" />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="p.invalid && p.touched">
+                  Price field required !
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Bail" required name="bail" ngModel #b="ngModel"
+                    [(ngModel)]="accomodation.bail" />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="b.invalid && b.touched">
+                  Bail field required !
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Room Number" required name="roomNumber" ngModel
+                    #rn="ngModel" [(ngModel)]="accomodation.roomNumber" />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="rn.invalid && rn.touched">
+                  Room Number field required !
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Rules" required name="rules" ngModel
+                    #rl="ngModel" [(ngModel)]="accomodation.rules" />
+                </div>
+                <div class="alert alert-danger rounded-0 h6" *ngIf="rl.invalid && rl.touched">
+                  Rules field required !
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <span class="h6 fw-bold me-5">Availability</span>
+                <input type="radio" name="availability" value="true" [(ngModel)]="accomodation.availability"> True
+                <input type="radio" name="availability" value="false" [(ngModel)]="accomodation.availability"> False
+              </div>
+              <div class="col">
+                <div class="col">
+                  <span class="h6 fw-bold me-5">Furniture</span>
+                  <input type="radio" name="furniture" value="true" [(ngModel)]="accomodation.furniture"> True
+                  <input type="radio" name="furniture" value="false" [(ngModel)]="accomodation.furniture"> False
+                </div>
+              </div>
+              <div class="card-footer d-flex justify-content-end">
+                <button type="button" class="btn btn-danger rounded-0 me-1" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary rounded-0" (click)="updateAccomodation()">Save changes</button>
+            </div>
+          </div>
+        <!-- /.card-body -->
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
