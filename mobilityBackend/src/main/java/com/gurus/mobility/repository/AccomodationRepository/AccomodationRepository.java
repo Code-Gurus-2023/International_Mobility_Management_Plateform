@@ -1,12 +1,12 @@
 package com.gurus.mobility.repository.AccomodationRepository;
 
 import com.gurus.mobility.entity.Accomodation.Accomodation;
-import com.gurus.mobility.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AccomodationRepository extends JpaRepository<Accomodation,Long> {
@@ -15,6 +15,9 @@ public interface AccomodationRepository extends JpaRepository<Accomodation,Long>
     public List<Accomodation> getAllArchiveAccomodation();
     @Query("select count(a.likes) from Accomodation a ")
     public int nblikes();
+
+    Optional<Accomodation> findAccomodationByCity(String city);
+
 
 
 

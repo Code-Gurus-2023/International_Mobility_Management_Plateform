@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PayementComponent implements OnInit {
 
+    steps:any
   constructor() { }
 
   ngOnInit(): void {

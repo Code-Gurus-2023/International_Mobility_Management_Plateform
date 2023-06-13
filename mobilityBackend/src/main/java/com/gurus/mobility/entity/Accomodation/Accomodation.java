@@ -13,9 +13,9 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
+@Builder
+@Table(name = "Accomodation")
 public class Accomodation implements Serializable {
 
         @Id

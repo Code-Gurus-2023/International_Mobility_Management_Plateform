@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationComponent implements OnInit {
 
-  title ='MultiStepForm'
+
+    title ='MultiStepForm'
     steps:any=1
   constructor() { }
 

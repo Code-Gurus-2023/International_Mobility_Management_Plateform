@@ -7,17 +7,18 @@ import { AccomodationUpdateComponent } from './accomodation-update/accomodation-
 import { ReservationComponent } from './reservation/reservation.component';
 
 const routes: Routes = [
-  {
-    path:'',
-    component:AccomodationPagesComponent,
-    children:[
-      {path:'accomodationUpdate', component:AccomodationUpdateComponent},
-      {path:'accomodationOffers',component:AccomodationOffersComponent},
-      {path:'offerDetails/:id', component:AccomodationOfferDetailsComponent},
-      {path:'reserveAccomodation', component:ReservationComponent}
 
-    ]
-  }
+      {
+        path:'',
+        component:AccomodationPagesComponent,
+        children:[
+          {path:'accomodationUpdate', component:AccomodationUpdateComponent},
+          {path:'accomodationOffers',component:AccomodationOffersComponent},
+          {path:'offerDetails/:id', component:AccomodationOfferDetailsComponent},
+          {path:'reserveAccomodation', component:ReservationComponent}
+
+        ]
+      }
 
 
 

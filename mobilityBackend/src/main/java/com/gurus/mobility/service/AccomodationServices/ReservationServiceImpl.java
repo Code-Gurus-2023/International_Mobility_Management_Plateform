@@ -25,7 +25,7 @@ public class ReservationServiceImpl implements IReservationService{
         Reservation reservation1=reservationRepository.save(reservation);
         Payement payement=payementRepository.findById(idPayement)
                 .orElseThrow();
-                reservation1.setPayement(payement);
+               // reservation1.setPayement(payement);
                return reservationRepository.save(reservation1);
     }
 

@@ -6,7 +6,7 @@ import { AccomodationUpdateComponent } from './accomodation-update/accomodation-
 import { AccomodationPagesComponent } from './accomodation-pages/accomodation-pages.component';
 import { AccomodationOffersComponent } from './accomodation-offers/accomodation-offers.component';
 import { NotesComponent } from './notes/notes.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PaginationComponent } from './pagination/pagination.component';
 import { AccomodationOfferDetailsComponent } from './accomodation-offer-details/accomodation-offer-details.component';
@@ -39,6 +39,7 @@ import { PayementComponent } from './payement/payement.component';
         FormsModule,
         HttpClientModule,
         NgxPaginationModule,
+        ReactiveFormsModule,
     ],
     exports:[
     ],
