@@ -19,7 +19,7 @@ import java.util.List;
 public class AccomodationRestController {
 
         @Autowired
-        private IAccomodationService accomodationService;
+        private static IAccomodationService accomodationService;
 
         @GetMapping("/getAllAccomodation")
         public List<Accomodation> getAccomodation() {
@@ -32,7 +32,7 @@ public class AccomodationRestController {
         }
 
        @PutMapping("/updateAccomodation/{idAcc}")
-        public ResponseEntity<Accomodation> updateAccomodation(@PathVariable("idAcc") Long idAcc, @RequestBody Accomodation accomodation) {
+        public static ResponseEntity<Accomodation> updateAccomodation(@PathVariable("idAcc") Long idAcc, @RequestBody Accomodation accomodation) {
                 return accomodationService.updateAccomodation(idAcc, accomodation);
         }
 
