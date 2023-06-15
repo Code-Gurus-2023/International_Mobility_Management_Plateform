@@ -19,7 +19,7 @@ import java.util.List;
 public class AccomodationRestController {
 
         @Autowired
-        private static IAccomodationService accomodationService;
+        private IAccomodationService accomodationService;
 
         @GetMapping("/getAllAccomodation")
         public List<Accomodation> getAccomodation() {
@@ -31,10 +31,10 @@ public class AccomodationRestController {
                 return accomodationService.getAccomodationById(idAcc);
         }
 
-       @PutMapping("/updateAccomodation/{idAcc}")
+       /*@PutMapping("/updateAccomodation/{idAcc}")
         public static ResponseEntity<Accomodation> updateAccomodation(@PathVariable("idAcc") Long idAcc, @RequestBody Accomodation accomodation) {
-                return accomodationService.updateAccomodation(idAcc, accomodation);
-        }
+                //return accomodationService.updateAccomodation(idAcc, accomodation);
+        }*/
 
         /***The purpose of this methode is to indicate that an accomodation is not available that means it will be archived***/
         @PutMapping("/archiveAnAccomodation/{idAcc}")
@@ -76,7 +76,7 @@ public class AccomodationRestController {
 
                 return new ResponseEntity<List<Accomodation>>(list, new HttpHeaders(), HttpStatus.OK);
         }
-    @PostMapping("addAccomodation")
+    @PostMapping("/addAccomodation")
     public Accomodation addAcc(@RequestBody Accomodation accomodation) {
         return accomodationService.addAcc(accomodation);
     }
